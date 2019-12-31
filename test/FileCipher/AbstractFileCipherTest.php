@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\FileCipher;
+namespace LaminasTest\Crypt\FileCipher;
 
-use Zend\Crypt\FileCipher;
-use Zend\Crypt\Hmac;
-use Zend\Math\Rand;
+use Laminas\Crypt\FileCipher;
+use Laminas\Crypt\Hmac;
+use Laminas\Math\Rand;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
 {
@@ -69,7 +68,7 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
     public function testSetEmptyKey()
     {
         $this->setExpectedException(
-            'Zend\Crypt\Exception\InvalidArgumentException',
+            'Laminas\Crypt\Exception\InvalidArgumentException',
             'The key cannot be empty'
         );
         $this->fileCipher->setKey('');
@@ -84,7 +83,7 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
     public function testSetCipherAlgorithmFail()
     {
         $this->setExpectedException(
-            'Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
+            'Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
             sprintf("The algorithm unknown is not supported by %s", get_class($this->fileCipher->getCipher()))
         );
         $this->fileCipher->setCipherAlgorithm('unknown');
@@ -104,8 +103,8 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
     public function testSetWrongHashAlgorithm()
     {
         $this->setExpectedException(
-            'Zend\Crypt\Exception\InvalidArgumentException',
-            'The specified hash algorithm \'unknown\' is not supported by Zend\Crypt\Hash'
+            'Laminas\Crypt\Exception\InvalidArgumentException',
+            'The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash'
         );
         $this->fileCipher->setHashAlgorithm('unknown');
     }
@@ -119,8 +118,8 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
     public function testSetWrongPbkdf2HashAlgorithm()
     {
         $this->setExpectedException(
-            'Zend\Crypt\Exception\InvalidArgumentException',
-            'The specified hash algorithm \'unknown\' is not supported by Zend\Crypt\Hash'
+            'Laminas\Crypt\Exception\InvalidArgumentException',
+            'The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash'
         );
         $this->fileCipher->setPbkdf2HashAlgorithm('unknown');
     }
@@ -185,7 +184,7 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
         $this->fileOut = $this->fileIn . '.enc';
 
         $this->setExpectedException(
-            'Zend\Crypt\Exception\InvalidArgumentException',
+            'Laminas\Crypt\Exception\InvalidArgumentException',
             'No key specified for encryption'
         );
         $this->fileCipher->encrypt($this->fileIn, $this->fileOut);
@@ -197,7 +196,7 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
         $this->fileOut = $this->fileIn . '.enc';
 
         $this->setExpectedException(
-            'Zend\Crypt\Exception\InvalidArgumentException',
+            'Laminas\Crypt\Exception\InvalidArgumentException',
             'No key specified for decryption'
         );
         $this->fileCipher->decrypt($this->fileIn, $this->fileOut);
@@ -207,7 +206,7 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
     {
         $randomFile = uniqid('Invalid_File');
         $this->setExpectedException(
-            'Zend\Crypt\Exception\InvalidArgumentException',
+            'Laminas\Crypt\Exception\InvalidArgumentException',
             "I cannot open the $randomFile file"
         );
         $this->fileCipher->setKey('test');
@@ -218,7 +217,7 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
     {
         $randomFile = uniqid('Invalid_File');
         $this->setExpectedException(
-            'Zend\Crypt\Exception\InvalidArgumentException',
+            'Laminas\Crypt\Exception\InvalidArgumentException',
             "I cannot open the $randomFile file"
         );
         $this->fileCipher->setKey('test');
@@ -231,7 +230,7 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
         $this->fileOut = $this->generateTmpFile(1024);
 
         $this->setExpectedException(
-            'Zend\Crypt\Exception\InvalidArgumentException',
+            'Laminas\Crypt\Exception\InvalidArgumentException',
             "The file {$this->fileOut} already exists"
         );
         $this->fileCipher->setKey('test');
@@ -244,7 +243,7 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
         $this->fileOut = $this->generateTmpFile(1024);
 
         $this->setExpectedException(
-            'Zend\Crypt\Exception\InvalidArgumentException',
+            'Laminas\Crypt\Exception\InvalidArgumentException',
             "The file {$this->fileOut} already exists"
         );
         $this->fileCipher->setKey('test');
@@ -260,7 +259,7 @@ abstract class AbstractFileCipherTest extends \PHPUnit_Framework_TestCase
      */
     protected function generateTmpFile($size, $content = 'A')
     {
-        $fileName = sys_get_temp_dir() . '/' . uniqid('ZF2_FileCipher_test');
+        $fileName = sys_get_temp_dir() . '/' . uniqid('Laminas_FileCipher_test');
         $num = $size / strlen($content) + 1;
         $content  = str_repeat('A', $size / strlen($content) + 1);
         file_put_contents($fileName, substr($content, 0, $size));

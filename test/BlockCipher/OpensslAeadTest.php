@@ -1,15 +1,16 @@
 <?php
+
 /**
- * @link      http://github.com/zendframework/zend-crypt for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\BlockCipher;
+namespace LaminasTest\Crypt\BlockCipher;
 
-use Zend\Crypt\Symmetric\Openssl;
-use Zend\Crypt\BlockCipher;
-use Zend\Math\Rand;
+use Laminas\Crypt\BlockCipher;
+use Laminas\Crypt\Symmetric\Openssl;
+use Laminas\Math\Rand;
 
 class OpensslAeadTest extends \PHPUnit_Framework_TestCase
 {

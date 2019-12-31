@@ -1,19 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Password;
+namespace LaminasTest\Crypt\Password;
 
-use Zend\Crypt\Password\Bcrypt;
-use Zend\Math\Rand;
+use Laminas\Crypt\Password\Bcrypt;
+use Laminas\Math\Rand;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class BcryptBCTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,7 +28,7 @@ class BcryptBCTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * This is the Bcrypt::create implementation of ZF 2.*
+     * This is the Bcrypt::create implementation of Laminas 2.*
      *
      * @param string $Password
      * @param integer $cost

@@ -1,22 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt;
+namespace LaminasTest\Crypt;
 
-use Zend\Crypt\FileCipher;
-use Zend\Crypt\Symmetric\Mcrypt;
-use Zend\Crypt\Symmetric\Exception;
-use Zend\Crypt\Hmac;
-use Zend\Math\Rand;
+use Laminas\Crypt\FileCipher;
+use Laminas\Crypt\Hmac;
+use Laminas\Crypt\Symmetric\Exception;
+use Laminas\Crypt\Symmetric\Mcrypt;
+use Laminas\Math\Rand;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class FileCipherTest extends \PHPUnit_Framework_TestCase
 {
@@ -66,7 +65,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
             'algo' => 'blowfish'
         ));
         $this->fileCipher->setCipher($cipher);
-        $this->assertInstanceOf('Zend\Crypt\Symmetric\SymmetricInterface', $this->fileCipher->getCipher());
+        $this->assertInstanceOf('Laminas\Crypt\Symmetric\SymmetricInterface', $this->fileCipher->getCipher());
         $this->assertEquals($cipher, $this->fileCipher->getCipher());
     }
 
@@ -84,7 +83,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
 
     public function testSetEmptyKey()
     {
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     'The key cannot be empty');
         $this->fileCipher->setKey('');
     }
@@ -97,8 +96,8 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCipherAlgorithmFail()
     {
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
-                                    'The algorithm unknown is not supported by Zend\Crypt\Symmetric\Mcrypt');
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
+                                    'The algorithm unknown is not supported by Laminas\Crypt\Symmetric\Mcrypt');
         $this->fileCipher->setCipherAlgorithm('unknown');
     }
 
@@ -115,8 +114,8 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
 
     public function testSetWrongHashAlgorithm()
     {
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                     'The specified hash algorithm \'unknown\' is not supported by Zend\Crypt\Hash');
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
+                                     'The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash');
         $this->fileCipher->setHashAlgorithm('unknown');
     }
 
@@ -128,8 +127,8 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
 
     public function testSetWrongPbkdf2HashAlgorithm()
     {
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    'The specified hash algorithm \'unknown\' is not supported by Zend\Crypt\Hash');
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
+                                    'The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash');
         $this->fileCipher->setPbkdf2HashAlgorithm('unknown');
     }
 
@@ -190,7 +189,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
         $this->fileIn  = $this->generateTmpFile(1048576, Rand::getBytes(1));
         $this->fileOut = $this->fileIn . '.enc';
 
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     'No key specified for encryption');
         $this->fileCipher->encrypt($this->fileIn, $this->fileOut);
     }
@@ -200,7 +199,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
         $this->fileIn  = $this->generateTmpFile(1048576, Rand::getBytes(1));
         $this->fileOut = $this->fileIn . '.enc';
 
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     'No key specified for decryption');
         $this->fileCipher->decrypt($this->fileIn, $this->fileOut);
     }
@@ -208,7 +207,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
     public function testEncryptFileInvalidInputFile()
     {
         $randomFile = uniqid('Invalid_File');
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     "I cannot open the $randomFile file");
         $this->fileCipher->setKey('test');
         $this->fileCipher->encrypt($randomFile, '');
@@ -217,7 +216,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
     public function testDecryptFileInvalidInputFile()
     {
         $randomFile = uniqid('Invalid_File');
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     "I cannot open the $randomFile file");
         $this->fileCipher->setKey('test');
         $this->fileCipher->decrypt($randomFile, '');
@@ -228,7 +227,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
         $this->fileIn  = $this->generateTmpFile(1024);
         $this->fileOut = $this->generateTmpFile(1024);
 
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     "The file {$this->fileOut} already exists");
         $this->fileCipher->setKey('test');
         $this->fileCipher->encrypt($this->fileIn, $this->fileOut);
@@ -239,7 +238,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
         $this->fileIn  = $this->generateTmpFile(1024);
         $this->fileOut = $this->generateTmpFile(1024);
 
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     "The file {$this->fileOut} already exists");
         $this->fileCipher->setKey('test');
         $this->fileCipher->decrypt($this->fileIn, $this->fileOut);
@@ -254,7 +253,7 @@ class FileCipherTest extends \PHPUnit_Framework_TestCase
      */
     protected function generateTmpFile($size, $content = 'A')
     {
-        $fileName = sys_get_temp_dir() . '/' . uniqid('ZF2_FileCipher_test');
+        $fileName = sys_get_temp_dir() . '/' . uniqid('Laminas_FileCipher_test');
         $num = $size / strlen($content) + 1;
         $content  = str_repeat('A', $size / strlen($content) + 1);
         file_put_contents($fileName, substr($content, 0, $size));

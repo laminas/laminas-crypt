@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt\PublicKey;
+namespace Laminas\Crypt\PublicKey;
 
+use Laminas\Crypt\PublicKey\Rsa\Exception;
+use Laminas\Crypt\PublicKey\RsaOptions;
+use Laminas\Stdlib\ArrayUtils;
 use Traversable;
-use Zend\Crypt\PublicKey\RsaOptions;
-use Zend\Crypt\PublicKey\Rsa\Exception;
-use Zend\Stdlib\ArrayUtils;
 
 /**
  * Implementation of the RSA public key encryption algorithm.
@@ -40,7 +39,7 @@ class Rsa
     {
         if (!extension_loaded('openssl')) {
             throw new Exception\RuntimeException(
-                'Can not create Zend\Crypt\PublicKey\Rsa; openssl extension to be loaded'
+                'Can not create Laminas\Crypt\PublicKey\Rsa; openssl extension to be loaded'
             );
         }
 
@@ -102,7 +101,7 @@ class Rsa
     {
         if (!extension_loaded('openssl')) {
             throw new Exception\RuntimeException(
-                'Zend\Crypt\PublicKey\Rsa requires openssl extension to be loaded'
+                'Laminas\Crypt\PublicKey\Rsa requires openssl extension to be loaded'
             );
         }
 

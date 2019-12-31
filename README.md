@@ -1,6 +1,6 @@
-# zend-crypt
+# laminas-crypt
 
-`Zend\Crypt` provides support of some cryptographic tools.
+`Laminas\Crypt` provides support of some cryptographic tools.
 The available features are:
 
 - encrypt-then-authenticate using symmetric ciphers (the authentication step
@@ -17,5 +17,5 @@ The main scope of this component is to offer an easy and secure way to protect
 and authenticate sensitive data in PHP.
 
 
-- File issues at https://github.com/zendframework/zend-crypt/issues
-- Documentation is at http://framework.zend.com/manual/current/en/index.html#zend-crypt
+- File issues at https://github.com/laminas/laminas-crypt/issues
+- Documentation is at https://docs.laminas.dev/laminas-crypt

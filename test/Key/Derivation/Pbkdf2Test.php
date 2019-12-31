@@ -1,20 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Crypt
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Key\Derivation;
+namespace LaminasTest\Crypt\Key\Derivation;
 
-use Zend\Crypt\Key\Derivation\Pbkdf2;
+use Laminas\Crypt\Key\Derivation\Pbkdf2;
 
 /**
- * @category   Zend
- * @package    Zend_Crypt
+ * @category   Laminas
+ * @package    Laminas_Crypt
  * @subpackage UnitTests
  */
 class Pbkdf2Test extends \PHPUnit_Framework_TestCase
@@ -37,8 +35,8 @@ class Pbkdf2Test extends \PHPUnit_Framework_TestCase
 
     public function testCalcWithWrongHash()
     {
-        $this->setExpectedException('Zend\Crypt\Key\Derivation\Exception\InvalidArgumentException',
-                                    'The hash algorithm wrong is not supported by Zend\Crypt\Key\Derivation\Pbkdf2');
+        $this->setExpectedException('Laminas\Crypt\Key\Derivation\Exception\InvalidArgumentException',
+                                    'The hash algorithm wrong is not supported by Laminas\Crypt\Key\Derivation\Pbkdf2');
         $password = Pbkdf2::calc('wrong', 'test', $this->salt, 5000, 32);
     }
 

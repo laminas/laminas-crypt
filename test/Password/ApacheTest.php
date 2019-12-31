@@ -1,23 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Crypt
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Password;
+namespace LaminasTest\Crypt\Password;
 
-use Zend\Crypt\Password\Apache;
-use Zend\Crypt\Password\Exception;
+use Laminas\Crypt\Password\Apache;
+use Laminas\Crypt\Password\Exception;
 
 /**
- * @category   Zend
- * @package    Zend_Crypt
+ * @category   Laminas
+ * @package    Laminas_Crypt
  * @subpackage UnitTests
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class ApacheTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,11 +32,11 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
         $this->apache = new Apache(array(
             'format' => 'crypt'
         ));
-        $this->assertInstanceOf('Zend\Crypt\Password\Apache', $this->apache);
+        $this->assertInstanceOf('Laminas\Crypt\Password\Apache', $this->apache);
     }
 
     /**
-     * @expectedException Zend\Crypt\Password\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Password\Exception\InvalidArgumentException
      */
     public function testWrongConstruct()
     {
@@ -46,7 +44,7 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Password\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Password\Exception\InvalidArgumentException
      */
     public function testWrongParamConstruct()
     {
@@ -58,19 +56,19 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
     public function testSetUserName()
     {
         $result = $this->apache->setUserName('test');
-        $this->assertInstanceOf('Zend\Crypt\Password\Apache', $result);
+        $this->assertInstanceOf('Laminas\Crypt\Password\Apache', $result);
         $this->assertEquals('test', $this->apache->getUserName());
     }
 
     public function testSetFormat()
     {
         $result = $this->apache->setFormat('crypt');
-        $this->assertInstanceOf('Zend\Crypt\Password\Apache', $result);
+        $this->assertInstanceOf('Laminas\Crypt\Password\Apache', $result);
         $this->assertEquals('crypt', $this->apache->getFormat());
     }
 
     /**
-     * @expectedException Zend\Crypt\Password\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Password\Exception\InvalidArgumentException
      */
     public function testSetWrongFormat()
     {
@@ -80,7 +78,7 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
     public function testSetAuthName()
     {
         $result = $this->apache->setAuthName('test');
-        $this->assertInstanceOf('Zend\Crypt\Password\Apache', $result);
+        $this->assertInstanceOf('Laminas\Crypt\Password\Apache', $result);
         $this->assertEquals('test', $this->apache->getAuthName());
     }
 
@@ -118,7 +116,7 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Password\Exception\RuntimeException
+     * @expectedException Laminas\Crypt\Password\Exception\RuntimeException
      */
     public function testDigestWithoutPreset()
     {
@@ -127,7 +125,7 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Password\Exception\RuntimeException
+     * @expectedException Laminas\Crypt\Password\Exception\RuntimeException
      */
     public function testDigestWithoutAuthName()
     {
@@ -137,7 +135,7 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Password\Exception\RuntimeException
+     * @expectedException Laminas\Crypt\Password\Exception\RuntimeException
      */
     public function testDigestWithoutUserName()
     {
@@ -172,7 +170,7 @@ class ApacheTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Password\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Password\Exception\InvalidArgumentException
      */
     public function testApr1Md5WrongSaltFormat()
     {

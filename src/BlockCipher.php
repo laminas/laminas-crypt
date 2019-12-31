@@ -1,17 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt;
+namespace Laminas\Crypt;
 
-use Zend\Crypt\Key\Derivation\Pbkdf2;
-use Zend\Crypt\Symmetric\SymmetricInterface;
-use Zend\Math\Rand;
+use Laminas\Crypt\Key\Derivation\Pbkdf2;
+use Laminas\Crypt\Symmetric\SymmetricInterface;
+use Laminas\Math\Rand;
 
 /**
  * Encrypt using a symmetric cipher then authenticate using HMAC (SHA-256)
@@ -334,7 +333,7 @@ class BlockCipher
     {
         if (!Hash::isSupported($hash)) {
             throw new Exception\InvalidArgumentException(
-                "The specified hash algorithm '{$hash}' is not supported by Zend\Crypt\Hash"
+                "The specified hash algorithm '{$hash}' is not supported by Laminas\Crypt\Hash"
             );
         }
         $this->hash = $hash;
@@ -363,7 +362,7 @@ class BlockCipher
     {
         if (!Hash::isSupported($hash)) {
             throw new Exception\InvalidArgumentException(
-                "The specified hash algorithm '{$hash}' is not supported by Zend\Crypt\Hash"
+                "The specified hash algorithm '{$hash}' is not supported by Laminas\Crypt\Hash"
             );
         }
         $this->pbkdf2Hash = $hash;

@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt\Password;
+namespace Laminas\Crypt\Password;
 
+use Laminas\Crypt\Utils;
+use Laminas\Math\Rand;
+use Laminas\Stdlib\ArrayUtils;
 use Traversable;
-use Zend\Crypt\Utils;
-use Zend\Math\Rand;
-use Zend\Stdlib\ArrayUtils;
 
 /**
  * Bcrypt algorithm using crypt() function of PHP
@@ -167,7 +166,7 @@ class Bcrypt implements PasswordInterface
     /**
      * Set the backward compatibility $2a$ instead of $2y$ for PHP 5.3.7+
      *
-     * @deprecated since zf 2.3 requires PHP >= 5.3.23
+     * @deprecated since laminas 2.3 requires PHP >= 5.3.23
      * @param bool $value
      * @return Bcrypt
      */
@@ -179,7 +178,7 @@ class Bcrypt implements PasswordInterface
     /**
      * Get the backward compatibility
      *
-     * @deprecated since zf 2.3 requires PHP >= 5.3.23
+     * @deprecated since laminas 2.3 requires PHP >= 5.3.23
      * @return bool
      */
     public function getBackwardCompatibility()

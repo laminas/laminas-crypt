@@ -7,7 +7,7 @@ the plaintext, and the other unlocks or decrypts the cyphertext. Neither key can
 perform both functions. One of these keys is published or public, while the
 other is kept private.
 
-In zend-crypt, we implement two public key algorithms:
+In laminas-crypt, we implement two public key algorithms:
 
 - [Diffie-Hellman](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
   key exchange, and
@@ -26,14 +26,14 @@ The diagram of operation of the Diffie-Hellman algorithm can be defined by the
 following picture (taken from the [Diffie-Hellman](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange)
 Wikipedia page):
 
-![Diffie-Hellman algorithm](images/zend.crypt.public-key.diffie-hellman.png)
+![Diffie-Hellman algorithm](images/laminas.crypt.public-key.diffie-hellman.png)
 
 The schema's colors represent the parameters of the algorithm.
 
-Below is an example demonstrating usage of `Zend\Crypt\PublicKey\DiffieHellman`:
+Below is an example demonstrating usage of `Laminas\Crypt\PublicKey\DiffieHellman`:
 
 ```php
-use Zend\Crypt\PublicKey\DiffieHellman;
+use Laminas\Crypt\PublicKey\DiffieHellman;
 
 $aliceOptions = [
     'prime' => '155172898181473697471232257763715539915724801966915404479707795314057629378541917580651227'
@@ -101,7 +101,7 @@ of these parameters. To know how to choose secure numbers you can read the
 
 > ### Openssl
 >
-> The `Zend\Crypt\PublicKey\DiffieHellman` class by default uses the
+> The `Laminas\Crypt\PublicKey\DiffieHellman` class by default uses the
 > [OpenSSL](http://php.net/manual/en/book.openssl.php) extension to generate the
 > parameters. If you don't want to use the OpenSSL library, call
 > `DiffieHelmman::useOpensslExtension(false)`.
@@ -131,7 +131,7 @@ the public key of Alice. Alice can provide encryption, authenticity, and
 integrity of a message to Bob using the previous schemas in sequence, applying
 the encryption first and the digital signature after.
 
-Below are examples of usage of the `Zend\Crypt\PublicKey\Rsa` class in order to:
+Below are examples of usage of the `Laminas\Crypt\PublicKey\Rsa` class in order to:
 
 - generate a public key and a private key;
 - encrypt/decrypt a string;
@@ -142,7 +142,7 @@ Below are examples of usage of the `Zend\Crypt\PublicKey\Rsa` class in order to:
 In order to generate a public and private key, use the following code:
 
 ```php
-use Zend\Crypt\PublicKey\RsaOptions;
+use Laminas\Crypt\PublicKey\RsaOptions;
 
 $rsaOptions = new RsaOptions([
     'pass_phrase' => 'test'
@@ -179,7 +179,7 @@ hash of the data you want to encrypt or sign. A hash is typically 128-256 bits
 to 256 bits. Either will comfortably fit inside a single RSA encryption.
 
 ```php
-use Zend\Crypt\PublicKey\Rsa;
+use Laminas\Crypt\PublicKey\Rsa;
 
 $rsa = Rsa::factory([
     'public_key'    => 'public_key.pub',
@@ -207,7 +207,7 @@ if ($text !== $decrypt) {
 Below is an example demonstrating generation of a digital file signature.
 
 ```php
-use Zend\Crypt\PublicKey\Rsa;
+use Laminas\Crypt\PublicKey\Rsa;
 
 $rsa = Rsa::factory([
     'private_key'   => 'path/to/private_key',
@@ -234,4 +234,4 @@ In this example, we used the Base64 format to encode the digital signature of th
 
 > ## Openssl
 >
-> The implementation of the `Zend\Crypt\PublicKey\Rsa` algorithm uses PHP's OpenSSL extension.
+> The implementation of the `Laminas\Crypt\PublicKey\Rsa` algorithm uses PHP's OpenSSL extension.

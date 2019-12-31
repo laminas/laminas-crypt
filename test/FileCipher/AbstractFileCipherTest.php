@@ -1,23 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\FileCipher;
+namespace LaminasTest\Crypt\FileCipher;
 
+use Laminas\Crypt\Exception;
+use Laminas\Crypt\FileCipher;
+use Laminas\Crypt\Hmac;
+use Laminas\Crypt\Symmetric\Exception as SymmetricException;
+use Laminas\Math\Rand;
 use PHPUnit\Framework\TestCase;
-use Zend\Crypt\Exception;
-use Zend\Crypt\FileCipher;
-use Zend\Crypt\Hmac;
-use Zend\Crypt\Symmetric\Exception as SymmetricException;
-use Zend\Math\Rand;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 abstract class AbstractFileCipherTest extends TestCase
 {
@@ -106,7 +105,7 @@ abstract class AbstractFileCipherTest extends TestCase
     public function testSetWrongHashAlgorithm()
     {
         $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The specified hash algorithm \'unknown\' is not supported by Zend\Crypt\Hash');
+        $this->expectExceptionMessage('The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash');
         $this->fileCipher->setHashAlgorithm('unknown');
     }
 
@@ -119,7 +118,7 @@ abstract class AbstractFileCipherTest extends TestCase
     public function testSetWrongPbkdf2HashAlgorithm()
     {
         $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The specified hash algorithm \'unknown\' is not supported by Zend\Crypt\Hash');
+        $this->expectExceptionMessage('The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash');
         $this->fileCipher->setPbkdf2HashAlgorithm('unknown');
     }
 
@@ -246,7 +245,7 @@ abstract class AbstractFileCipherTest extends TestCase
      */
     protected function generateTmpFile($size, $content = 'A')
     {
-        $fileName = sys_get_temp_dir() . '/' . uniqid('ZF2_FileCipher_test', true);
+        $fileName = sys_get_temp_dir() . '/' . uniqid('Laminas_FileCipher_test', true);
         $content  = str_repeat('A', $size / strlen($content) + 1);
         file_put_contents($fileName, substr($content, 0, $size));
 

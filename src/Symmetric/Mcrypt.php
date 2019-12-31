@@ -1,24 +1,23 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-crypt for the canonical source repository
- * @copyright Copyright (c) 2005-2018 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-crypt/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt\Symmetric;
+namespace Laminas\Crypt\Symmetric;
 
 use Interop\Container\ContainerInterface;
+use Laminas\Stdlib\ArrayUtils;
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
 
-use const PHP_VERSION_ID;
-
-use function array_keys;
 use function array_key_exists;
+use function array_keys;
 use function class_exists;
 use function extension_loaded;
-use function gettype;
 use function get_class;
+use function gettype;
 use function implode;
 use function in_array;
 use function is_array;
@@ -37,12 +36,14 @@ use function sprintf;
 use function strtolower;
 use function trigger_error;
 
+use const PHP_VERSION_ID;
+
 /**
  * Symmetric encryption using the Mcrypt extension
  *
  * NOTE: DO NOT USE only this class to encrypt data.
  * This class doesn't provide authentication and integrity check over the data.
- * PLEASE USE Zend\Crypt\BlockCipher instead!
+ * PLEASE USE Laminas\Crypt\BlockCipher instead!
  */
 class Mcrypt implements SymmetricInterface
 {
@@ -137,7 +138,7 @@ class Mcrypt implements SymmetricInterface
         if (PHP_VERSION_ID >= 70100) {
             trigger_error(
                 'The Mcrypt extension is deprecated from PHP 7.1+. '
-                . 'We suggest to use Zend\Crypt\Symmetric\Openssl.',
+                . 'We suggest to use Laminas\Crypt\Symmetric\Openssl.',
                 E_USER_DEPRECATED
             );
         }

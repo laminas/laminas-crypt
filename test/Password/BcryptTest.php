@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Password;
+namespace LaminasTest\Crypt\Password;
 
-use Zend\Crypt\Password\Bcrypt;
-use Zend\Config\Config;
-use Zend\Crypt\Password\Exception;
+use Laminas\Config\Config;
+use Laminas\Crypt\Password\Bcrypt;
+use Laminas\Crypt\Password\Exception;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class BcryptTest extends \PHPUnit_Framework_TestCase
 {
@@ -64,7 +63,7 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
 
     public function testWrongConstruct()
     {
-        $this->setExpectedException('Zend\Crypt\Password\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Password\Exception\InvalidArgumentException',
                                     'The options parameter must be an array or a Traversable');
         $bcrypt = new Bcrypt('test');
     }
@@ -77,7 +76,7 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
 
     public function testSetWrongCost()
     {
-        $this->setExpectedException('Zend\Crypt\Password\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Password\Exception\InvalidArgumentException',
                                     'The cost parameter of bcrypt must be in range 04-31');
         $this->bcrypt->setCost('3');
     }
@@ -90,7 +89,7 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
 
     public function testSetSmallSalt()
     {
-        $this->setExpectedException('Zend\Crypt\Password\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Password\Exception\InvalidArgumentException',
                                     'The length of the salt must be at least ' . Bcrypt::MIN_SALT_SIZE . ' bytes');
         $this->bcrypt->setSalt('small salt');
     }

@@ -1,25 +1,22 @@
 {
-    "name": "zendframework/zend-crypt",
+    "name": "laminas/laminas-crypt",
     "description": " ",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "laminas",
         "crypt"
     ],
-    "homepage": "https://github.com/zendframework/zend-crypt",
-    "autoload": {
-        "psr-4": {
-            "Zend\\Crypt": "src/"
-        }
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-crypt/",
+        "issues": "https://github.com/laminas/laminas-crypt/issues",
+        "source": "https://github.com/laminas/laminas-crypt",
+        "rss": "https://github.com/laminas/laminas-crypt/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
     },
-    "require": {
-        "php": ">=5.3.3",
-        "zendframework/zend-math": "self.version",
-        "zendframework/zend-stdlib": "self.version",
-        "zendframework/zend-servicemanager": "self.version"
-    },
-    "suggest": {
-        "ext-mcrypt": "Required for most features of Zend\\Crypt"
+    "config": {
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
@@ -27,14 +24,32 @@
             "dev-develop": "2.5-dev"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "ZendTest\\Crypt\\": "test/"
-        }
+    "require": {
+        "php": ">=5.3.3",
+        "laminas/laminas-math": "self.version",
+        "laminas/laminas-servicemanager": "self.version",
+        "laminas/laminas-stdlib": "self.version",
+        "laminas/laminas-zendframework-bridge": "^1.0"
     },
     "require-dev": {
         "fabpot/php-cs-fixer": "1.7.*",
-        "satooshi/php-coveralls": "dev-master",
-        "phpunit/PHPUnit": "~4.0"
+        "phpunit/phpunit": "~4.0",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "suggest": {
+        "ext-mcrypt": "Required for most features of Laminas\\Crypt"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\Crypt\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaminasTest\\Crypt\\": "test/"
+        }
+    },
+    "replace": {
+        "zendframework/zend-crypt": "self.version"
     }
 }

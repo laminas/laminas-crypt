@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Strong cryptography tools and password hashing.">  
+    <link rel="canonical" href="https://docs.laminas.dev/hybrid/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Hybrid Cryptosystem - laminas-crypt - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-crypt</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../block-cipher/" class="subnavigation__link">Block Ciphers</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../files/" class="subnavigation__link">Encrypting Files</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Hybrid Cryptosystem</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../key-derivation/" class="subnavigation__link">Key Derivation</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../password/" class="subnavigation__link">Password</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../public-key/" class="subnavigation__link">Public Key Cryptography</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-crypt</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-crypt/" class="header__link header__link--github" title="Go to repository of laminas-crypt">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#how-it-works" class="toc__link">How it works</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#example-of-usage" class="toc__link">Example of Usage</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#encrypt-with-multiple-keys" class="toc__link">Encrypt with multiple Keys</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="..">laminas-crypt</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Reference</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Hybrid Cryptosystem</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Reference</h2>
+    
+
+    <h1 id="hybrid-cryptosystem">Hybrid Cryptosystem</h1>
+<blockquote>
+<p>Available since version 3.1.0</p>
+</blockquote>
+<p>Hybrid is an encryption mode that uses symmetric and public key ciphers together.
+The approach takes advantage of public key cryptography for sharing keys and
+symmetric encryption speed for encrypting messages.</p>
+<p>Hybrid mode allows you to encrypt a message for one or more receivers, and can
+be used in multi-user scenarios where you wish to limit decryption to specific
+users.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>Suppose we have two users: <em>Alice</em> and <em>Bob</em>. <em>Alice</em> wants to send a message to <em>Bob</em>
+using a hybrid cryptosystem, she needs to:</p>
+<ul>
+<li>Obtain <em>Bob</em>'s public key;</li>
+<li>Generates a random session key (one-time pad);</li>
+<li>Encrypts message using a symmetric cipher with the previous session key;</li>
+<li>Encrypts session key using the <em>Bob</em>'s public key;</li>
+<li>Sends both the encrypted message and encrypted session key to <em>Bob</em>.</li>
+</ul>
+<p>A schema of the encryption is reported in the image below:</p>
+<p><img alt="Encryption schema" src="images/laminas.crypt.hybrid.png" class="img-responsive"/></p>
+<p>To decrypt the message, <em>Bob</em> needs to:</p>
+<ul>
+<li>Uses his private key to decrypt the session key;</li>
+<li>Uses this session key to decrypt the message.</li>
+</ul>
+<h2 id="example-of-usage">Example of Usage</h2>
+<p>In order to use the <code>Laminas\Crypt\Hybrid</code> component, you need to have a keyring of
+public and private keys. To encrypt a message, use the following code:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Hybrid;</span>
+<span class=x>use Laminas\Crypt\PublicKey\RsaOptions;</span>
+
+<span class=x>// Generate public and private key</span>
+<span class=x>$rsaOptions = new RsaOptions([</span>
+<span class=x>    &#39;pass_phrase&#39; =&gt; &#39;test&#39;</span>
+<span class=x>]);</span>
+<span class=x>$rsaOptions-&gt;generateKeys([</span>
+<span class=x>    &#39;private_key_bits&#39; =&gt; 4096</span>
+<span class=x>]);</span>
+<span class=x>$publicKey  = $rsaOptions-&gt;getPublicKey();</span>
+<span class=x>$privateKey = $rsaOptions-&gt;getPrivateKey();</span>
+
+<span class=x>$hybrid     = new Hybrid();</span>
+<span class=x>$ciphertext = $hybrid-&gt;encrypt(&#39;message&#39;, $publicKey);</span>
+<span class=x>$plaintext  = $hybrid-&gt;decrypt($ciphertext, $privateKey);</span>
+
+<span class=x>printf($plaintext === &#39;message&#39; ? &quot;Success\n&quot; : &quot;Error\n&quot;);</span>
+</pre></div></p>
+<p>We generated the keys using the <a href="../public-key/">Laminas\Crypt\PublicKey\RsaOptions</a>
+component. You can also use a <a href="https://en.wikipedia.org/wiki/Privacy-enhanced_Electronic_Mail">PEM</a>
+string for the keys. If you use a string for the private key, you need to pass
+the pass phrase to use when decrypting, if present, like in the following example:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Hybrid;</span>
+<span class=x>use Laminas\Crypt\PublicKey\RsaOptions;</span>
+
+<span class=x>// Generate public and private key</span>
+<span class=x>$rsaOptions = new RsaOptions([</span>
+<span class=x>    &#39;pass_phrase&#39; =&gt; &#39;test&#39;</span>
+<span class=x>]);</span>
+<span class=x>$rsaOptions-&gt;generateKeys([</span>
+<span class=x>    &#39;private_key_bits&#39; =&gt; 4096</span>
+<span class=x>]);</span>
+<span class=x>// Strings in PEM format</span>
+<span class=x>$publicKey  = $rsaOptions-&gt;getPublicKey()-&gt;toString();</span>
+<span class=x>$privateKey = $rsaOptions-&gt;getPrivateKey()-&gt;toString();</span>
+
+<span class=x>$hybrid     = new Hybrid();</span>
+<span class=x>$ciphertext = $hybrid-&gt;encrypt(&#39;message&#39;, $publicKey);</span>
+<span class=x>$plaintext  = $hybrid-&gt;decrypt($ciphertext, $privateKey, &#39;test&#39;); // pass-phrase</span>
+
+<span class=x>printf($plaintext === &#39;message&#39; ? &quot;Success\n&quot; : &quot;Error\n&quot;);</span>
+</pre></div></p>
+<p>The <code>Hybrid</code> component uses <code>Laminas\Crypt\BlockCipher</code> for the symmetric
+cipher and <code>Laminas\Crypt\Rsa</code> for the public-key cipher.</p>
+<h2 id="encrypt-with-multiple-keys">Encrypt with multiple Keys</h2>
+<p>The <code>Laminas\Crypt\Hybrid</code> component can be used to encrypt a message for multiple
+users, using a keyring of identifiers and public keys. This keyring can be
+specified using an array of <code>[ 'id' =&gt; 'publickey' ]</code>, where <code>publickey</code> can be
+a string (PEM) or an instance of <code>Laminas\Crypt\PublicKey\Rsa\PublicKey</code>. The <code>id</code>
+can be any string, for example, a receipient email address.</p>
+<p>The following details encryption using a keyring with 4 keys:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Hybrid;</span>
+<span class=x>use Laminas\Crypt\PublicKey\RsaOptions;</span>
+
+<span class=x>$publicKeys  = [];</span>
+<span class=x>$privateKeys = [];</span>
+<span class=x>for ($id = 0; $id &lt; 4; $id++) {</span>
+<span class=x>    $rsaOptions = new RsaOptions([</span>
+<span class=x>        &#39;pass_phrase&#39; =&gt; &quot;test-$id&quot;</span>
+<span class=x>    ]);</span>
+<span class=x>    $rsaOptions-&gt;generateKeys([</span>
+<span class=x>        &#39;private_key_bits&#39; =&gt; 4096</span>
+<span class=x>    ]);</span>
+<span class=x>    $publicKeys[$id]  = $rsaOptions-&gt;getPublicKey();</span>
+<span class=x>    $privateKeys[$id] = $rsaOptions-&gt;getPrivateKey();</span>
+<span class=x>}</span>
+
+<span class=x>$hybrid    = new Hybrid();</span>
+<span class=x>$encrypted = $hybrid-&gt;encrypt(&#39;message&#39;, $publicKeys);</span>
+<span class=x>for ($id = 0; $id &lt; 4; $id++) {</span>
+<span class=x>    $plaintext = $hybrid-&gt;decrypt($encrypted, $privateKeys[$id], null, $id);</span>
+<span class=x>    printf($plaintext === &#39;message&#39; ? &quot;Success on %d\n&quot; : &quot;Error on %d\n&quot;, $id);</span>
+<span class=x>}</span>
+</pre></div></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../files/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../key-derivation/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-crypt/edit/master/docs/book/hybrid.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-crypt</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../block-cipher/" class="subnavigation__link">Block Ciphers</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../files/" class="subnavigation__link">Encrypting Files</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Hybrid Cryptosystem</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../key-derivation/" class="subnavigation__link">Key Derivation</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../password/" class="subnavigation__link">Password</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../public-key/" class="subnavigation__link">Public Key Cryptography</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-crypt//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-crypt//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '..',
+            project  = "components",
+            siteName = 'laminas-crypt';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-crypt" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Strong cryptography tools and password hashing.">  
+    <link rel="canonical" href="https://docs.laminas.dev/public-key/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Public Key Cryptography - laminas-crypt - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-crypt</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../block-cipher/" class="subnavigation__link">Block Ciphers</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../files/" class="subnavigation__link">Encrypting Files</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../hybrid/" class="subnavigation__link">Hybrid Cryptosystem</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../key-derivation/" class="subnavigation__link">Key Derivation</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../password/" class="subnavigation__link">Password</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Public Key Cryptography</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-crypt</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-crypt/" class="header__link header__link--github" title="Go to repository of laminas-crypt">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#diffie-hellman" class="toc__link">Diffie-Hellman</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#rsa" class="toc__link">RSA</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="..">laminas-crypt</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Reference</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Public Key Cryptography</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Reference</h2>
+    
+
+    <h1 id="public-key-cryptography">Public Key Cryptography</h1>
+<p>Public-key cryptography refers to a cryptographic system requiring two separate
+keys, one of which is secret and one of which is public. Although different, the
+two parts of the key pair are mathematically linked. One key locks or encrypts
+the plaintext, and the other unlocks or decrypts the cyphertext. Neither key can
+perform both functions. One of these keys is published or public, while the
+other is kept private.</p>
+<p>In laminas-crypt, we implement two public key algorithms:</p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Diffie-Hellman</a>
+  key exchange, and</li>
+<li><a href="http://en.wikipedia.org/wiki/RSA_%28algorithm%29">RSA</a>.</li>
+</ul>
+<h2 id="diffie-hellman">Diffie-Hellman</h2>
+<p>The Diffie-Hellman algorithm is a specific method of exchanging cryptographic
+keys. It is one of the earliest practical examples of key exchange implemented
+within the field of cryptography. The Diffie–Hellman key exchange method allows
+two parties that have no prior knowledge of each other to jointly establish a
+shared secret key over an insecure communications channel. This key can then be
+used to encrypt subsequent communications using a symmetric key cipher.</p>
+<p>The diagram of operation of the Diffie-Hellman algorithm can be defined by the
+following picture (taken from the <a href="http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Diffie-Hellman</a>
+Wikipedia page):</p>
+<p><img alt="Diffie-Hellman algorithm" src="images/laminas.crypt.public-key.diffie-hellman.png" class="img-responsive"/></p>
+<p>The schema's colors represent the parameters of the algorithm.</p>
+<p>Below is an example demonstrating usage of <code>Laminas\Crypt\PublicKey\DiffieHellman</code>:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\PublicKey\DiffieHellman;</span>
+
+<span class=x>$aliceOptions = [</span>
+<span class=x>    &#39;prime&#39; =&gt; &#39;155172898181473697471232257763715539915724801966915404479707795314057629378541917580651227&#39;</span>
+<span class=x>        . &#39;423698188993727816152646631438561595825688188889951272158842675419950341258706556549803580&#39;</span>
+<span class=x>        . &#39;104870537681476726513255747040765857479291291572334510643245094715007229621094194349783925&#39;</span>
+<span class=x>        . &#39;984760375594985848253359305585439638443&#39;,</span>
+<span class=x>    &#39;generator&#39;=&gt; &#39;2&#39;,</span>
+<span class=x>    &#39;private&#39;  =&gt; &#39;992093140665725952364085695919679885571412495614942674862518080355353963322786201435363176&#39;</span>
+<span class=x>        . &#39;813127128916726230726309951803243888416814918577455156967890911274095150092503589658166661&#39;</span>
+<span class=x>        . &#39;463420498381785213791321533481399080168191962194483101070726325157493390557981225386151351&#39;</span>
+<span class=x>        . &#39;04828702523796951800575031871051678091&#39;,</span>
+<span class=x>];</span>
+
+<span class=x>$bobOptions   = [</span>
+<span class=x>    &#39;prime&#39;    =&gt; $aliceOptions[&#39;prime&#39;],</span>
+<span class=x>    &#39;generator&#39;=&gt; &#39;2&#39;,</span>
+<span class=x>    &#39;private&#39;  =&gt; &#39;334117357926395586257336357178925636125481806504021611510774783148414637079488997861035889&#39;</span>
+<span class=x>        . &#39;123256347304105519467727528801778689728169635518217403867000760342134081539246925625431179&#39;</span>
+<span class=x>        . &#39;634647331566005454845108330724270034742070646507148310833044977371603820970833568760781462&#39;</span>
+<span class=x>        . &#39;31616972608703322302585471319261275664&#39;,</span>
+<span class=x>);</span>
+
+<span class=x>$alice = new DiffieHellman(</span>
+<span class=x>    $aliceOptions[&#39;prime&#39;],</span>
+<span class=x>    $aliceOptions[&#39;generator&#39;],</span>
+<span class=x>    $aliceOptions[&#39;private&#39;]</span>
+<span class=x>);</span>
+<span class=x>$bob = new DiffieHellman(</span>
+<span class=x>    $bobOptions[&#39;prime&#39;],</span>
+<span class=x>    $bobOptions[&#39;generator&#39;],</span>
+<span class=x>    $bobOptions[&#39;private&#39;]</span>
+<span class=x>);</span>
+
+<span class=x>$alice-&gt;generateKeys();</span>
+<span class=x>$bob-&gt;generateKeys();</span>
+
+<span class=x>$aliceSecretKey = $alice-&gt;computeSecretKey(</span>
+<span class=x>    $bob-&gt;getPublicKey(DiffieHellman::FORMAT_BINARY),</span>
+<span class=x>    DiffieHellman::FORMAT_BINARY,</span>
+<span class=x>    DiffieHellman::FORMAT_BINARY</span>
+<span class=x>);</span>
+
+<span class=x>$bobSecretKey = $bob-&gt;computeSecretKey(</span>
+<span class=x>    $alice-&gt;getPublicKey(DiffieHellman::FORMAT_BINARY),</span>
+<span class=x>    DiffieHellman::FORMAT_BINARY,</span>
+<span class=x>    DiffieHellman::FORMAT_BINARY</span>
+<span class=x>);</span>
+
+<span class=x>if ($aliceSecretKey !== $bobSecretKey) {</span>
+<span class=x>    echo &quot;ERROR!\n&quot;;</span>
+<span class=x>} else {</span>
+<span class=x>    printf(&quot;The secret key is: %s\n&quot;, base64_encode($aliceSecretKey));</span>
+<span class=x>}</span>
+</pre></div></p>
+<p>The parameters of the Diffie-Hellman class are:</p>
+<ul>
+<li>a prime number (p),</li>
+<li>a generator (g) that is a primitive root mod p, and</li>
+<li>a private integer number.</li>
+</ul>
+<p>The security of the Diffie-Hellman exchange algorithm is related to the choice
+of these parameters. To know how to choose secure numbers you can read the
+<a href="http://tools.ietf.org/html/rfc3526">RFC 3526</a> document.</p>
+<blockquote>
+<h3>OpenSSL</h3>
+<p>The <code>Laminas\Crypt\PublicKey\DiffieHellman</code> class by default uses the
+<a href="http://php.net/manual/en/book.openssl.php">OpenSSL</a> extension to generate the
+parameters. If you don't want to use the OpenSSL library, call
+<code>DiffieHelmman::useOpensslExtension(false)</code>.</p>
+</blockquote>
+<h2 id="rsa">RSA</h2>
+<p>RSA is an algorithm for public-key cryptography that is based on the presumed
+difficulty of factoring large integers, known as the <a href="http://en.wikipedia.org/wiki/Factoring_problem">factoring
+problem</a>. A user of RSA creates
+and then publishes the product of two large prime numbers, along with an
+auxiliary value, as their public key. The prime factors must be kept secret.
+Anyone can use the public key to encrypt a message, but with currently published
+methods, if the public key is large enough, only someone with knowledge of the
+prime factors can feasibly decode the message. Whether breaking RSA encryption
+is as hard as factoring is an open question.</p>
+<p>The RSA algorithm can be used to encrypt/decrypt messages, and also to provide
+authenticity and integrity by generating a digital signature of a message.</p>
+<p>Suppose that Alice wants to send an encrypted message to Bob. Alice must use the
+public key of Bob to encrypt the message. Bob can decrypt the message using his
+private key. Because Bob is the only one that can access his private key,
+he is the only one that can decrypt the message. If Alice wants to provide
+authenticity and integrity of a message to Bob she can use her private key to
+sign the message. Bob can check the correctness of the digital signature using
+the public key of Alice. Alice can provide encryption, authenticity, and
+integrity of a message to Bob using the previous schemas in sequence, applying
+the encryption first and the digital signature after.</p>
+<p>Below are examples of usage of the <code>Laminas\Crypt\PublicKey\Rsa</code> class in order to:</p>
+<ul>
+<li>generate a public key and a private key;</li>
+<li>encrypt/decrypt a string;</li>
+<li>generate a digital signature of a file.</li>
+</ul>
+<h3>Generate a public Key and a private Key</h3>
+<p>In order to generate a public and private key, use the following code:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\PublicKey\RsaOptions;</span>
+
+<span class=x>$rsaOptions = new RsaOptions([</span>
+<span class=x>    &#39;pass_phrase&#39; =&gt; &#39;test&#39;</span>
+<span class=x>]);</span>
+
+<span class=x>$rsaOptions-&gt;generateKeys([</span>
+<span class=x>    &#39;private_key_bits&#39; =&gt; 2048,</span>
+<span class=x>]);</span>
+
+<span class=x>file_put_contents(&#39;private_key.pem&#39;, $rsaOptions-&gt;getPrivateKey());</span>
+<span class=x>file_put_contents(&#39;public_key.pub&#39;, $rsaOptions-&gt;getPublicKey());</span>
+</pre></div></p>
+<p>This example generates a 2048-bit public and private key, storing the keys in two separate files,
+<code>private_key.pem</code> for the private key and <code>public_key.pub</code> for the public key. You can also
+generate the public and private key using OpenSSL from the command line (Unix style syntax):</p>
+<p> <div class=codehilite><pre><span></span>$ ssh-keygen -t rsa
+</pre></div></p>
+<h3>Encrypt and decrypt a String</h3>
+<p>Below is an example demonstrating encryption and decryption of a string using
+the RSA algorithm. You can encrypt only small strings. The maximum size of
+encryption is given by the length of the public/private key - 88 bits. For
+instance, if we use a size of 2048 bit you can encrypt a string with a maximum
+size of 1960 bit (245 characters). This limitation is related to the OpenSSL
+implementation for a security reason related to the nature of the RSA algorithm.</p>
+<p>The normal application of public key encryption algorithm is to store a key or a
+hash of the data you want to encrypt or sign. A hash is typically 128-256 bits
+(the PHP <code>sha1()</code> function returns a 160 bit hash). An AES encryption key is 128
+to 256 bits. Either will comfortably fit inside a single RSA encryption.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\PublicKey\Rsa;</span>
+
+<span class=x>$rsa = Rsa::factory([</span>
+<span class=x>    &#39;public_key&#39;    =&gt; &#39;public_key.pub&#39;,</span>
+<span class=x>    &#39;private_key&#39;   =&gt; &#39;private_key.pem&#39;,</span>
+<span class=x>    &#39;pass_phrase&#39;   =&gt; &#39;test&#39;,</span>
+<span class=x>    &#39;binary_output&#39; =&gt; false,</span>
+<span class=x>]);</span>
+
+<span class=x>$text = &#39;This is the message to encrypt&#39;;</span>
+
+<span class=x>$encrypt = $rsa-&gt;encrypt($text);</span>
+<span class=x>printf(&quot;Encrypted message:\n%s\n&quot;, $encrypt);</span>
+
+<span class=x>$decrypt = $rsa-&gt;decrypt($encrypt);</span>
+
+<span class=x>if ($text !== $decrypt) {</span>
+<span class=x>    echo &quot;ERROR\n&quot;;</span>
+<span class=x>} else {</span>
+<span class=x>    echo &quot;Encryption and decryption performed successfully!\n&quot;;</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>Generate a digital Signature of a File</h3>
+<p>Below is an example demonstrating generation of a digital file signature.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\PublicKey\Rsa;</span>
+
+<span class=x>$rsa = Rsa::factory([</span>
+<span class=x>    &#39;private_key&#39;   =&gt; &#39;path/to/private_key&#39;,</span>
+<span class=x>    &#39;pass_phrase&#39;   =&gt; &#39;passphrase of the private key&#39;,</span>
+<span class=x>    &#39;binary_output&#39; =&gt; false,</span>
+<span class=x>]);</span>
+
+<span class=x>$file = file_get_contents(&#39;path/file/to/sign&#39;);</span>
+
+<span class=x>$signature = $rsa-&gt;sign($file, $rsa-&gt;getOptions()-&gt;getPrivateKey());</span>
+<span class=x>$verify    = $rsa-&gt;verify($file, $signature, $rsa-&gt;getOptions()-&gt;getPublicKey());</span>
+
+<span class=x>if ($verify) {</span>
+<span class=x>    echo &quot;The signature is OK\n&quot;;</span>
+<span class=x>    file_put_contents($filename . &#39;.sig&#39;, $signature);</span>
+<span class=x>    echo &quot;Signature save in $filename.sig\n&quot;;</span>
+<span class=x>} else {</span>
+<span class=x>     echo &quot;The signature is not valid!\n&quot;;</span>
+<span class=x>}</span>
+</pre></div></p>
+<p>In this example, we used the Base64 format to encode the digital signature of the file
+(<code>binary_output</code> is false).</p>
+<blockquote>
+<h3>OpenSSL</h3>
+<p>The implementation of the <code>Laminas\Crypt\PublicKey\Rsa</code> algorithm uses PHP's OpenSSL extension.</p>
+</blockquote>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../password/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-crypt/edit/master/docs/book/public-key.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-crypt</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../block-cipher/" class="subnavigation__link">Block Ciphers</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../files/" class="subnavigation__link">Encrypting Files</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../hybrid/" class="subnavigation__link">Hybrid Cryptosystem</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../key-derivation/" class="subnavigation__link">Key Derivation</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../password/" class="subnavigation__link">Password</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Public Key Cryptography</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-crypt//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-crypt//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '..',
+            project  = "components",
+            siteName = 'laminas-crypt';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-crypt" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

@@ -1,24 +1,21 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-crypt for the canonical source repository
- * @copyright Copyright (c) 2005-2018 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-crypt/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt\Symmetric;
+namespace Laminas\Crypt\Symmetric;
 
 use Interop\Container\ContainerInterface;
+use Laminas\Stdlib\ArrayUtils;
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
-
-use const OPENSSL_RAW_DATA;
-use const OPENSSL_ZERO_PADDING;
-use const PHP_VERSION_ID;
 
 use function class_exists;
 use function extension_loaded;
-use function gettype;
 use function get_class;
+use function gettype;
 use function in_array;
 use function is_array;
 use function is_int;
@@ -34,12 +31,16 @@ use function openssl_error_string;
 use function openssl_get_cipher_methods;
 use function strtolower;
 
+use const OPENSSL_RAW_DATA;
+use const OPENSSL_ZERO_PADDING;
+use const PHP_VERSION_ID;
+
 /**
  * Symmetric encryption using the OpenSSL extension
  *
  * NOTE: DO NOT USE only this class to encrypt data.
  * This class doesn't provide authentication and integrity check over the data.
- * PLEASE USE Zend\Crypt\BlockCipher instead!
+ * PLEASE USE Laminas\Crypt\BlockCipher instead!
  */
 class Openssl implements SymmetricInterface
 {

@@ -1,14 +1,12 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-crypt for the canonical source repository
- * @copyright Copyright (c) 2005-2018 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-crypt/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt\Key\Derivation;
-
-use const PHP_INT_MAX;
-use const PHP_INT_SIZE;
+namespace Laminas\Crypt\Key\Derivation;
 
 use function extension_loaded;
 use function hex2bin;
@@ -16,6 +14,9 @@ use function mb_substr;
 use function pack;
 use function scrypt;
 use function unpack;
+
+use const PHP_INT_MAX;
+use const PHP_INT_SIZE;
 
 /**
  * Scrypt key derivation function

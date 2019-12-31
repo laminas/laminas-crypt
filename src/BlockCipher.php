@@ -1,23 +1,24 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-crypt for the canonical source repository
- * @copyright Copyright (c) 2005-2018 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-crypt/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt;
+namespace Laminas\Crypt;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\NotFoundException;
-use Zend\Crypt\Key\Derivation\Pbkdf2;
-use Zend\Crypt\Symmetric\SymmetricInterface;
-use Zend\Math\Rand;
+use Laminas\Crypt\Key\Derivation\Pbkdf2;
+use Laminas\Crypt\Symmetric\SymmetricInterface;
+use Laminas\Math\Rand;
 
 use function base64_decode;
 use function base64_encode;
 use function class_exists;
-use function gettype;
 use function get_class;
+use function gettype;
 use function in_array;
 use function is_array;
 use function is_object;
@@ -343,7 +344,7 @@ class BlockCipher
     {
         if (! Hash::isSupported($hash)) {
             throw new Exception\InvalidArgumentException(
-                "The specified hash algorithm '{$hash}' is not supported by Zend\Crypt\Hash"
+                "The specified hash algorithm '{$hash}' is not supported by Laminas\Crypt\Hash"
             );
         }
         $this->hash = $hash;
@@ -372,7 +373,7 @@ class BlockCipher
     {
         if (! Hash::isSupported($hash)) {
             throw new Exception\InvalidArgumentException(
-                "The specified hash algorithm '{$hash}' is not supported by Zend\Crypt\Hash"
+                "The specified hash algorithm '{$hash}' is not supported by Laminas\Crypt\Hash"
             );
         }
         $this->pbkdf2Hash = $hash;

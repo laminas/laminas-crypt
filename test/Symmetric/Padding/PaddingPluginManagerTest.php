@@ -1,17 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Symmetric\Padding;
+namespace LaminasTest\Crypt\Symmetric\Padding;
 
 use Interop\Container\ContainerInterface;
-use Zend\Crypt\Symmetric\PaddingPluginManager;
-use Zend\Crypt\Symmetric\Padding\PaddingInterface;
+use Laminas\Crypt\Symmetric\Padding\PaddingInterface;
+use Laminas\Crypt\Symmetric\PaddingPluginManager;
 
 class PaddingPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -49,7 +48,7 @@ class PaddingPluginManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Symmetric\Exception\NotFoundException
+     * @expectedException Laminas\Crypt\Symmetric\Exception\NotFoundException
      */
     public function testGetError()
     {

@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt;
+namespace LaminasTest\Crypt;
 
 use Interop\Container\ContainerInterface;
-use Zend\Crypt\SymmetricPluginManager;
-use Zend\Crypt\Symmetric\SymmetricInterface;
-use Zend\Crypt\Symmetric\Exception;
+use Laminas\Crypt\Symmetric\Exception;
+use Laminas\Crypt\Symmetric\SymmetricInterface;
+use Laminas\Crypt\SymmetricPluginManager;
 
 class SymmetricPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -57,7 +56,7 @@ class SymmetricPluginManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Exception\NotFoundException
+     * @expectedException Laminas\Crypt\Exception\NotFoundException
      */
     public function testGetError()
     {

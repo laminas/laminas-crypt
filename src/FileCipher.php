@@ -1,16 +1,15 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt;
+namespace Laminas\Crypt;
 
-use Zend\Crypt\Key\Derivation\Pbkdf2;
-use Zend\Math\Rand;
+use Laminas\Crypt\Key\Derivation\Pbkdf2;
+use Laminas\Math\Rand;
 
 /**
  * Encrypt/decrypt a file using a symmetric cipher in CBC mode
@@ -172,7 +171,7 @@ class FileCipher
     {
         if (!Hash::isSupported($hash)) {
             throw new Exception\InvalidArgumentException(
-                "The specified hash algorithm '{$hash}' is not supported by Zend\Crypt\Hash"
+                "The specified hash algorithm '{$hash}' is not supported by Laminas\Crypt\Hash"
             );
         }
         $this->hash = (string) $hash;
@@ -198,7 +197,7 @@ class FileCipher
     {
         if (!Hash::isSupported($hash)) {
             throw new Exception\InvalidArgumentException(
-                "The specified hash algorithm '{$hash}' is not supported by Zend\Crypt\Hash"
+                "The specified hash algorithm '{$hash}' is not supported by Laminas\Crypt\Hash"
             );
         }
         $this->pbkdf2Hash = (string) $hash;

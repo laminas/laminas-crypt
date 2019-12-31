@@ -1,23 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Symmetric;
+namespace LaminasTest\Crypt\Symmetric;
 
 use ArrayObject;
 use Interop\Container\ContainerInterface;
-use Zend\Crypt\Symmetric\Exception;
-use Zend\Crypt\Symmetric\Padding\NoPadding;
-use Zend\Crypt\Symmetric\Padding\PKCS7;
-use Zend\Math\Rand;
+use Laminas\Crypt\Symmetric\Exception;
+use Laminas\Crypt\Symmetric\Padding\NoPadding;
+use Laminas\Crypt\Symmetric\Padding\PKCS7;
+use Laminas\Math\Rand;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 {
@@ -78,7 +77,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * This test uses ArrayObject to simulate a Zend\Config\Config instance;
+     * This test uses ArrayObject to simulate a Laminas\Config\Config instance;
      * the class itself only tests for Traversable.
      */
     public function testConstructByConfig()
@@ -171,7 +170,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Symmetric\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Symmetric\Exception\InvalidArgumentException
      */
     public function testShortSalt()
     {
@@ -222,7 +221,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
     public function testEncryptWithoutKey()
     {
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException');
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException');
         $ciphertext = $this->crypt->encrypt('test');
     }
 
@@ -292,7 +291,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Symmetric\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Symmetric\Exception\InvalidArgumentException
      */
     public function testSetWrongPaddingPluginManager()
     {
@@ -302,7 +301,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Symmetric\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Symmetric\Exception\InvalidArgumentException
      */
     public function testSetNotExistingPaddingPluginManager()
     {

@@ -1,9 +1,9 @@
-# zend-crypt
+# laminas-crypt
 
-[![Build Status](https://secure.travis-ci.org/zendframework/zend-crypt.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-crypt)
-[![Coverage Status](https://coveralls.io/repos/zendframework/zend-crypt/badge.svg?branch=master)](https://coveralls.io/r/zendframework/zend-crypt?branch=master)
+[![Build Status](https://travis-ci.org/laminas/laminas-crypt.svg?branch=master)](https://travis-ci.org/laminas/laminas-crypt)
+[![Coverage Status](https://coveralls.io/repos/laminas/laminas-crypt/badge.svg?branch=master)](https://coveralls.io/r/laminas/laminas-crypt?branch=master)
 
-`Zend\Crypt` provides support of some cryptographic tools.
+`Laminas\Crypt` provides support of some cryptographic tools.
 Some of the available features are:
 
 - encrypt-then-authenticate using symmetric ciphers (the authentication step
@@ -21,5 +21,5 @@ The main scope of this component is to offer an easy and secure way to protect
 and authenticate sensitive data in PHP.
 
 
-- File issues at https://github.com/zendframework/zend-crypt/issues
-- Documentation is at http://framework.zend.com/manual/current/en/index.html#zend-crypt
+- File issues at https://github.com/laminas/laminas-crypt/issues
+- Documentation is at https://docs.laminas.dev/laminas-crypt

@@ -21,7 +21,7 @@ using a hybrid cryptosystem, she needs to:
 
 A schema of the encryption is reported in the image below:
 
-![Encryption schema](images/zend.crypt.hybrid.png)
+![Encryption schema](images/laminas.crypt.hybrid.png)
 
 To decrypt the message, *Bob* needs to:
 
@@ -30,12 +30,12 @@ To decrypt the message, *Bob* needs to:
 
 ## Example of usage
 
-In order to use the `Zend\Crypt\Hybrid` component, you need to have a keyring of
+In order to use the `Laminas\Crypt\Hybrid` component, you need to have a keyring of
 public and private keys. To encrypt a message, use the following code:
 
 ```php
-use Zend\Crypt\Hybrid;
-use Zend\Crypt\PublicKey\RsaOptions;
+use Laminas\Crypt\Hybrid;
+use Laminas\Crypt\PublicKey\RsaOptions;
 
 // Generate public and private key
 $rsaOptions = new RsaOptions([
@@ -54,14 +54,14 @@ $plaintext  = $hybrid->decrypt($ciphertext, $privateKey);
 printf($plaintext === 'message' ? "Success\n" : "Error\n");
 ```
 
-We generated the keys using the [Zend\Crypt\PublicKey\RsaOptions](public-key.md)
+We generated the keys using the [Laminas\Crypt\PublicKey\RsaOptions](public-key.md)
 component. You can also use a [PEM](https://en.wikipedia.org/wiki/Privacy-enhanced_Electronic_Mail)
 string for the keys. If you use a string for the private key, you need to pass
 the pass phrase to use when decrypting, if present, like in the following example:
 
 ```php
-use Zend\Crypt\Hybrid;
-use Zend\Crypt\PublicKey\RsaOptions;
+use Laminas\Crypt\Hybrid;
+use Laminas\Crypt\PublicKey\RsaOptions;
 
 // Generate public and private key
 $rsaOptions = new RsaOptions([
@@ -81,22 +81,22 @@ $plaintext  = $hybrid->decrypt($ciphertext, $privateKey, 'test'); // pass-phrase
 printf($plaintext === 'message' ? "Success\n" : "Error\n");
 ```
 
-The `Hybrid` component uses `Zend\Crypt\BlockCipher` for the symmetric
-cipher and `Zend\Crypt\Rsa` for the public-key cipher.
+The `Hybrid` component uses `Laminas\Crypt\BlockCipher` for the symmetric
+cipher and `Laminas\Crypt\Rsa` for the public-key cipher.
 
 ## Encrypt with multiple keys
 
-The `Zend\Crypt\Hybrid` component can be used to encrypt a message for multiple
+The `Laminas\Crypt\Hybrid` component can be used to encrypt a message for multiple
 users, using a keyring of identifiers and public keys. This keyring can be
 specified using an array of `[ 'id' => 'publickey' ]`, where `publickey` can be
-a string (PEM) or an instance of `Zend\Crypt\PublicKey\Rsa\PublicKey`. The `id`
+a string (PEM) or an instance of `Laminas\Crypt\PublicKey\Rsa\PublicKey`. The `id`
 can be any string, for example, a receipient email address.
 
 The following details encryption using a keyring with 4 keys:
 
 ```php
-use Zend\Crypt\Hybrid;
-use Zend\Crypt\PublicKey\RsaOptions;
+use Laminas\Crypt\Hybrid;
+use Laminas\Crypt\PublicKey\RsaOptions;
 
 $publicKeys  = [];
 $privateKeys = [];

@@ -1,17 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\FileCipher;
+namespace LaminasTest\Crypt\FileCipher;
 
-use Zend\Crypt\Symmetric\Mcrypt;
-use Zend\Crypt\FileCipher;
-use Zend\Crypt\Symmetric;
+use Laminas\Crypt\FileCipher;
+use Laminas\Crypt\Symmetric;
+use Laminas\Crypt\Symmetric\Mcrypt;
 
 class McryptTest extends AbstractFileCipherTest
 {
@@ -34,7 +33,7 @@ class McryptTest extends AbstractFileCipherTest
             'algo' => 'blowfish'
         ]);
         $this->fileCipher->setCipher($cipher);
-        $this->assertInstanceOf('Zend\Crypt\Symmetric\SymmetricInterface', $this->fileCipher->getCipher());
+        $this->assertInstanceOf('Laminas\Crypt\Symmetric\SymmetricInterface', $this->fileCipher->getCipher());
         $this->assertEquals($cipher, $this->fileCipher->getCipher());
     }
 }

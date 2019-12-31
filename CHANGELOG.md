@@ -7,7 +7,7 @@ chronological order by release.
 
 ### Added
 
-- [#42](https://github.com/zendframework/zend-crypt/pull/42) Added the CTR mode
+- [zendframework/zend-crypt#42](https://github.com/zendframework/zend-crypt/pull/42) Added the CTR mode
   for OpenSSL.
 
 ### Deprecated
@@ -20,7 +20,7 @@ chronological order by release.
 
 ### Fixed
 
-- [#48](https://github.com/zendframework/zend-crypt/pull/48) Incorrect Rsa type
+- [zendframework/zend-crypt#48](https://github.com/zendframework/zend-crypt/pull/48) Incorrect Rsa type
   declaration in Hybrid constructor.
 
 
@@ -28,7 +28,7 @@ chronological order by release.
 
 ### Added
 
-- [#38](https://github.com/zendframework/zend-crypt/pull/38) Support of GCM and
+- [zendframework/zend-crypt#38](https://github.com/zendframework/zend-crypt/pull/38) Support of GCM and
   CCM encryption mode for OpenSSL with PHP 7.1+
 
 ### Deprecated
@@ -47,7 +47,7 @@ chronological order by release.
 
 ### Added
 
-- [#32](https://github.com/zendframework/zend-crypt/pull/32) adds a new Hybrid
+- [zendframework/zend-crypt#32](https://github.com/zendframework/zend-crypt/pull/32) adds a new Hybrid
   encryption utility, to allow OpenPGP-like encryption/decryption of messages
   using OpenSSL. See the documentation for details.
 
@@ -67,61 +67,61 @@ chronological order by release.
 
 ### Added
 
-- [#22](https://github.com/zendframework/zend-crypt/pull/22) adds a requirement
+- [zendframework/zend-crypt#22](https://github.com/zendframework/zend-crypt/pull/22) adds a requirement
   on `ext/mbstring` in order to install successfully.
-- [#25](https://github.com/zendframework/zend-crypt/pull/25) adds a new
+- [zendframework/zend-crypt#25](https://github.com/zendframework/zend-crypt/pull/25) adds a new
   symmetric encryption adapter for the OpenSSL extension; this is now the
   default adapter used internally by the component when symmetric encryption is
   required.
-- [#25](https://github.com/zendframework/zend-crypt/pull/25) adds support for
-  zend-math v3.
-- [#26](https://github.com/zendframework/zend-crypt/pull/26) adds
-  `Zend\Crypt\Password\Bcrypt::benchmarkCost()`, which allows you to find the
+- [zendframework/zend-crypt#25](https://github.com/zendframework/zend-crypt/pull/25) adds support for
+  laminas-math v3.
+- [zendframework/zend-crypt#26](https://github.com/zendframework/zend-crypt/pull/26) adds
+  `Laminas\Crypt\Password\Bcrypt::benchmarkCost()`, which allows you to find the
   maximum cost value possible for your hardware within a 50ms timeframe.
-- [#11](https://github.com/zendframework/zend-crypt/pull/11) adds a new option
-  to the `Zend\Crypt\PublicKey\RsaOptions` class, `openssl_padding` (or
+- [zendframework/zend-crypt#11](https://github.com/zendframework/zend-crypt/pull/11) adds a new option
+  to the `Laminas\Crypt\PublicKey\RsaOptions` class, `openssl_padding` (or
   `setOpensslPadding()`; this is now consumed in
-  `Zend\Crypt\PublicKey\Rsa::encrypt()` and
-  `Zend\Crypt\PublicKey\Rsa::decrypt()`, instead of the optional `$padding`
+  `Laminas\Crypt\PublicKey\Rsa::encrypt()` and
+  `Laminas\Crypt\PublicKey\Rsa::decrypt()`, instead of the optional `$padding`
   argument.
 
 ### Deprecated
 
-- [#25](https://github.com/zendframework/zend-crypt/pull/25) deprecates usage of the
+- [zendframework/zend-crypt#25](https://github.com/zendframework/zend-crypt/pull/25) deprecates usage of the
   mcrypt symmetric encryption adapter when used on PHP 7 versions, as PHP 7.1
   will deprecate the mcrypt extension.
 
 ### Removed
 
-- [#11](https://github.com/zendframework/zend-crypt/pull/11) removes the
-  optional `$padding` argument from each of `Zend\Crypt\PublicKey\Rsa`'s
+- [zendframework/zend-crypt#11](https://github.com/zendframework/zend-crypt/pull/11) removes the
+  optional `$padding` argument from each of `Laminas\Crypt\PublicKey\Rsa`'s
   `encrypt()` and `decrypt()` methods; you can now specify the value via the
   `RsaOptions`.
-- [#25](https://github.com/zendframework/zend-crypt/pull/25) removes support for
-  zend-math v2 versions.
-- [#29](https://github.com/zendframework/zend-crypt/pull/29) removes support for
+- [zendframework/zend-crypt#25](https://github.com/zendframework/zend-crypt/pull/25) removes support for
+  laminas-math v2 versions.
+- [zendframework/zend-crypt#29](https://github.com/zendframework/zend-crypt/pull/29) removes support for
   PHP 5.5.
 
 ### Fixed
 
-- [#22](https://github.com/zendframework/zend-crypt/pull/22) updates all
+- [zendframework/zend-crypt#22](https://github.com/zendframework/zend-crypt/pull/22) updates all
   occurrences of `substr()` and `strlen()` to use `mb_substr()` and
   `mb_strlen()`, respectively. This provides better security with binary values.
-- [#25](https://github.com/zendframework/zend-crypt/pull/25) updates the
-  `Zend\Crypt\Password\Bcrypt` implementation to use `password_hash()` and
+- [zendframework/zend-crypt#25](https://github.com/zendframework/zend-crypt/pull/25) updates the
+  `Laminas\Crypt\Password\Bcrypt` implementation to use `password_hash()` and
   `password_verify()` internally, as they are supported in all PHP versions we
   support.
-- [#19](https://github.com/zendframework/zend-crypt/pull/19) fixes the
+- [zendframework/zend-crypt#19](https://github.com/zendframework/zend-crypt/pull/19) fixes the
   `DiffieHellman` publickey implementation to initialize the `BigInteger`
-  adapter from zend-math as the first operation of its constructor, fixing a
+  adapter from laminas-math as the first operation of its constructor, fixing a
   fatal error that occurs when binary data is provided.
 
 ## 2.6.0 - 2016-02-03
 
 ### Added
 
-- [#18](https://github.com/zendframework/zend-crypt/pull/18) adds documentation,
-  and publishes it to https://zendframework.github.io/zend-crypt/
+- [zendframework/zend-crypt#18](https://github.com/zendframework/zend-crypt/pull/18) adds documentation,
+  and publishes it to https://docs.laminas.dev/laminas-crypt/
 
 ### Deprecated
 
@@ -129,14 +129,14 @@ chronological order by release.
 
 ### Removed
 
-- Removes the (development) dependency on zend-config; tests that used it
+- Removes the (development) dependency on laminas-config; tests that used it
   previously have been updated to use `ArrayObject`, which implements the same
   behavior being tested.
 
 ### Fixed
 
-- [#4](https://github.com/zendframework/zend-crypt/pull/4) replaces
-  the zend-servicemanager with container-interop, and refactors the
+- [zendframework/zend-crypt#4](https://github.com/zendframework/zend-crypt/pull/4) replaces
+  the laminas-servicemanager with container-interop, and refactors the
   various plugin managers to implement that interface instead of extending the
   `AbstractPluginManager`.
 
@@ -156,7 +156,7 @@ chronological order by release.
 
 ### Fixed
 
-- **ZF2015-10**: `Zend\Crypt\PublicKey\Rsa\PublicKey` has a call to `openssl_public_encrypt()`
+- **ZF2015-10**: `Laminas\Crypt\PublicKey\Rsa\PublicKey` has a call to `openssl_public_encrypt()`
   which used PHP's default `$padding` argument, which specifies
   `OPENSSL_PKCS1_PADDING`, indicating usage of PKCS1v1.5 padding. This padding
   has a known vulnerability, the
@@ -167,17 +167,17 @@ chronological order by release.
   Users upgrading to this version may have issues decrypting previously stored
   values, due to the change in padding. If this occurs, you can pass the
   constant `OPENSSL_PKCS1_PADDING` to a new `$padding` argument in
-  `Zend\Crypt\PublicKey\Rsa::encrypt()` and `decrypt()` (though typically this
+  `Laminas\Crypt\PublicKey\Rsa::encrypt()` and `decrypt()` (though typically this
   should only apply to the latter):
 
   ```php
   $decrypted = $rsa->decrypt($data, $key, $mode, OPENSSL_PKCS1_PADDING);
   ```
 
-  where `$rsa` is an instance of `Zend\Crypt\PublicKey\Rsa`.
+  where `$rsa` is an instance of `Laminas\Crypt\PublicKey\Rsa`.
 
   (The `$key` and `$mode` argument defaults are `null` and
-  `Zend\Crypt\PublicKey\Rsa::MODE_AUTO`, if you were not using them previously.)
+  `Laminas\Crypt\PublicKey\Rsa::MODE_AUTO`, if you were not using them previously.)
 
   We recommend re-encrypting any such values using the new defaults.
 
@@ -197,7 +197,7 @@ chronological order by release.
 
 ### Fixed
 
-- **ZF2015-10**: `Zend\Crypt\PublicKey\Rsa\PublicKey` has a call to `openssl_public_encrypt()`
+- **ZF2015-10**: `Laminas\Crypt\PublicKey\Rsa\PublicKey` has a call to `openssl_public_encrypt()`
   which used PHP's default `$padding` argument, which specifies
   `OPENSSL_PKCS1_PADDING`, indicating usage of PKCS1v1.5 padding. This padding
   has a known vulnerability, the
@@ -208,17 +208,17 @@ chronological order by release.
   Users upgrading to this version may have issues decrypting previously stored
   values, due to the change in padding. If this occurs, you can pass the
   constant `OPENSSL_PKCS1_PADDING` to a new `$padding` argument in
-  `Zend\Crypt\PublicKey\Rsa::encrypt()` and `decrypt()` (though typically this
+  `Laminas\Crypt\PublicKey\Rsa::encrypt()` and `decrypt()` (though typically this
   should only apply to the latter):
 
   ```php
   $decrypted = $rsa->decrypt($data, $key, $mode, OPENSSL_PKCS1_PADDING);
   ```
 
-  where `$rsa` is an instance of `Zend\Crypt\PublicKey\Rsa`.
+  where `$rsa` is an instance of `Laminas\Crypt\PublicKey\Rsa`.
 
   (The `$key` and `$mode` argument defaults are `null` and
-  `Zend\Crypt\PublicKey\Rsa::MODE_AUTO`, if you were not using them previously.)
+  `Laminas\Crypt\PublicKey\Rsa::MODE_AUTO`, if you were not using them previously.)
 
   We recommend re-encrypting any such values using the new defaults.
 >>>>>>> hotfix/5

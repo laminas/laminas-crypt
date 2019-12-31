@@ -1,25 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Key\Derivation;
+namespace LaminasTest\Crypt\Key\Derivation;
 
-use Zend\Crypt\Key\Derivation\Scrypt;
+use Laminas\Crypt\Key\Derivation\Scrypt;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class ScryptTest extends \PHPUnit_Framework_TestCase
 {
 
     protected static function getMethod($name)
     {
-        $class = new \ReflectionClass('Zend\Crypt\Key\Derivation\Scrypt');
+        $class = new \ReflectionClass('Laminas\Crypt\Key\Derivation\Scrypt');
         $method = $class->getMethod($name);
         $method->setAccessible(true);
         return $method;
@@ -48,7 +47,7 @@ class ScryptTest extends \PHPUnit_Framework_TestCase
             $salsaAlg = 'salsa208Core64';
         }
         $salsa20 = self::getMethod($salsaAlg);
-        $obj     = $this->getMockForAbstractClass('Zend\Crypt\Key\Derivation\Scrypt');
+        $obj     = $this->getMockForAbstractClass('Laminas\Crypt\Key\Derivation\Scrypt');
         $input   = self::hex2bin(str_replace(array(' ',PHP_EOL),'',$hexInput));
         $result  = $salsa20->invokeArgs($obj, array($input));
 
@@ -84,7 +83,7 @@ class ScryptTest extends \PHPUnit_Framework_TestCase
                       5d 2a 22 58 77 d5 ed f5 84 2c b9 f1 4e ef e4 25';
 
         $blockMix = self::getMethod('scryptBlockMix');
-        $obj      = $this->getMockForAbstractClass('Zend\Crypt\Key\Derivation\Scrypt');
+        $obj      = $this->getMockForAbstractClass('Laminas\Crypt\Key\Derivation\Scrypt');
         $input    = self::hex2bin(str_replace(array(' ',PHP_EOL), '', $hexInput));
         $result   = $blockMix->invokeArgs($obj, array($input, 1));
 
@@ -118,7 +117,7 @@ class ScryptTest extends \PHPUnit_Framework_TestCase
 
 
         $roMix  = self::getMethod('scryptROMix');
-        $obj    = $this->getMockForAbstractClass('Zend\Crypt\Key\Derivation\Scrypt');
+        $obj    = $this->getMockForAbstractClass('Laminas\Crypt\Key\Derivation\Scrypt');
         $input  = self::hex2bin(str_replace(array(' ',PHP_EOL), '', $hexInput));
         $result = $roMix->invokeArgs($obj, array($input, 16, 1));
 
@@ -144,7 +143,7 @@ class ScryptTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Key\Derivation\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Key\Derivation\Exception\InvalidArgumentException
      */
     public function testScryptWrongN()
     {
@@ -153,7 +152,7 @@ class ScryptTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Key\Derivation\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Key\Derivation\Exception\InvalidArgumentException
      */
     public function testScryptWrongR()
     {
@@ -167,7 +166,7 @@ class ScryptTest extends \PHPUnit_Framework_TestCase
     {
         for ($size = 0; $size < 64; $size++) {
             if (extension_loaded('Scrypt') && ($size < 16)) {
-                $this->setExpectedException('Zend\Crypt\Key\Derivation\Exception\InvalidArgumentException');
+                $this->setExpectedException('Laminas\Crypt\Key\Derivation\Exception\InvalidArgumentException');
             }
             $result = Scrypt::calc('test', 'salt', 16, 1, 1, $size);
             $this->assertEquals($size, strlen($result));

@@ -1,27 +1,25 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Crypt
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt\Symmetric;
+namespace Laminas\Crypt\Symmetric;
 
+use Laminas\Stdlib\ArrayUtils;
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
 
 /**
  * Symmetric encryption using the Mcrypt extension
  *
  * NOTE: DO NOT USE only this class to encrypt data.
  * This class doesn't provide authentication and integrity check over the data.
- * PLEASE USE Zend\Crypt\BlockCipher instead!
+ * PLEASE USE Laminas\Crypt\BlockCipher instead!
  *
- * @category   Zend
- * @package    Zend_Crypt
+ * @category   Laminas
+ * @package    Laminas_Crypt
  */
 class Mcrypt implements SymmetricInterface
 {
@@ -123,7 +121,7 @@ class Mcrypt implements SymmetricInterface
                 $options = ArrayUtils::iteratorToArray($options);
             } elseif (!is_array($options)) {
                 throw new Exception\InvalidArgumentException(
-                    'The options parameter must be an array, a Zend\Config\Config object or a Traversable'
+                    'The options parameter must be an array, a Laminas\Config\Config object or a Traversable'
                 );
             }
             foreach ($options as $key => $value) {

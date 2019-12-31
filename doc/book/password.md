@@ -1,7 +1,7 @@
 # Password
 
-In the `Zend\Crypt\Password` namespace you will find a number of password
-formats supported by the zend-crypt component. These currently include:
+In the `Laminas\Crypt\Password` namespace you will find a number of password
+formats supported by the laminas-crypt component. These currently include:
 
 - bcrypt
 - Apache (htpasswd)
@@ -27,7 +27,7 @@ force attack is impossible to execute, due to the amount of time that required.
 Bcrypt uses a *cost* parameter that specify the number of cycles to use in the
 algorithm. Increasing this number the algorithm will spend more time to generate
 the hash output. The cost parameter is represented by an integer value between 4
-to 31. The default cost value of `Zend\Crypt\Password\Bcrypt` is 10, requiring
+to 31. The default cost value of `Laminas\Crypt\Password\Bcrypt` is 10, requiring
 around 0.07s using a CPU Intel i5 at 3.3Ghz (the cost parameter is a relative
 value according to the speed of the CPU used). Starting with version 2.3.0, we
 changed the default value of the cost parameter from 14 to 10, in an effort to
@@ -47,7 +47,7 @@ salt, and then finally the hash.
 The example below demonstrates using the bcrypt algorithm to store a user’s password:
 
 ```php
-use Zend\Crypt\Password\Bcrypt;
+use Laminas\Crypt\Password\Bcrypt;
 
 $bcrypt = new Bcrypt();
 $securePass = $bcrypt->create('user password');
@@ -62,14 +62,14 @@ bytes).
 > The input string of the bcrypt algorithm is limited to 72 bytes. If you use a
 > string with a length more than this limit, bcrypt will consider only the first
 > 72 bytes. If you need to use a longer string, you should pre-hash it.
-> We provide the class `Zend\Crypt\Password\BcryptSha` for performing
+> We provide the class `Laminas\Crypt\Password\BcryptSha` for performing
 > password pre-hashing of hash input &gt; 72 bytes.
 
 To verify if a given password is valid against a bcrypt value you can use the
 `verify()` method. The example below demonstrates verification:
 
 ```php
-use Zend\Crypt\Password\Bcrypt;
+use Laminas\Crypt\Password\Bcrypt;
 
 $bcrypt = new Bcrypt();
 $securePass = 'the stored bcrypt value';
@@ -83,7 +83,7 @@ if ($bcrypt->verify($password, $securePass)) {
 ```
 
 Bcrypt also uses a salt value to improve the randomness of the algorithm.
-By default, `Zend\Crypt\Password\Bcrypt` generates a random salt for
+By default, `Laminas\Crypt\Password\Bcrypt` generates a random salt for
 each hash. If you want to specify a preselected salt you can use the `setSalt()`
 method.
 
@@ -92,7 +92,7 @@ The salt and the cost parameter can be also specified during the constructor of
 the class, as demonstrated below:
 
 ```php
-use Zend\Crypt\Password\Bcrypt;
+use Laminas\Crypt\Password\Bcrypt;
 
 $bcrypt = new Bcrypt([
     'salt' => 'random value',
@@ -110,7 +110,7 @@ $bcrypt = new Bcrypt([
 
 ## Apache
 
-`Zend\Crypt\Password\Apache` supports all the password formats used by
+`Laminas\Crypt\Password\Apache` supports all the password formats used by
 [Apache](http://httpd.apache.org/docs/2.2/misc/password_encryptions.html)
 (htpasswd). These formats include:
 
@@ -129,7 +129,7 @@ In order to specify the format of the Apache’s password, use the `setFormat()`
 method. An example with all the formats usage is demostrated below:
 
 ```php
-use Zend\Crypt\Password\Apache;
+use Laminas\Crypt\Password\Apache;
 
 $apache = new Apache();
 
@@ -151,7 +151,7 @@ printf ("Digest output: %s\n", $apache->create('password'));
 You can also specify the format of the password during the constructor of the class:
 
 ```php
-use Zend\Crypt\Password\Apache;
+use Laminas\Crypt\Password\Apache;
 
 $apache = new Apache([
     'format' => 'md5'

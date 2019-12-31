@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt;
+namespace LaminasTest\Crypt;
 
-use Zend\Crypt\Hybrid;
-use Zend\Crypt\BlockCipher;
-use Zend\Crypt\PublicKey\Rsa;
-use Zend\Crypt\PublicKey\RsaOptions;
+use Laminas\Crypt\BlockCipher;
+use Laminas\Crypt\Hybrid;
+use Laminas\Crypt\PublicKey\Rsa;
+use Laminas\Crypt\PublicKey\RsaOptions;
 
 class HybridTest extends \PHPUnit_Framework_TestCase
 {
@@ -132,7 +131,7 @@ class HybridTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Exception\RuntimeException
+     * @expectedException Laminas\Crypt\Exception\RuntimeException
      */
     public function testFailToDecryptWithOneKey()
     {
@@ -155,7 +154,7 @@ class HybridTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException Zend\Crypt\Exception\RuntimeException
+     * @expectedException Laminas\Crypt\Exception\RuntimeException
      */
     public function testFailToEncryptUsingPrivateKey()
     {

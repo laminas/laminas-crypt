@@ -1,10 +1,10 @@
 # Encrypt/decrypt using block ciphers
 
-`Zend\Crypt\BlockCipher` implements encrypt-then-authenticate mode using
+`Laminas\Crypt\BlockCipher` implements encrypt-then-authenticate mode using
 [HMAC](http://en.wikipedia.org/wiki/HMAC) to provide authentication.
 
 The symmetric cipher can be chosen with a specific adapter that implements
-`Zend\Crypt\Symmetric\SymmetricInterface`. We support the symmmetric encryption
+`Laminas\Crypt\Symmetric\SymmetricInterface`. We support the symmmetric encryption
 algorithms offered by [OpenSSL](http://php.net/manual/en/book.openssl.php) and
 [Mcrypt](http://php.net/manual/en/book.mcrypt.php) extensions.
 
@@ -25,12 +25,12 @@ hash function).
 > [considered deprecated](https://wiki.php.net/rfc/mcrypt-viking-funeral).
 > For these reasons, **we strongly suggest using only the Openssl adapter**.
 > 
-> Starting with zend-crypt 3.0, the Openssl adapter is the default (for example,
-> by `Zend\Crypt\FileCipher`), and all examples now only demonstrate that
+> Starting with laminas-crypt 3.0, the Openssl adapter is the default (for example,
+> by `Laminas\Crypt\FileCipher`), and all examples now only demonstrate that
 > adapter.
 
 ```php
-use Zend\Crypt\BlockCipher;
+use Laminas\Crypt\BlockCipher;
 
 $blockCipher = BlockCipher::factory('openssl', array('algo' => 'aes'));
 $blockCipher->setKey('encryption key');
@@ -51,7 +51,7 @@ is [CBC](http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Cipher-blo
 default), with the default HMAC hash algorithm of SHA256.  The Openssl adapter
 encrypts using the [PKCS\#7 padding](http://en.wikipedia.org/wiki/Padding_%28cryptography%29)
 mechanism by default. You can specify a different padding method using a special
-adapter (`Zend\Crypt\Symmetric\Padding`). The encryption and authentication keys
+adapter (`Laminas\Crypt\Symmetric\Padding`). The encryption and authentication keys
 used by `BlockCipher` are generated with the [PBKDF2](http://en.wikipedia.org/wiki/PBKDF2)
 algorithm, used as the key derivation function from the user's key specified
 using the `setKey()` method.
@@ -68,7 +68,7 @@ parameters. For instance, if you want to use the Blowfish algorithm, with the
 CFB mode and the HMAC SHA512 hash function, initialize the class as follows:
 
 ```php
-use Zend\Crypt\BlockCipher;
+use Laminas\Crypt\BlockCipher;
 
 $blockCipher = BlockCipher::factory(
     'openssl',
@@ -95,8 +95,8 @@ we can inject the symmetric cipher adapter directly via the constructor.
 For instance, we can rewrite the previous example as follows:
 
 ```php
-use Zend\Crypt\BlockCipher;
-use Zend\Crypt\Symmetric\Mcrypt;
+use Laminas\Crypt\BlockCipher;
+use Laminas\Crypt\Symmetric\Mcrypt;
 
 $blockCipher = new BlockCipher(new Mcrypt(['algo' => 'aes']));
 $blockCipher->setKey('encryption key');

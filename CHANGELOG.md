@@ -18,7 +18,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- **ZF2015-10**: `Zend\Crypt\PublicKey\Rsa\PublicKey` has a call to `openssl_public_encrypt()`
+- **ZF2015-10**: `Laminas\Crypt\PublicKey\Rsa\PublicKey` has a call to `openssl_public_encrypt()`
   which used PHP's default `$padding` argument, which specifies
   `OPENSSL_PKCS1_PADDING`, indicating usage of PKCS1v1.5 padding. This padding
   has a known vulnerability, the
@@ -29,16 +29,16 @@ All notable changes to this project will be documented in this file, in reverse 
   Users upgrading to this version may have issues decrypting previously stored
   values, due to the change in padding. If this occurs, you can pass the
   constant `OPENSSL_PKCS1_PADDING` to a new `$padding` argument in
-  `Zend\Crypt\PublicKey\Rsa::encrypt()` and `decrypt()` (though typically this
+  `Laminas\Crypt\PublicKey\Rsa::encrypt()` and `decrypt()` (though typically this
   should only apply to the latter):
 
   ```php
   $decrypted = $rsa->decrypt($data, $key, $mode, OPENSSL_PKCS1_PADDING);
   ```
 
-  where `$rsa` is an instance of `Zend\Crypt\PublicKey\Rsa`.
+  where `$rsa` is an instance of `Laminas\Crypt\PublicKey\Rsa`.
 
   (The `$key` and `$mode` argument defaults are `null` and
-  `Zend\Crypt\PublicKey\Rsa::MODE_AUTO`, if you were not using them previously.)
+  `Laminas\Crypt\PublicKey\Rsa::MODE_AUTO`, if you were not using them previously.)
 
   We recommend re-encrypting any such values using the new defaults.

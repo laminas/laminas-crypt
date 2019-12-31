@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Key\Derivation;
+namespace LaminasTest\Crypt\Key\Derivation;
 
-use Zend\Crypt\Key\Derivation\SaltedS2k;
+use Laminas\Crypt\Key\Derivation\SaltedS2k;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class SaltedS2kTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,8 +41,8 @@ class SaltedS2kTest extends \PHPUnit_Framework_TestCase
             return;
         }
         $this->setExpectedException(
-            'Zend\Crypt\Key\Derivation\Exception\InvalidArgumentException',
-            'The hash algorithm wrong is not supported by Zend\Crypt\Key\Derivation\SaltedS2k'
+            'Laminas\Crypt\Key\Derivation\Exception\InvalidArgumentException',
+            'The hash algorithm wrong is not supported by Laminas\Crypt\Key\Derivation\SaltedS2k'
         );
         $password = SaltedS2k::calc('wrong', 'test', $this->salt, 32);
     }
@@ -55,7 +54,7 @@ class SaltedS2kTest extends \PHPUnit_Framework_TestCase
             return;
         }
         $this->setExpectedException(
-            'Zend\Crypt\Key\Derivation\Exception\InvalidArgumentException',
+            'Laminas\Crypt\Key\Derivation\Exception\InvalidArgumentException',
             'The salt size must be at least of 8 bytes'
         );
         $password = SaltedS2k::calc('sha256', 'test', substr($this->salt, -1), 32);

@@ -1,6 +1,6 @@
 # Introduction
 
-zend-crypt provides support for several cryptographic tools, with the following
+laminas-crypt provides support for several cryptographic tools, with the following
 features:
 
 - encrypt-then-authenticate using symmetric ciphers (the authentication step is

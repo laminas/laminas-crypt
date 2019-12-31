@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\PublicKey;
+namespace LaminasTest\Crypt\PublicKey;
 
-use Zend\Crypt\PublicKey\Rsa;
-use Zend\Crypt\PublicKey\RsaOptions;
-use Zend\Crypt\PublicKey\Rsa\Exception;
+use Laminas\Crypt\PublicKey\Rsa;
+use Laminas\Crypt\PublicKey\Rsa\Exception;
+use Laminas\Crypt\PublicKey\RsaOptions;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class RsaTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,8 +52,8 @@ class RsaTest extends \PHPUnit_Framework_TestCase
             $openSslConf = $_ENV['OPENSSL_CONF'];
         } elseif (isset($_ENV['SSLEAY_CONF'])) {
             $openSslConf = $_ENV['SSLEAY_CONF'];
-        } elseif (getenv('TESTS_ZEND_CRYPT_OPENSSL_CONF')) {
-            $openSslConf = getenv('TESTS_ZEND_CRYPT_OPENSSL_CONF');
+        } elseif (getenv('TESTS_LAMINAS_CRYPT_OPENSSL_CONF')) {
+            $openSslConf = getenv('TESTS_LAMINAS_CRYPT_OPENSSL_CONF');
         }
         $this->openSslConf = $openSslConf;
 
@@ -138,8 +137,8 @@ CERT;
             'private_key'     => $this->testPemString,
             'openssl_padding' => OPENSSL_PKCS1_OAEP_PADDING
         ]);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa', $rsa);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\RsaOptions', $rsa->getOptions());
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa', $rsa);
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\RsaOptions', $rsa->getOptions());
     }
 
     public function testFactoryCreatesKeys()
@@ -148,8 +147,8 @@ CERT;
             'private_key'    => $this->testPemString,
             'public_key'     => $this->testCertificateString,
         ]);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
     }
 
     public function testFactoryCreatesKeysFromFiles()
@@ -157,8 +156,8 @@ CERT;
         $rsa = Rsa::factory([
             'private_key'    => $this->testPemFile,
         ]);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
     }
 
     public function testFactoryCreatesJustPublicKey()
@@ -166,14 +165,14 @@ CERT;
         $rsa = Rsa::factory([
             'public_key'     => $this->testCertificateString,
         ]);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
         $this->assertNull($rsa->getOptions()->getPrivateKey());
     }
 
     public function testConstructorCreatesInstanceWithDefaultOptions()
     {
         $rsa = new Rsa();
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa', $rsa);
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa', $rsa);
         $this->assertEquals('sha1', $rsa->getOptions()->getHashAlgorithm());
         $this->assertEquals(OPENSSL_ALGO_SHA1, $rsa->getOptions()->getOpensslSignatureAlgorithm());
         $this->assertTrue($rsa->getOptions()->getBinaryOutput());
@@ -182,22 +181,22 @@ CERT;
     public function testPrivateKeyInstanceCreation()
     {
         $privateKey = Rsa\PrivateKey::fromFile($this->testPemFile);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PrivateKey', $privateKey);
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $privateKey);
 
         $privateKey = new Rsa\PrivateKey($this->testPemString);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PrivateKey', $privateKey);
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $privateKey);
     }
 
     public function testPublicKeyInstanceCreation()
     {
         $publicKey = new Rsa\PublicKey($this->testPemStringPublic);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $publicKey);
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $publicKey);
 
         $publicKey = Rsa\PublicKey::fromFile($this->testCertificateFile);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $publicKey);
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $publicKey);
 
         $publicKey = new Rsa\PublicKey($this->testCertificateString);
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $publicKey);
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $publicKey);
     }
 
     public function testSignGeneratesExpectedBinarySignature()
@@ -361,8 +360,8 @@ CERT;
         $rsa = new Rsa();
         $rsa->getOptions()->generateKeys();
 
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
-        $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
+        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
     }
 
     public function testKeyGenerationWithUserOpensslConfig()
@@ -373,8 +372,8 @@ CERT;
             'private_key_bits' => 512,
         ]);
 
-        $this->assertInstanceOf('Zend\\Crypt\\PublicKey\\Rsa\\PrivateKey', $rsaOptions->getPrivateKey());
-        $this->assertInstanceOf('Zend\\Crypt\\PublicKey\\Rsa\\PublicKey', $rsaOptions->getPublicKey());
+        $this->assertInstanceOf('Laminas\\Crypt\\PublicKey\\Rsa\\PrivateKey', $rsaOptions->getPrivateKey());
+        $this->assertInstanceOf('Laminas\\Crypt\\PublicKey\\Rsa\\PublicKey', $rsaOptions->getPublicKey());
     }
 
     public function testKeyGenerationCreatesPassphrasedPrivateKey()
@@ -413,14 +412,14 @@ CERT;
         ]);
     }
 
-    public function testZf3492Base64DetectDecrypt()
+    public function testLaminas3492Base64DetectDecrypt()
     {
         $data = 'vNKINbWV6qUKGsmawN8ii0mak7PPNoVQPC7fwXJOgMNfCgdT+9W4PUte4fic6U4A6fMra4gv7NCTESxap2qpBQ==';
         $this->rsa->getOptions()->setOpensslPadding(OPENSSL_PKCS1_PADDING);
         $this->assertEquals('1234567890', $this->rsa->decrypt($data));
     }
 
-    public function testZf3492Base64DetectVerify()
+    public function testLaminas3492Base64DetectVerify()
     {
         $data = 'sMHpp3u6DNecIm5RIkDD3xyKaH6qqP8roUWDs215iOGHehfK1ypqwoETKNP7NaksGS2C1Up813ixlGXkipPVbQ==';
         $this->assertTrue($this->rsa->verify('1234567890', $data));
@@ -436,7 +435,7 @@ CERT;
     public function testDecryptCorruptBase64()
     {
         $data = 'vNKINbWV6qUKGsmawN8ii0mak7PPNoVQPC7fwXJOgMNfCgdT+9W4PUte4fic6U4A6fMra4gv7NCTESxap2qpBQ==';
-        $this->setExpectedException('Zend\Crypt\PublicKey\Rsa\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Crypt\PublicKey\Rsa\Exception\RuntimeException');
         $this->rsa->decrypt(base64_decode($data), null, Rsa::MODE_BASE64);
     }
 
@@ -450,7 +449,7 @@ CERT;
     public function testDecryptCorruptRaw()
     {
         $data = 'vNKINbWV6qUKGsmawN8ii0mak7PPNoVQPC7fwXJOgMNfCgdT+9W4PUte4fic6U4A6fMra4gv7NCTESxap2qpBQ==';
-        $this->setExpectedException('Zend\Crypt\PublicKey\Rsa\Exception\RuntimeException');
+        $this->setExpectedException('Laminas\Crypt\PublicKey\Rsa\Exception\RuntimeException');
         $this->rsa->decrypt($data, null, Rsa::MODE_RAW);
     }
 

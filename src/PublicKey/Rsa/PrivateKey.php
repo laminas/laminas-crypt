@@ -1,20 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Crypt
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt\PublicKey\Rsa;
+namespace Laminas\Crypt\PublicKey\Rsa;
 
 /**
  * RSA private key
  *
- * @category   Zend
- * @package    Zend_Crypt
+ * @category   Laminas
+ * @package    Laminas_Crypt
  * @subpackage PublicKey
  */
 class PrivateKey extends AbstractKey

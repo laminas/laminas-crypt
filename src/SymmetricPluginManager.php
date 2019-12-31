@@ -1,16 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Crypt
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt;
+namespace Laminas\Crypt;
 
-use Zend\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * Plugin manager implementation for the symmetric adapter instances.
@@ -19,8 +17,8 @@ use Zend\ServiceManager\AbstractPluginManager;
  * Symmetric\SymmetricInterface. Additionally, it registers a number of default
  * symmetric adapters available.
  *
- * @category   Zend
- * @package    Zend_Crypt
+ * @category   Laminas
+ * @package    Laminas_Crypt
  */
 class SymmetricPluginManager extends AbstractPluginManager
 {
@@ -30,7 +28,7 @@ class SymmetricPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $invokableClasses = array(
-        'mcrypt' => 'Zend\Crypt\Symmetric\Mcrypt',
+        'mcrypt' => 'Laminas\Crypt\Symmetric\Mcrypt',
     );
 
     /**

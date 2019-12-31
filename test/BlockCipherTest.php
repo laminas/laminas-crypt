@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt;
+namespace LaminasTest\Crypt;
 
-use Zend\Crypt\BlockCipher;
-use Zend\Crypt\Symmetric\Mcrypt;
-use Zend\Crypt\Symmetric\Exception;
+use Laminas\Crypt\BlockCipher;
+use Laminas\Crypt\Symmetric\Exception;
+use Laminas\Crypt\Symmetric\Mcrypt;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class BlockCipherTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,14 +49,14 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
     public function testFactory()
     {
         $this->blockCipher = BlockCipher::factory('mcrypt', ['algo' => 'blowfish']);
-        $this->assertInstanceOf('Zend\Crypt\Symmetric\Mcrypt', $this->blockCipher->getCipher());
+        $this->assertInstanceOf('Laminas\Crypt\Symmetric\Mcrypt', $this->blockCipher->getCipher());
         $this->assertEquals('blowfish', $this->blockCipher->getCipher()->getAlgorithm());
     }
 
     public function testFactoryEmptyOptions()
     {
         $this->blockCipher = BlockCipher::factory('mcrypt');
-        $this->assertInstanceOf('Zend\Crypt\Symmetric\Mcrypt', $this->blockCipher->getCipher());
+        $this->assertInstanceOf('Laminas\Crypt\Symmetric\Mcrypt', $this->blockCipher->getCipher());
     }
 
     public function testSetKey()
@@ -86,8 +85,8 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAlgorithmFail()
     {
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
-                                    'The algorithm unknown is not supported by Zend\Crypt\Symmetric\Mcrypt');
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
+                                    'The algorithm unknown is not supported by Laminas\Crypt\Symmetric\Mcrypt');
         $result = $this->blockCipher->setCipherAlgorithm('unknown');
     }
 
@@ -115,7 +114,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
     public function testEncryptWithoutData()
     {
         $plaintext = '';
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     'The data to encrypt cannot be empty');
         $ciphertext = $this->blockCipher->encrypt($plaintext);
     }
@@ -123,7 +122,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
     public function testEncryptErrorKey()
     {
         $plaintext = 'test';
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     'No key specified for the encryption');
         $ciphertext = $this->blockCipher->encrypt($plaintext);
     }

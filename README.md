@@ -19,5 +19,9 @@ Some of the available features are:
 The main scope of this component is to offer an easy and secure way to protect
 and authenticate sensitive data in PHP.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0b5d0ac... Rewriting as Laminas Project package
 - File issues at https://github.com/laminas/laminas-crypt/issues
 - Documentation is at https://docs.laminas.dev/laminas-crypt

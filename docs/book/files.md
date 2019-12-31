@@ -1,11 +1,11 @@
 # Encrypt and decrypt files
 
-`Zend\Crypt\FileCipher` implements file encryption and decryption using a
+`Laminas\Crypt\FileCipher` implements file encryption and decryption using a
 symmetric cipher in
 [CBC](http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Cipher-block_chaining_.28CBC.29)
 mode with the encrypt-then-authenticate approach, using
 [HMAC](http://en.wikipedia.org/wiki/HMAC) to provide authentication (the same
-solution used by `Zend\Crypt\BlockCipher` component).
+solution used by `Laminas\Crypt\BlockCipher` component).
 
 Encrypting and decrypting a file is not an easy task, especially with large
 files. For instance, in CBC mode you must be sure to handle the
@@ -13,14 +13,14 @@ files. For instance, in CBC mode you must be sure to handle the
 block. For large files, that means that you need to use a buffer and use the
 last block of the buffer as the new IV for the next encryption step.
 
-`FileCipher` uses a `Zend\Crypt\Symmetric` cipher to encrypt and decrypt a file.
-The default cipher is `Zend\Crypt\Symmetric\Openssl`.
+`FileCipher` uses a `Laminas\Crypt\Symmetric` cipher to encrypt and decrypt a file.
+The default cipher is `Laminas\Crypt\Symmetric\Openssl`.
 
 The usage of this component is very simple; create an instance of `FileCipher`,
 specify the key, and you are ready to encrypt/decrypt any file:
 
 ```php
-use Zend\Crypt\FileCipher;
+use Laminas\Crypt\FileCipher;
 
 $fileCipher = new FileCipher;
 $fileCipher->setKey('encryption key');

@@ -1,17 +1,15 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-crypt for the canonical source repository
- * @copyright Copyright (c) 2005-2018 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-crypt/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt\PublicKey;
+namespace Laminas\Crypt\PublicKey;
 
-use Zend\Crypt\Exception;
-use Zend\Math;
-
-use const OPENSSL_KEYTYPE_DH;
-use const PHP_VERSION_ID;
+use Laminas\Crypt\Exception;
+use Laminas\Math;
 
 use function function_exists;
 use function mb_strlen;
@@ -20,6 +18,9 @@ use function openssl_error_string;
 use function openssl_pkey_get_details;
 use function openssl_pkey_new;
 use function preg_match;
+
+use const OPENSSL_KEYTYPE_DH;
+use const PHP_VERSION_ID;
 
 /**
  * PHP implementation of the Diffie-Hellman public key encryption algorithm.
@@ -69,9 +70,9 @@ class DiffieHellman
     private $privateKey = null;
 
     /**
-     * BigInteger support object courtesy of Zend\Math
+     * BigInteger support object courtesy of Laminas\Math
      *
-     * @var \Zend\Math\BigInteger\Adapter\AdapterInterface
+     * @var \Laminas\Math\BigInteger\Adapter\AdapterInterface
      */
     private $math = null;
 
@@ -133,7 +134,7 @@ class DiffieHellman
      * one will be generated at this stage.
      *
      * @return DiffieHellman Provides a fluent interface
-     * @throws \Zend\Crypt\Exception\RuntimeException
+     * @throws \Laminas\Crypt\Exception\RuntimeException
      */
     public function generateKeys()
     {
@@ -186,7 +187,7 @@ class DiffieHellman
      * @param string $number
      * @param string $format
      * @return DiffieHellman Provides a fluent interface
-     * @throws \Zend\Crypt\Exception\InvalidArgumentException
+     * @throws \Laminas\Crypt\Exception\InvalidArgumentException
      */
     public function setPublicKey($number, $format = self::FORMAT_NUMBER)
     {
@@ -204,7 +205,7 @@ class DiffieHellman
      *
      * @param string $format
      * @return string
-     * @throws \Zend\Crypt\Exception\InvalidArgumentException
+     * @throws \Laminas\Crypt\Exception\InvalidArgumentException
      */
     public function getPublicKey($format = self::FORMAT_NUMBER)
     {
@@ -232,8 +233,8 @@ class DiffieHellman
      * @param string $publicKeyFormat
      * @param string $secretKeyFormat
      * @return string
-     * @throws \Zend\Crypt\Exception\InvalidArgumentException
-     * @throws \Zend\Crypt\Exception\RuntimeException
+     * @throws \Laminas\Crypt\Exception\InvalidArgumentException
+     * @throws \Laminas\Crypt\Exception\RuntimeException
      */
     public function computeSecretKey(
         $publicKey,
@@ -267,7 +268,7 @@ class DiffieHellman
      *
      * @param string $format
      * @return string
-     * @throws \Zend\Crypt\Exception\InvalidArgumentException
+     * @throws \Laminas\Crypt\Exception\InvalidArgumentException
      */
     public function getSharedSecretKey($format = self::FORMAT_NUMBER)
     {
@@ -285,7 +286,7 @@ class DiffieHellman
      *
      * @param string $number
      * @return DiffieHellman Provides a fluent interface
-     * @throws \Zend\Crypt\Exception\InvalidArgumentException
+     * @throws \Laminas\Crypt\Exception\InvalidArgumentException
      */
     public function setPrime($number)
     {
@@ -305,7 +306,7 @@ class DiffieHellman
      *
      * @param string $format
      * @return string
-     * @throws \Zend\Crypt\Exception\InvalidArgumentException
+     * @throws \Laminas\Crypt\Exception\InvalidArgumentException
      */
     public function getPrime($format = self::FORMAT_NUMBER)
     {
@@ -321,7 +322,7 @@ class DiffieHellman
      *
      * @param string $number
      * @return DiffieHellman Provides a fluent interface
-     * @throws \Zend\Crypt\Exception\InvalidArgumentException
+     * @throws \Laminas\Crypt\Exception\InvalidArgumentException
      */
     public function setGenerator($number)
     {
@@ -340,7 +341,7 @@ class DiffieHellman
      *
      * @param string $format
      * @return string
-     * @throws \Zend\Crypt\Exception\InvalidArgumentException
+     * @throws \Laminas\Crypt\Exception\InvalidArgumentException
      */
     public function getGenerator($format = self::FORMAT_NUMBER)
     {
@@ -357,7 +358,7 @@ class DiffieHellman
      * @param string $number
      * @param string $format
      * @return DiffieHellman Provides a fluent interface
-     * @throws \Zend\Crypt\Exception\InvalidArgumentException
+     * @throws \Laminas\Crypt\Exception\InvalidArgumentException
      */
     public function setPrivateKey($number, $format = self::FORMAT_NUMBER)
     {

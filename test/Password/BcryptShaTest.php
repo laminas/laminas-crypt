@@ -1,22 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Password;
+namespace LaminasTest\Crypt\Password;
 
 use ArrayObject;
+use Laminas\Crypt\Password\Bcrypt;
+use Laminas\Crypt\Password\BcryptSha;
+use Laminas\Crypt\Password\Exception;
 use PHPUnit\Framework\TestCase;
-use Zend\Crypt\Password\Bcrypt;
-use Zend\Crypt\Password\BcryptSha;
-use Zend\Crypt\Password\Exception;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class BcryptShaTest extends TestCase
 {
@@ -46,7 +45,7 @@ class BcryptShaTest extends TestCase
     }
 
     /**
-     * This test uses ArrayObject to simulate a Zend\Config\Config instance;
+     * This test uses ArrayObject to simulate a Laminas\Config\Config instance;
      * the class itself only tests for Traversable.
      */
     public function testConstructByConfig()

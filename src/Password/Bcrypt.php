@@ -1,28 +1,29 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-crypt for the canonical source repository
- * @copyright Copyright (c) 2005-2018 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-crypt/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Crypt\Password;
+namespace Laminas\Crypt\Password;
 
+use Laminas\Math\Rand;
+use Laminas\Stdlib\ArrayUtils;
 use Traversable;
-use Zend\Math\Rand;
-use Zend\Stdlib\ArrayUtils;
+
+use function is_array;
+use function mb_strlen;
+use function microtime;
+use function password_hash;
+use function password_verify;
+use function sprintf;
+use function strtolower;
+use function trigger_error;
 
 use const E_USER_DEPRECATED;
 use const PASSWORD_BCRYPT;
 use const PHP_VERSION_ID;
-
-use function is_array;
-use function password_hash;
-use function password_verify;
-use function mb_strlen;
-use function microtime;
-use function sprintf;
-use function strtolower;
-use function trigger_error;
 
 /**
  * Bcrypt algorithm using crypt() function of PHP

@@ -4,7 +4,7 @@ In cryptography, a key derivation function (or KDF) derives one or more secret
 keys from a secret value such as a master key, or known information &mdash; such
 as a password or passphrase &mdash; using a pseudo-random function. For
 instance, a KDF function can be used to generate encryption or authentication
-keys from a user password. `Zend\Crypt\Key\Derivation` implements a key
+keys from a user password. `Laminas\Crypt\Key\Derivation` implements a key
 derivation function using specific adapters.
 
 User passwords are not really suitable to be used as keys in cryptographic
@@ -33,8 +33,8 @@ stretching](http://en.wikipedia.org/wiki/Key_stretching).
 In the example below we demonstrate typical usage of the `Pbkdf2` adapter.
 
 ```php
-use Zend\Crypt\Key\Derivation\Pbkdf2;
-use Zend\Math\Rand;
+use Laminas\Crypt\Key\Derivation\Pbkdf2;
+use Laminas\Math\Rand;
 
 $pass = 'password';
 $salt = Rand::getBytes(32, true);
@@ -49,7 +49,7 @@ The `Pbkdf2` adapter takes the password (`$pass`) and generates a binary key of
 `$hash` is the name of the hash function to use, `$pass` is the password,
 `$salt` is a pseudo random value, `$iterations` is the number of iterations of
 the algorithm, and `$length` is the size of the key to be generated. We use the
-`Rand::getBytes()` function from the class `Zend\Math\Rand` to generate a random
+`Rand::getBytes()` function from the class `Laminas\Math\Rand` to generate a random
 string of 32 bytes for the salt, using a strong generator (the `true` value
 means the usage of a cryptographically strong generator).
 
@@ -71,8 +71,8 @@ The following demonstrates usage of the `SaltedS2k` adapter to generate a 32
 byte key.
 
 ```php
-use Zend\Crypt\Key\Derivation\SaltedS2k;
-use Zend\Math\Rand;
+use Laminas\Crypt\Key\Derivation\SaltedS2k;
+use Laminas\Math\Rand;
 
 $pass = 'password';
 $salt = Rand::getBytes(32, true);
@@ -119,8 +119,8 @@ This algorithm uses 4 parameters to generate a key of 32 bytes:
 Following is a usage example for the `Scrypt` adapter:
 
 ```php
-use Zend\Crypt\Key\Derivation\Scrypt;
-use Zend\Math\Rand;
+use Laminas\Crypt\Key\Derivation\Scrypt;
+use Laminas\Math\Rand;
 
 $pass = 'password';
 $salt = Rand::getBytes(32, true);

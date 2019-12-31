@@ -1,24 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Crypt
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt;
+namespace LaminasTest\Crypt;
 
-use Zend\Crypt\PublicKey\DiffieHellman;
-use Zend\Math\BigInteger;
-use Zend\Math\Exception\RuntimeException as MathException;
+use Laminas\Crypt\PublicKey\DiffieHellman;
+use Laminas\Math\BigInteger;
+use Laminas\Math\Exception\RuntimeException as MathException;
 
 /**
- * @category   Zend
- * @package    Zend_Crypt
+ * @category   Laminas
+ * @package    Laminas_Crypt
  * @subpackage UnitTests
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class DiffieHellmanTest extends \PHPUnit_Framework_TestCase
 {
@@ -88,7 +86,7 @@ class DiffieHellmanTest extends \PHPUnit_Framework_TestCase
         $alice->generateKeys();
         $bob->generateKeys();
 
-        //ANA5iVHvXa9NqQLVaBsix3Qvq3wVN5gwnpShj10QxR6H8ephXzdoHGQpqf2m+Hsw136SATmraVXW59n0zVBqOuA7ShNlhk7GQpfdEYKxlL/F1v+Fgz13hO4ObuylhwRvywhOfl7IpROT+fxiMqq/YLIrnU5pPh/4YmGZfUpmq/ZN
+        //ANA5iVHvXa9NqQLVaBsix3Qvq3wVN5gwnpShj10QxR6H8ephXzdoHGQpqf2m+Hsw136SATmraVXW59n0zVBqOuA7ShNlhk7GQpfdEYKxlL/F1v+Fgz13hO4ObuylhwRvywhOfl7IpROT+fxiMqq/YLIrnU5pPh/4YmGLaminasUpmq/ZN
         $this->assertEquals('0DmJUe9dr02pAtVoGyLHdC+rfBU3mDCelKGPXRDFHofx6mFfN2gcZCmp/ab4ezDXfpIBOatpVdbn2fTNUGo64DtKE2WGTsZCl90RgrGUv8XW/4WDPXeE7g5u7KWHBG/LCE5+XsilE5P5/GIyqr9gsiudTmk+H/hiYZl9Smar9k0=',
                             base64_encode($alice->getPublicKey(DiffieHellman::FORMAT_BINARY)));
 

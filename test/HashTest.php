@@ -1,16 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Crypt
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt;
+namespace LaminasTest\Crypt;
 
-use Zend\Crypt\Hash;
+use Laminas\Crypt\Hash;
 
 /**
  * Outside the Internal Function tests, tests do not distinguish between hash and mhash
@@ -18,39 +16,39 @@ use Zend\Crypt\Hash;
  */
 
 /**
- * @category   Zend
- * @package    Zend_Crypt
+ * @category   Laminas
+ * @package    Laminas_Crypt
  * @subpackage UnitTests
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class HashTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsSupportedAndCache()
     {
         Hash::clearLastAlgorithmCache();
-        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Zend\Crypt\Hash');
+        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
 
         $algorithm = 'sha512';
 
         // cache value must be exactly equal to the original input
         $this->assertTrue(Hash::isSupported($algorithm));
-        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Zend\Crypt\Hash');
-        $this->assertAttributeNotEquals('sHa512', 'lastAlgorithmSupported', 'Zend\Crypt\Hash');
+        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
+        $this->assertAttributeNotEquals('sHa512', 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
 
         // cache value must be exactly equal to the first input (cache hit)
         Hash::isSupported('sha512');
-        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Zend\Crypt\Hash');
+        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
 
         // cache changes with a new algorithm
         $this->assertTrue(Hash::isSupported('sha1'));
-        $this->assertAttributeEquals('sha1', 'lastAlgorithmSupported', 'Zend\Crypt\Hash');
+        $this->assertAttributeEquals('sha1', 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
 
         // cache don't change due wrong algorithm
         $this->assertFalse(Hash::isSupported('wrong'));
-        $this->assertAttributeEquals('sha1', 'lastAlgorithmSupported', 'Zend\Crypt\Hash');
+        $this->assertAttributeEquals('sha1', 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
 
         Hash::clearLastAlgorithmCache();
-        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Zend\Crypt\Hash');
+        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
     }
 
     // SHA1 tests taken from RFC 3174
@@ -125,14 +123,14 @@ class HashTest extends \PHPUnit_Framework_TestCase
     public function testNullHashAlgorithm()
     {
         Hash::clearLastAlgorithmCache();
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     'Hash algorithm provided is not supported on this PHP installation');
         Hash::compute(null, 'test');
     }
 
     public function testWrongHashAlgorithm()
     {
-        $this->setExpectedException('Zend\Crypt\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Exception\InvalidArgumentException',
                                     'Hash algorithm provided is not supported on this PHP installation');
         Hash::compute('wrong', 'test');
     }

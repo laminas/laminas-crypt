@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Password;
+namespace LaminasTest\Crypt\Password;
 
-use Zend\Crypt\Password\Bcrypt;
-use Zend\Config\Config;
-use Zend\Crypt\Password\Exception;
+use Laminas\Config\Config;
+use Laminas\Crypt\Password\Bcrypt;
+use Laminas\Crypt\Password\Exception;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class BcryptTest extends \PHPUnit_Framework_TestCase
 {
@@ -67,7 +66,7 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
 
     public function testWrongConstruct()
     {
-        $this->setExpectedException('Zend\Crypt\Password\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Password\Exception\InvalidArgumentException',
                                     'The options parameter must be an array or a Traversable');
         $bcrypt = new Bcrypt('test');
     }
@@ -80,7 +79,7 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
 
     public function testSetWrongCost()
     {
-        $this->setExpectedException('Zend\Crypt\Password\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Password\Exception\InvalidArgumentException',
                                     'The cost parameter of bcrypt must be in range 04-31');
         $this->bcrypt->setCost('3');
     }
@@ -93,7 +92,7 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
 
     public function testSetSmallSalt()
     {
-        $this->setExpectedException('Zend\Crypt\Password\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Password\Exception\InvalidArgumentException',
                                     'The length of the salt must be at least ' . Bcrypt::MIN_SALT_SIZE . ' bytes');
         $this->bcrypt->setSalt('small salt');
     }
@@ -124,7 +123,7 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
         if (!$test) {
             // We don't support new style hashes, test verify failure
             $hash = '$y2$14$MTIzNDU2Nzg5MDEyMzQ1NeWUUefVlefsTbFhsbqKFv/vPSZBrSFVm';
-            $this->setExpectedException('Zend\Crypt\Password\Exception\RuntimeException',
+            $this->setExpectedException('Laminas\Crypt\Password\Exception\RuntimeException',
                 'The supplied password hash could not be verified. Please check ' .
                 'backwards compatibility settings.'
             );
@@ -143,7 +142,7 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals('$2y$14$MTIzNDU2Nzg5MDEyMzQ1NexAbOIUHkG6Ra.TK9QxHOVUhDxOe4dkW',
                                 $this->bcrypt->create($password));
         } else {
-            $this->setExpectedException('Zend\Crypt\Password\Exception\RuntimeException',
+            $this->setExpectedException('Laminas\Crypt\Password\Exception\RuntimeException',
                 'The bcrypt implementation used by PHP can contain a security flaw ' .
                 'using password with 8-bit character. ' .
                 'We suggest to upgrade to PHP 5.3.7+ or use passwords with only 7-bit characters'

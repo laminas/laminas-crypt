@@ -4,7 +4,7 @@
          bootstrap="vendor/autoload.php"
          colors="true">
     <testsuites>
-        <testsuite name="zend-crypt Test Suite">
+        <testsuite name="laminas-crypt Test Suite">
             <directory>./test</directory>
         </testsuite>
     </testsuites>
@@ -17,11 +17,11 @@
 
     <php>
         <!-- Note: the following is a FULL list of ALL POSSIBLE constants
-             currently in use in ZF2 for ALL COMPONENTS; you should choose the
+             currently in use in Laminas for ALL COMPONENTS; you should choose the
              constants appropriate to the component you are migrating. -->
 
-        <!-- TESTS_ZEND_CRYPT_OPENSSL_CONF => location of an openssl.cnf file
+        <!-- TESTS_LAMINAS_CRYPT_OPENSSL_CONF => location of an openssl.cnf file
              for use with RSA encryption. -->
-        <env name="TESTS_ZEND_CRYPT_OPENSSL_CONF" value="false" />
+        <env name="TESTS_LAMINAS_CRYPT_OPENSSL_CONF" value="false" />
     </php>
 </phpunit>

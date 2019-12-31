@@ -1,16 +1,15 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt;
+namespace LaminasTest\Crypt;
 
+use Laminas\Crypt\Hmac;
 use PHPUnit\Framework\TestCase;
-use Zend\Crypt\Hmac;
 
 /**
  * Outside the Internal Function tests, tests do not distinguish between hash and mhash
@@ -18,36 +17,36 @@ use Zend\Crypt\Hmac;
  */
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class HmacTest extends TestCase
 {
     public function testIsSupportedAndCache()
     {
         Hmac::clearLastAlgorithmCache();
-        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Zend\Crypt\Hmac');
+        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
 
         $algorithm = 'sha512';
 
         // cache value must be exactly equal to the original input
         $this->assertTrue(Hmac::isSupported($algorithm));
-        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Zend\Crypt\Hmac');
-        $this->assertAttributeNotEquals('sHa512', 'lastAlgorithmSupported', 'Zend\Crypt\Hmac');
+        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
+        $this->assertAttributeNotEquals('sHa512', 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
 
         // cache value must be exactly equal to the first input (cache hit)
         Hmac::isSupported('sha512');
-        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Zend\Crypt\Hmac');
+        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
 
         // cache changes with a new algorithm
         $this->assertTrue(Hmac::isSupported('MD5'));
-        $this->assertAttributeEquals('MD5', 'lastAlgorithmSupported', 'Zend\Crypt\Hmac');
+        $this->assertAttributeEquals('MD5', 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
 
         // cache don't change due wrong algorithm
         $this->assertFalse(Hmac::isSupported('wrong'));
-        $this->assertAttributeEquals('MD5', 'lastAlgorithmSupported', 'Zend\Crypt\Hmac');
+        $this->assertAttributeEquals('MD5', 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
 
         Hmac::clearLastAlgorithmCache();
-        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Zend\Crypt\Hmac');
+        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
     }
 
     // MD5 tests taken from RFC 2202
@@ -141,21 +140,21 @@ class HmacTest extends TestCase
     public function testEmptyKey()
     {
         Hmac::clearLastAlgorithmCache();
-        $this->expectException('Zend\Crypt\Exception\InvalidArgumentException');
+        $this->expectException('Laminas\Crypt\Exception\InvalidArgumentException');
         $this->expectExceptionMessage('Provided key is null or empty');
         Hmac::compute(null, 'md5', 'test');
     }
 
     public function testNullHashAlgorithm()
     {
-        $this->expectException('Zend\Crypt\Exception\InvalidArgumentException');
+        $this->expectException('Laminas\Crypt\Exception\InvalidArgumentException');
         $this->expectExceptionMessage('Hash algorithm is not supported on this PHP installation');
         Hmac::compute('key', null, 'test');
     }
 
     public function testWrongHashAlgorithm()
     {
-        $this->expectException('Zend\Crypt\Exception\InvalidArgumentException');
+        $this->expectException('Laminas\Crypt\Exception\InvalidArgumentException');
         $this->expectExceptionMessage('Hash algorithm is not supported on this PHP installation');
         Hmac::compute('key', 'wrong', 'test');
     }

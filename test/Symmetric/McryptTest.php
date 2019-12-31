@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-crypt for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-crypt/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Crypt\Symmetric;
+namespace LaminasTest\Crypt\Symmetric;
 
-use Zend\Crypt\Symmetric\Exception;
-use Zend\Crypt\Symmetric\Mcrypt;
-use Zend\Crypt\Symmetric\Padding\PKCS7;
-use Zend\Config\Config;
+use Laminas\Config\Config;
+use Laminas\Crypt\Symmetric\Exception;
+use Laminas\Crypt\Symmetric\Mcrypt;
+use Laminas\Crypt\Symmetric\Padding\PKCS7;
 
 /**
- * @group      Zend_Crypt
+ * @group      Laminas_Crypt
  */
 class McryptTest extends \PHPUnit_Framework_TestCase
 {
@@ -79,8 +78,8 @@ class McryptTest extends \PHPUnit_Framework_TestCase
     public function testConstructWrongParam()
     {
         $options = 'test';
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
-                                    'The options parameter must be an array, a Zend\Config\Config object or a Traversable');
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
+                                    'The options parameter must be an array, a Laminas\Config\Config object or a Traversable');
         $mcrypt = new Mcrypt($options);
     }
 
@@ -92,21 +91,21 @@ class McryptTest extends \PHPUnit_Framework_TestCase
 
     public function testSetWrongAlgorithm()
     {
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
-                                    'The algorithm test is not supported by Zend\Crypt\Symmetric\Mcrypt');
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
+                                    'The algorithm test is not supported by Laminas\Crypt\Symmetric\Mcrypt');
         $this->mcrypt->setAlgorithm('test');
     }
 
     public function testSetKey()
     {
         $result = $this->mcrypt->setKey($this->key);
-        $this->assertInstanceOf('Zend\Crypt\Symmetric\Mcrypt', $result);
+        $this->assertInstanceOf('Laminas\Crypt\Symmetric\Mcrypt', $result);
         $this->assertEquals($result, $this->mcrypt);
     }
 
     public function testSetEmptyKey()
     {
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
                                     'The key cannot be empty');
         $result = $this->mcrypt->setKey('');
     }
@@ -121,10 +120,10 @@ class McryptTest extends \PHPUnit_Framework_TestCase
                 $result = $ex;
             }
             if ($algo != 'blowfish') {
-                $this->assertInstanceOf('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
+                $this->assertInstanceOf('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
                     $result);
             } else {
-                $this->assertInstanceof('Zend\Crypt\Symmetric\Mcrypt', $result);
+                $this->assertInstanceof('Laminas\Crypt\Symmetric\Mcrypt', $result);
             }
         }
     }
@@ -138,7 +137,7 @@ class McryptTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Zend\Crypt\Symmetric\Exception\InvalidArgumentException
+     * @expectedException Laminas\Crypt\Symmetric\Exception\InvalidArgumentException
      */
     public function testShortSalt()
     {
@@ -153,8 +152,8 @@ class McryptTest extends \PHPUnit_Framework_TestCase
 
     public function testSetWrongMode()
     {
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
-                                    'The mode xxx is not supported by Zend\Crypt\Symmetric\Mcrypt');
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
+                                    'The mode xxx is not supported by Laminas\Crypt\Symmetric\Mcrypt');
         $this->mcrypt->setMode('xxx');
     }
 
@@ -178,13 +177,13 @@ class McryptTest extends \PHPUnit_Framework_TestCase
 
     public function testEncryptWithoutKey()
     {
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException');
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException');
         $ciphertext = $this->mcrypt->encrypt('test');
     }
 
     public function testEncryptEmptyData()
     {
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
                                     'The data to encrypt cannot be empty');
         $ciphertext = $this->mcrypt->encrypt('');
     }
@@ -192,21 +191,21 @@ class McryptTest extends \PHPUnit_Framework_TestCase
     public function testEncryptWihoutSalt()
     {
         $this->mcrypt->setKey($this->key);
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
                                     'The salt (IV) cannot be empty');
         $ciphertext = $this->mcrypt->encrypt($this->plaintext);
     }
 
     public function testDecryptEmptyData()
     {
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException',
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException',
                                     'The data to decrypt cannot be empty');
         $ciphertext = $this->mcrypt->decrypt('');
     }
 
     public function testDecryptWithoutKey()
     {
-        $this->setExpectedException('Zend\Crypt\Symmetric\Exception\InvalidArgumentException');
+        $this->setExpectedException('Laminas\Crypt\Symmetric\Exception\InvalidArgumentException');
         $this->mcrypt->decrypt($this->plaintext);
     }
 }

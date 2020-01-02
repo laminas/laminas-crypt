@@ -1,9 +1,15 @@
 docs_dir: docs/book
 site_dir: docs/html
 nav:
-    - { Home: index.md }
-    - { Introduction: intro.md }
-    - { Reference: [{ 'Block Ciphers': block-cipher.md }, { 'Encrypting Files': files.md }, { 'Hybrid Cryptosystem': hybrid.md }, { 'Key Derivation': key-derivation.md }, { Password: password.md }, { 'Public Key Cryptography': public-key.md }] }
+    - Home: index.md
+    - Introduction: intro.md
+    - Reference:
+      - 'Block Ciphers': block-cipher.md
+      - 'Encrypting Files': files.md
+      - 'Hybrid Cryptosystem': hybrid.md
+      - 'Key Derivation': key-derivation.md
+      - Password: password.md
+      - 'Public Key Cryptography': public-key.md
 site_name: laminas-crypt
 site_description: 'Strong cryptography tools and password hashing.'
 repo_url: 'https://github.com/laminas/laminas-crypt'

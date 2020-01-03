@@ -13,3 +13,6 @@ nav:
 site_name: laminas-crypt
 site_description: 'Strong cryptography tools and password hashing.'
 repo_url: 'https://github.com/laminas/laminas-crypt'
+extra:
+    project: Components
+    project_url: 'https://docs.laminas.dev'

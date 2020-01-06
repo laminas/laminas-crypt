@@ -1,6 +1,6 @@
 # laminas-crypt
 
-[![Build Status](https://travis-ci.org/laminas/laminas-crypt.svg?branch=master)](https://travis-ci.org/laminas/laminas-crypt)
+[![Build Status](https://travis-ci.com/laminas/laminas-crypt.svg?branch=master)](https://travis-ci.com/laminas/laminas-crypt)
 [![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-crypt/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-crypt?branch=master)
 
 `Laminas\Crypt` provides support of some cryptographic tools.

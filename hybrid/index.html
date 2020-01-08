@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -278,49 +282,47 @@ using a hybrid cryptosystem, she needs to:</p>
 <h2 id="example-of-usage">Example of Usage</h2>
 <p>In order to use the <code>Laminas\Crypt\Hybrid</code> component, you need to have a keyring of
 public and private keys. To encrypt a message, use the following code:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Hybrid;</span>
-<span class=x>use Laminas\Crypt\PublicKey\RsaOptions;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\Hybrid;
+use Laminas\Crypt\PublicKey\RsaOptions;
 
-<span class=x>// Generate public and private key</span>
-<span class=x>$rsaOptions = new RsaOptions([</span>
-<span class=x>    &#39;pass_phrase&#39; =&gt; &#39;test&#39;</span>
-<span class=x>]);</span>
-<span class=x>$rsaOptions-&gt;generateKeys([</span>
-<span class=x>    &#39;private_key_bits&#39; =&gt; 4096</span>
-<span class=x>]);</span>
-<span class=x>$publicKey  = $rsaOptions-&gt;getPublicKey();</span>
-<span class=x>$privateKey = $rsaOptions-&gt;getPrivateKey();</span>
+// Generate public and private key
+$rsaOptions = new RsaOptions([
+    'pass_phrase' =&gt; 'test'
+]);
+$rsaOptions-&gt;generateKeys([
+    'private_key_bits' =&gt; 4096
+]);
+$publicKey  = $rsaOptions-&gt;getPublicKey();
+$privateKey = $rsaOptions-&gt;getPrivateKey();
 
-<span class=x>$hybrid     = new Hybrid();</span>
-<span class=x>$ciphertext = $hybrid-&gt;encrypt(&#39;message&#39;, $publicKey);</span>
-<span class=x>$plaintext  = $hybrid-&gt;decrypt($ciphertext, $privateKey);</span>
+$hybrid     = new Hybrid();
+$ciphertext = $hybrid-&gt;encrypt('message', $publicKey);
+$plaintext  = $hybrid-&gt;decrypt($ciphertext, $privateKey);
 
-<span class=x>printf($plaintext === &#39;message&#39; ? &quot;Success\n&quot; : &quot;Error\n&quot;);</span>
-</pre></div></p>
+printf($plaintext === 'message' ? &quot;Success\n&quot; : &quot;Error\n&quot;);</code></pre>
 <p>We generated the keys using the <a href="../public-key/">Laminas\Crypt\PublicKey\RsaOptions</a>
 component. You can also use a <a href="https://en.wikipedia.org/wiki/Privacy-enhanced_Electronic_Mail">PEM</a>
 string for the keys. If you use a string for the private key, you need to pass
 the pass phrase to use when decrypting, if present, like in the following example:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Hybrid;</span>
-<span class=x>use Laminas\Crypt\PublicKey\RsaOptions;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\Hybrid;
+use Laminas\Crypt\PublicKey\RsaOptions;
 
-<span class=x>// Generate public and private key</span>
-<span class=x>$rsaOptions = new RsaOptions([</span>
-<span class=x>    &#39;pass_phrase&#39; =&gt; &#39;test&#39;</span>
-<span class=x>]);</span>
-<span class=x>$rsaOptions-&gt;generateKeys([</span>
-<span class=x>    &#39;private_key_bits&#39; =&gt; 4096</span>
-<span class=x>]);</span>
-<span class=x>// Strings in PEM format</span>
-<span class=x>$publicKey  = $rsaOptions-&gt;getPublicKey()-&gt;toString();</span>
-<span class=x>$privateKey = $rsaOptions-&gt;getPrivateKey()-&gt;toString();</span>
+// Generate public and private key
+$rsaOptions = new RsaOptions([
+    'pass_phrase' =&gt; 'test'
+]);
+$rsaOptions-&gt;generateKeys([
+    'private_key_bits' =&gt; 4096
+]);
+// Strings in PEM format
+$publicKey  = $rsaOptions-&gt;getPublicKey()-&gt;toString();
+$privateKey = $rsaOptions-&gt;getPrivateKey()-&gt;toString();
 
-<span class=x>$hybrid     = new Hybrid();</span>
-<span class=x>$ciphertext = $hybrid-&gt;encrypt(&#39;message&#39;, $publicKey);</span>
-<span class=x>$plaintext  = $hybrid-&gt;decrypt($ciphertext, $privateKey, &#39;test&#39;); // pass-phrase</span>
+$hybrid     = new Hybrid();
+$ciphertext = $hybrid-&gt;encrypt('message', $publicKey);
+$plaintext  = $hybrid-&gt;decrypt($ciphertext, $privateKey, 'test'); // pass-phrase
 
-<span class=x>printf($plaintext === &#39;message&#39; ? &quot;Success\n&quot; : &quot;Error\n&quot;);</span>
-</pre></div></p>
+printf($plaintext === 'message' ? &quot;Success\n&quot; : &quot;Error\n&quot;);</code></pre>
 <p>The <code>Hybrid</code> component uses <code>Laminas\Crypt\BlockCipher</code> for the symmetric
 cipher and <code>Laminas\Crypt\Rsa</code> for the public-key cipher.</p>
 <h2 id="encrypt-with-multiple-keys">Encrypt with multiple Keys</h2>
@@ -330,29 +332,28 @@ specified using an array of <code>[ 'id' =&gt; 'publickey' ]</code>, where <code
 a string (PEM) or an instance of <code>Laminas\Crypt\PublicKey\Rsa\PublicKey</code>. The <code>id</code>
 can be any string, for example, a receipient email address.</p>
 <p>The following details encryption using a keyring with 4 keys:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Hybrid;</span>
-<span class=x>use Laminas\Crypt\PublicKey\RsaOptions;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\Hybrid;
+use Laminas\Crypt\PublicKey\RsaOptions;
 
-<span class=x>$publicKeys  = [];</span>
-<span class=x>$privateKeys = [];</span>
-<span class=x>for ($id = 0; $id &lt; 4; $id++) {</span>
-<span class=x>    $rsaOptions = new RsaOptions([</span>
-<span class=x>        &#39;pass_phrase&#39; =&gt; &quot;test-$id&quot;</span>
-<span class=x>    ]);</span>
-<span class=x>    $rsaOptions-&gt;generateKeys([</span>
-<span class=x>        &#39;private_key_bits&#39; =&gt; 4096</span>
-<span class=x>    ]);</span>
-<span class=x>    $publicKeys[$id]  = $rsaOptions-&gt;getPublicKey();</span>
-<span class=x>    $privateKeys[$id] = $rsaOptions-&gt;getPrivateKey();</span>
-<span class=x>}</span>
+$publicKeys  = [];
+$privateKeys = [];
+for ($id = 0; $id &lt; 4; $id++) {
+    $rsaOptions = new RsaOptions([
+        'pass_phrase' =&gt; &quot;test-$id&quot;
+    ]);
+    $rsaOptions-&gt;generateKeys([
+        'private_key_bits' =&gt; 4096
+    ]);
+    $publicKeys[$id]  = $rsaOptions-&gt;getPublicKey();
+    $privateKeys[$id] = $rsaOptions-&gt;getPrivateKey();
+}
 
-<span class=x>$hybrid    = new Hybrid();</span>
-<span class=x>$encrypted = $hybrid-&gt;encrypt(&#39;message&#39;, $publicKeys);</span>
-<span class=x>for ($id = 0; $id &lt; 4; $id++) {</span>
-<span class=x>    $plaintext = $hybrid-&gt;decrypt($encrypted, $privateKeys[$id], null, $id);</span>
-<span class=x>    printf($plaintext === &#39;message&#39; ? &quot;Success on %d\n&quot; : &quot;Error on %d\n&quot;, $id);</span>
-<span class=x>}</span>
-</pre></div></p>
+$hybrid    = new Hybrid();
+$encrypted = $hybrid-&gt;encrypt('message', $publicKeys);
+for ($id = 0; $id &lt; 4; $id++) {
+    $plaintext = $hybrid-&gt;decrypt($encrypted, $privateKeys[$id], null, $id);
+    printf($plaintext === 'message' ? &quot;Success on %d\n&quot; : &quot;Error on %d\n&quot;, $id);
+}</code></pre>
 
 
 
@@ -504,9 +505,10 @@ can be any string, for example, a receipient email address.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -543,7 +545,7 @@ can be any string, for example, a receipient email address.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-crypt//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -552,8 +554,8 @@ can be any string, for example, a receipient email address.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-crypt//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-crypt/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

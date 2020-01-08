@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -283,11 +287,10 @@ authentication. All of the parts needed to verify the hash are present in the
 hash itself,, separated with <code>$</code>’s; first the algorithm, then the cost, the
 salt, and then finally the hash.</p>
 <p>The example below demonstrates using the bcrypt algorithm to store a user’s password:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Password\Bcrypt;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Bcrypt;
 
-<span class=x>$bcrypt = new Bcrypt();</span>
-<span class=x>$securePass = $bcrypt-&gt;create(&#39;user password&#39;);</span>
-</pre></div></p>
+$bcrypt = new Bcrypt();
+$securePass = $bcrypt-&gt;create('user password');</code></pre>
 <p>The output of the <code>create()</code> method is the hash of the password. This value can
 then be stored in a repository like a database (the output is a string of 60
 bytes).</p>
@@ -301,18 +304,17 @@ password pre-hashing of hash input &gt; 72 bytes.</p>
 </blockquote>
 <p>To verify if a given password is valid against a bcrypt value you can use the
 <code>verify()</code> method. The example below demonstrates verification:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Password\Bcrypt;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Bcrypt;
 
-<span class=x>$bcrypt = new Bcrypt();</span>
-<span class=x>$securePass = &#39;the stored bcrypt value&#39;;</span>
-<span class=x>$password = &#39;the password to check&#39;;</span>
+$bcrypt = new Bcrypt();
+$securePass = 'the stored bcrypt value';
+$password = 'the password to check';
 
-<span class=x>if ($bcrypt-&gt;verify($password, $securePass)) {</span>
-<span class=x>    echo &quot;The password is correct! \n&quot;;</span>
-<span class=x>} else {</span>
-<span class=x>    echo &quot;The password is NOT correct.\n&quot;;</span>
-<span class=x>}</span>
-</pre></div></p>
+if ($bcrypt-&gt;verify($password, $securePass)) {
+    echo &quot;The password is correct! \n&quot;;
+} else {
+    echo &quot;The password is NOT correct.\n&quot;;
+}</code></pre>
 <p>Bcrypt also uses a salt value to improve the randomness of the algorithm.
 By default, <code>Laminas\Crypt\Password\Bcrypt</code> generates a random salt for
 each hash. If you want to specify a preselected salt you can use the <code>setSalt()</code>
@@ -320,13 +322,12 @@ method.</p>
 <p>We also provide a <code>getSalt()</code> method to retrieve the salt specified by the user.
 The salt and the cost parameter can be also specified during the constructor of
 the class, as demonstrated below:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Password\Bcrypt;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Bcrypt;
 
-<span class=x>$bcrypt = new Bcrypt([</span>
-<span class=x>    &#39;salt&#39; =&gt; &#39;random value&#39;,</span>
-<span class=x>    &#39;cost&#39; =&gt; 11</span>
-<span class=x>]);</span>
-</pre></div></p>
+$bcrypt = new Bcrypt([
+    'salt' =&gt; 'random value',
+    'cost' =&gt; 11
+]);</code></pre>
 <blockquote>
 <h3>Version 3.0</h3>
 <p>Starting with version 3.0, we now use the <a href="http://php.net/password_hash">password_hash()</a>
@@ -353,31 +354,29 @@ releases can still be validated under version 3.</p>
 </ul>
 <p>In order to specify the format of the Apache’s password, use the <code>setFormat()</code>
 method. An example with all the formats usage is demonstrated below:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Password\Apache;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Apache;
 
-<span class=x>$apache = new Apache();</span>
+$apache = new Apache();
 
-<span class=x>$apache-&gt;setFormat(&#39;crypt&#39;);</span>
-<span class=x>printf (&quot;CRYPT output: %s\n&quot;, $apache-&gt;create(&#39;password&#39;));</span>
+$apache-&gt;setFormat('crypt');
+printf (&quot;CRYPT output: %s\n&quot;, $apache-&gt;create('password'));
 
-<span class=x>$apache-&gt;setFormat(&#39;sha1&#39;);</span>
-<span class=x>printf (&quot;SHA1 output: %s\n&quot;, $apache-&gt;create(&#39;password&#39;));</span>
+$apache-&gt;setFormat('sha1');
+printf (&quot;SHA1 output: %s\n&quot;, $apache-&gt;create('password'));
 
-<span class=x>$apache-&gt;setFormat(&#39;md5&#39;);</span>
-<span class=x>printf (&quot;MD5 output: %s\n&quot;, $apache-&gt;create(&#39;password&#39;));</span>
+$apache-&gt;setFormat('md5');
+printf (&quot;MD5 output: %s\n&quot;, $apache-&gt;create('password'));
 
-<span class=x>$apache-&gt;setFormat(&#39;digest&#39;);</span>
-<span class=x>$apache-&gt;setUserName(&#39;enrico&#39;);</span>
-<span class=x>$apache-&gt;setAuthName(&#39;test&#39;);</span>
-<span class=x>printf (&quot;Digest output: %s\n&quot;, $apache-&gt;create(&#39;password&#39;));</span>
-</pre></div></p>
+$apache-&gt;setFormat('digest');
+$apache-&gt;setUserName('enrico');
+$apache-&gt;setAuthName('test');
+printf (&quot;Digest output: %s\n&quot;, $apache-&gt;create('password'));</code></pre>
 <p>You can also specify the format of the password during the constructor of the class:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\Password\Apache;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Apache;
 
-<span class=x>$apache = new Apache([</span>
-<span class=x>    &#39;format&#39; =&gt; &#39;md5&#39;</span>
-<span class=x>]);</span>
-</pre></div></p>
+$apache = new Apache([
+    'format' =&gt; 'md5'
+]);</code></pre>
 <p>Other possible parameters to pass in the constructor are <code>username</code> and <code>authname</code>,
 for the digest format.</p>
 
@@ -531,9 +530,10 @@ for the digest format.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -570,7 +570,7 @@ for the digest format.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-crypt//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -579,8 +579,8 @@ for the digest format.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-crypt//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-crypt/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

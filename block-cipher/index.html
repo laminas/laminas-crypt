@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -264,13 +268,12 @@ For these reasons, <strong>we strongly suggest using only the Openssl adapter</s
 by <code>Laminas\Crypt\FileCipher</code>), and all examples now only demonstrate that
 adapter.</p>
 </blockquote>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\BlockCipher;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
 
-<span class=x>$blockCipher = BlockCipher::factory(&#39;openssl&#39;, array(&#39;algo&#39; =&gt; &#39;aes&#39;));</span>
-<span class=x>$blockCipher-&gt;setKey(&#39;encryption key&#39;);</span>
-<span class=x>$result = $blockCipher-&gt;encrypt(&#39;this is a secret message&#39;);</span>
-<span class=x>echo &quot;Encrypted text: $result\n&quot;;</span>
-</pre></div></p>
+$blockCipher = BlockCipher::factory('openssl', array('algo' =&gt; 'aes'));
+$blockCipher-&gt;setKey('encryption key');
+$result = $blockCipher-&gt;encrypt('this is a secret message');
+echo &quot;Encrypted text: $result\n&quot;;</code></pre>
 <p>The <code>BlockCipher</code> instance is initialized using a factory method with the name
 of the cipher adapter to use (e.g., <code>openssl</code>) and the parameters to pass to the adapter
 (the AES algorithm). In order to encrypt a string, we need to specify an
@@ -297,17 +300,16 @@ uses 448 bits.</p>
 <p>You can change all the default settings by passing the values to the factory
 parameters. For instance, if you want to use the Blowfish algorithm, with the
 CFB mode and the HMAC SHA512 hash function, initialize the class as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\BlockCipher;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
 
-<span class=x>$blockCipher = BlockCipher::factory(</span>
-<span class=x>    &#39;openssl&#39;,</span>
-<span class=x>    [</span>
-<span class=x>        &#39;algo&#39; =&gt; &#39;blowfish&#39;,</span>
-<span class=x>        &#39;mode&#39; =&gt; &#39;cfb&#39;,</span>
-<span class=x>        &#39;hash&#39; =&gt; &#39;sha512&#39;</span>
-<span class=x>    ]</span>
-<span class=x>);</span>
-</pre></div></p>
+$blockCipher = BlockCipher::factory(
+    'openssl',
+    [
+        'algo' =&gt; 'blowfish',
+        'mode' =&gt; 'cfb',
+        'hash' =&gt; 'sha512'
+    ]
+);</code></pre>
 <blockquote>
 <h3>Recommendation</h3>
 <p>If you are not familiar with symmetric encryption techniques, we strongly
@@ -320,14 +322,13 @@ used during encryption.</p>
 <p>We can also initialize the <code>BlockCipher</code> manually without using the factory method;
 we can inject the symmetric cipher adapter directly via the constructor.
 For instance, we can rewrite the previous example as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\BlockCipher;</span>
-<span class=x>use Laminas\Crypt\Symmetric\Openssl;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
+use Laminas\Crypt\Symmetric\Openssl;
 
-<span class=x>$blockCipher = new BlockCipher(new Openssl([&#39;algo&#39; =&gt; &#39;aes&#39;]));</span>
-<span class=x>$blockCipher-&gt;setKey(&#39;encryption key&#39;);</span>
-<span class=x>$result = $blockCipher-&gt;encrypt(&#39;this is a secret message&#39;);</span>
-<span class=x>echo &quot;Encrypted text: $result \n&quot;;</span>
-</pre></div></p>
+$blockCipher = new BlockCipher(new Openssl(['algo' =&gt; 'aes']));
+$blockCipher-&gt;setKey('encryption key');
+$result = $blockCipher-&gt;encrypt('this is a secret message');
+echo &quot;Encrypted text: $result \n&quot;;</code></pre>
 <h2 id="using-gcm-or-ccm-mode-from-php-71">Using GCM or CCM Mode from PHP 7.1+</h2>
 <p>If you are using PHP 7.1+ you can choose the GCM or CCM mode for authenticated
 encryption with OpenSSL. These modes provide authenticated encryption by itself,
@@ -339,27 +340,25 @@ read <a href="http://www.zimuel.it/authenticated-encrypt-with-openssl-and-php-7-
 <p>If you want to use the GCM or CCM mode with <code>BlockCipher</code> you can just specify
 the mode in the factory. For instance, the following is an example of
 <code>aes-256-gcm</code> encryption with OpenSSL:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\BlockCipher;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
 
-<span class=x>$blockCipher = BlockCipher::factory(</span>
-<span class=x>    &#39;openssl&#39;,</span>
-<span class=x>    [</span>
-<span class=x>        &#39;algo&#39; =&gt; &#39;aes&#39;,</span>
-<span class=x>        &#39;mode&#39; =&gt; &#39;gcm&#39;</span>
-<span class=x>    ]</span>
-<span class=x>);</span>
-</pre></div></p>
+$blockCipher = BlockCipher::factory(
+    'openssl',
+    [
+        'algo' =&gt; 'aes',
+        'mode' =&gt; 'gcm'
+    ]
+);</code></pre>
 <p>And below is an example demonstrating the factory for <code>aes-256-ccm</code> algorithm:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Crypt\BlockCipher;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
 
-<span class=x>$blockCipher = BlockCipher::factory(</span>
-<span class=x>    &#39;openssl&#39;,</span>
-<span class=x>    [</span>
-<span class=x>        &#39;algo&#39; =&gt; &#39;aes&#39;,</span>
-<span class=x>        &#39;mode&#39; =&gt; &#39;ccm&#39;</span>
-<span class=x>    ]</span>
-<span class=x>);</span>
-</pre></div></p>
+$blockCipher = BlockCipher::factory(
+    'openssl',
+    [
+        'algo' =&gt; 'aes',
+        'mode' =&gt; 'ccm'
+    ]
+);</code></pre>
 <blockquote>
 <h3>Recommendation</h3>
 <p><strong>GCM mode is about 3x faster than CCM</strong>, we recommend using GCM unless
@@ -516,9 +515,10 @@ you have requirements that dictate CCM.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -555,7 +555,7 @@ you have requirements that dictate CCM.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-crypt//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-crypt/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -564,8 +564,8 @@ you have requirements that dictate CCM.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-crypt//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-crypt/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

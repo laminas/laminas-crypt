@@ -8,8 +8,8 @@
 
 namespace Laminas\Crypt;
 
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\NotFoundException;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Laminas\Crypt\Key\Derivation\Pbkdf2;
 use Laminas\Crypt\Symmetric\SymmetricInterface;
 use Laminas\Math\Rand;
@@ -110,7 +110,7 @@ class BlockCipher
         $plugins = static::getSymmetricPluginManager();
         try {
             $cipher = $plugins->get($adapter);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundExceptionInterface $e) {
             throw new Exception\RuntimeException(sprintf(
                 'The symmetric adapter %s does not exist',
                 $adapter
@@ -154,7 +154,7 @@ class BlockCipher
         }
         if (! $plugins instanceof ContainerInterface) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'Symmetric plugin must implements Interop\Container\ContainerInterface;; received "%s"',
+                'Symmetric plugin must implement Psr\Container\ContainerInterface; received "%s"',
                 is_object($plugins) ? get_class($plugins) : gettype($plugins)
             ));
         }

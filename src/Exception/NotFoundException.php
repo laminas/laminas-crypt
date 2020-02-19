@@ -8,11 +8,11 @@
 
 namespace Laminas\Crypt\Exception;
 
-use Interop\Container\Exception\NotFoundException as InteropNotFoundException;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * Runtime argument exception
  */
-class NotFoundException extends \DomainException implements InteropNotFoundException
+class NotFoundException extends \DomainException implements NotFoundExceptionInterface
 {
 }

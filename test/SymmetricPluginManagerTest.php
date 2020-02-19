@@ -8,7 +8,7 @@
 
 namespace LaminasTest\Crypt;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Crypt\Exception as CryptException;
 use Laminas\Crypt\Symmetric\Exception;
 use Laminas\Crypt\Symmetric\SymmetricInterface;

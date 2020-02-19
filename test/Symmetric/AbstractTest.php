@@ -9,7 +9,7 @@
 namespace LaminasTest\Crypt\Symmetric;
 
 use ArrayObject;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Crypt\Symmetric\Exception;
 use Laminas\Crypt\Symmetric\Padding\NoPadding;
 use Laminas\Crypt\Symmetric\Padding\PKCS7;

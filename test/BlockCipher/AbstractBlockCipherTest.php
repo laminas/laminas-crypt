@@ -8,7 +8,7 @@
 
 namespace LaminasTest\Crypt\BlockCipher;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Crypt\BlockCipher;
 use Laminas\Crypt\Exception;
 use Laminas\Crypt\Symmetric;

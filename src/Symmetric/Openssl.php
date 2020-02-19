@@ -8,7 +8,7 @@
 
 namespace Laminas\Crypt\Symmetric;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 
@@ -84,7 +84,7 @@ class Openssl implements SymmetricInterface
     /**
      * Padding plugins
      *
-     * @var Interop\Container\ContainerInterface
+     * @var Psr\Container\ContainerInterface
      */
     protected static $paddingPlugins = null;
 

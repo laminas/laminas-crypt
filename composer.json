@@ -63,6 +63,6 @@
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
     "replace": {
-        "zendframework/zend-crypt": "self.version"
+        "zendframework/zend-crypt": "^3.3.1"
     }
 }

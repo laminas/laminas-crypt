@@ -327,12 +327,13 @@ For these reasons, <strong>we strongly suggest using only the Openssl adapter</s
 by <code>Laminas\Crypt\FileCipher</code>), and all examples now only demonstrate that
 adapter.</p>
 </blockquote>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\BlockCipher;
 
 $blockCipher = BlockCipher::factory('openssl', array('algo' =&gt; 'aes'));
 $blockCipher-&gt;setKey('encryption key');
 $result = $blockCipher-&gt;encrypt('this is a secret message');
-echo &quot;Encrypted text: $result\n&quot;;</code></pre>
+echo "Encrypted text: $result\n";</code></pre>
+
 <p>The <code>BlockCipher</code> instance is initialized using a factory method with the name
 of the cipher adapter to use (e.g., <code>openssl</code>) and the parameters to pass to the adapter
 (the AES algorithm). In order to encrypt a string, we need to specify an
@@ -359,7 +360,7 @@ uses 448 bits.</p>
 <p>You can change all the default settings by passing the values to the factory
 parameters. For instance, if you want to use the Blowfish algorithm, with the
 CFB mode and the HMAC SHA512 hash function, initialize the class as follows:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\BlockCipher;
 
 $blockCipher = BlockCipher::factory(
     'openssl',
@@ -369,6 +370,7 @@ $blockCipher = BlockCipher::factory(
         'hash' =&gt; 'sha512'
     ]
 );</code></pre>
+
 <blockquote>
 <h3>Recommendation</h3>
 <p>If you are not familiar with symmetric encryption techniques, we strongly
@@ -381,13 +383,14 @@ used during encryption.</p>
 <p>We can also initialize the <code>BlockCipher</code> manually without using the factory method;
 we can inject the symmetric cipher adapter directly via the constructor.
 For instance, we can rewrite the previous example as follows:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\BlockCipher;
 use Laminas\Crypt\Symmetric\Openssl;
 
 $blockCipher = new BlockCipher(new Openssl(['algo' =&gt; 'aes']));
 $blockCipher-&gt;setKey('encryption key');
 $result = $blockCipher-&gt;encrypt('this is a secret message');
-echo &quot;Encrypted text: $result \n&quot;;</code></pre>
+echo "Encrypted text: $result \n";</code></pre>
+
 <h2 id="using-gcm-or-ccm-mode-from-php-71">Using GCM or CCM Mode from PHP 7.1+</h2>
 <p>If you are using PHP 7.1+ you can choose the GCM or CCM mode for authenticated
 encryption with OpenSSL. These modes provide authenticated encryption by itself,
@@ -399,7 +402,7 @@ read <a href="http://www.zimuel.it/authenticated-encrypt-with-openssl-and-php-7-
 <p>If you want to use the GCM or CCM mode with <code>BlockCipher</code> you can just specify
 the mode in the factory. For instance, the following is an example of
 <code>aes-256-gcm</code> encryption with OpenSSL:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\BlockCipher;
 
 $blockCipher = BlockCipher::factory(
     'openssl',
@@ -408,8 +411,9 @@ $blockCipher = BlockCipher::factory(
         'mode' =&gt; 'gcm'
     ]
 );</code></pre>
+
 <p>And below is an example demonstrating the factory for <code>aes-256-ccm</code> algorithm:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\BlockCipher;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\BlockCipher;
 
 $blockCipher = BlockCipher::factory(
     'openssl',
@@ -418,6 +422,7 @@ $blockCipher = BlockCipher::factory(
         'mode' =&gt; 'ccm'
     ]
 );</code></pre>
+
 <blockquote>
 <h3>Recommendation</h3>
 <p><strong>GCM mode is about 3x faster than CCM</strong>, we recommend using GCM unless

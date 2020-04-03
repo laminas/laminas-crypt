@@ -341,7 +341,7 @@ using a hybrid cryptosystem, she needs to:</p>
 <h2 id="example-of-usage">Example of Usage</h2>
 <p>In order to use the <code>Laminas\Crypt\Hybrid</code> component, you need to have a keyring of
 public and private keys. To encrypt a message, use the following code:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\Hybrid;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\Hybrid;
 use Laminas\Crypt\PublicKey\RsaOptions;
 
 // Generate public and private key
@@ -358,12 +358,13 @@ $hybrid     = new Hybrid();
 $ciphertext = $hybrid-&gt;encrypt('message', $publicKey);
 $plaintext  = $hybrid-&gt;decrypt($ciphertext, $privateKey);
 
-printf($plaintext === 'message' ? &quot;Success\n&quot; : &quot;Error\n&quot;);</code></pre>
+printf($plaintext === 'message' ? "Success\n" : "Error\n");</code></pre>
+
 <p>We generated the keys using the <a href="../public-key/">Laminas\Crypt\PublicKey\RsaOptions</a>
 component. You can also use a <a href="https://en.wikipedia.org/wiki/Privacy-enhanced_Electronic_Mail">PEM</a>
 string for the keys. If you use a string for the private key, you need to pass
 the pass phrase to use when decrypting, if present, like in the following example:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\Hybrid;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\Hybrid;
 use Laminas\Crypt\PublicKey\RsaOptions;
 
 // Generate public and private key
@@ -381,7 +382,8 @@ $hybrid     = new Hybrid();
 $ciphertext = $hybrid-&gt;encrypt('message', $publicKey);
 $plaintext  = $hybrid-&gt;decrypt($ciphertext, $privateKey, 'test'); // pass-phrase
 
-printf($plaintext === 'message' ? &quot;Success\n&quot; : &quot;Error\n&quot;);</code></pre>
+printf($plaintext === 'message' ? "Success\n" : "Error\n");</code></pre>
+
 <p>The <code>Hybrid</code> component uses <code>Laminas\Crypt\BlockCipher</code> for the symmetric
 cipher and <code>Laminas\Crypt\Rsa</code> for the public-key cipher.</p>
 <h2 id="encrypt-with-multiple-keys">Encrypt with multiple Keys</h2>
@@ -391,14 +393,14 @@ specified using an array of <code>[ 'id' =&gt; 'publickey' ]</code>, where <code
 a string (PEM) or an instance of <code>Laminas\Crypt\PublicKey\Rsa\PublicKey</code>. The <code>id</code>
 can be any string, for example, a receipient email address.</p>
 <p>The following details encryption using a keyring with 4 keys:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\Hybrid;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\Hybrid;
 use Laminas\Crypt\PublicKey\RsaOptions;
 
 $publicKeys  = [];
 $privateKeys = [];
 for ($id = 0; $id &lt; 4; $id++) {
     $rsaOptions = new RsaOptions([
-        'pass_phrase' =&gt; &quot;test-$id&quot;
+        'pass_phrase' =&gt; "test-$id"
     ]);
     $rsaOptions-&gt;generateKeys([
         'private_key_bits' =&gt; 4096
@@ -411,7 +413,7 @@ $hybrid    = new Hybrid();
 $encrypted = $hybrid-&gt;encrypt('message', $publicKeys);
 for ($id = 0; $id &lt; 4; $id++) {
     $plaintext = $hybrid-&gt;decrypt($encrypted, $privateKeys[$id], null, $id);
-    printf($plaintext === 'message' ? &quot;Success on %d\n&quot; : &quot;Error on %d\n&quot;, $id);
+    printf($plaintext === 'message' ? "Success on %d\n" : "Error on %d\n", $id);
 }</code></pre>
 
 

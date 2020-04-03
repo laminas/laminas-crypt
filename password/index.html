@@ -346,10 +346,11 @@ authentication. All of the parts needed to verify the hash are present in the
 hash itself,, separated with <code>$</code>’s; first the algorithm, then the cost, the
 salt, and then finally the hash.</p>
 <p>The example below demonstrates using the bcrypt algorithm to store a user’s password:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Bcrypt;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\Password\Bcrypt;
 
 $bcrypt = new Bcrypt();
 $securePass = $bcrypt-&gt;create('user password');</code></pre>
+
 <p>The output of the <code>create()</code> method is the hash of the password. This value can
 then be stored in a repository like a database (the output is a string of 60
 bytes).</p>
@@ -363,17 +364,18 @@ password pre-hashing of hash input &gt; 72 bytes.</p>
 </blockquote>
 <p>To verify if a given password is valid against a bcrypt value you can use the
 <code>verify()</code> method. The example below demonstrates verification:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Bcrypt;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\Password\Bcrypt;
 
 $bcrypt = new Bcrypt();
 $securePass = 'the stored bcrypt value';
 $password = 'the password to check';
 
 if ($bcrypt-&gt;verify($password, $securePass)) {
-    echo &quot;The password is correct! \n&quot;;
+    echo "The password is correct! \n";
 } else {
-    echo &quot;The password is NOT correct.\n&quot;;
+    echo "The password is NOT correct.\n";
 }</code></pre>
+
 <p>Bcrypt also uses a salt value to improve the randomness of the algorithm.
 By default, <code>Laminas\Crypt\Password\Bcrypt</code> generates a random salt for
 each hash. If you want to specify a preselected salt you can use the <code>setSalt()</code>
@@ -381,12 +383,13 @@ method.</p>
 <p>We also provide a <code>getSalt()</code> method to retrieve the salt specified by the user.
 The salt and the cost parameter can be also specified during the constructor of
 the class, as demonstrated below:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Bcrypt;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\Password\Bcrypt;
 
 $bcrypt = new Bcrypt([
     'salt' =&gt; 'random value',
     'cost' =&gt; 11
 ]);</code></pre>
+
 <blockquote>
 <h3>Version 3.0</h3>
 <p>Starting with version 3.0, we now use the <a href="http://php.net/password_hash">password_hash()</a>
@@ -413,29 +416,31 @@ releases can still be validated under version 3.</p>
 </ul>
 <p>In order to specify the format of the Apache’s password, use the <code>setFormat()</code>
 method. An example with all the formats usage is demonstrated below:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Apache;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\Password\Apache;
 
 $apache = new Apache();
 
 $apache-&gt;setFormat('crypt');
-printf (&quot;CRYPT output: %s\n&quot;, $apache-&gt;create('password'));
+printf ("CRYPT output: %s\n", $apache-&gt;create('password'));
 
 $apache-&gt;setFormat('sha1');
-printf (&quot;SHA1 output: %s\n&quot;, $apache-&gt;create('password'));
+printf ("SHA1 output: %s\n", $apache-&gt;create('password'));
 
 $apache-&gt;setFormat('md5');
-printf (&quot;MD5 output: %s\n&quot;, $apache-&gt;create('password'));
+printf ("MD5 output: %s\n", $apache-&gt;create('password'));
 
 $apache-&gt;setFormat('digest');
 $apache-&gt;setUserName('enrico');
 $apache-&gt;setAuthName('test');
-printf (&quot;Digest output: %s\n&quot;, $apache-&gt;create('password'));</code></pre>
+printf ("Digest output: %s\n", $apache-&gt;create('password'));</code></pre>
+
 <p>You can also specify the format of the password during the constructor of the class:</p>
-<pre class=codehilite><code class=language-php>use Laminas\Crypt\Password\Apache;
+<pre class="highlight"><code class="language-php">use Laminas\Crypt\Password\Apache;
 
 $apache = new Apache([
     'format' =&gt; 'md5'
 ]);</code></pre>
+
 <p>Other possible parameters to pass in the constructor are <code>username</code> and <code>authname</code>,
 for the digest format.</p>
 

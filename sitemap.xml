@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://docs.laminas.dev/laminas-crypt/</loc>
-     <lastmod>2020-04-27</lastmod>
+     <lastmod>2020-05-27</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-crypt/intro/</loc>
-     <lastmod>2020-04-27</lastmod>
+     <lastmod>2020-05-27</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-crypt/block-cipher/</loc>
-     <lastmod>2020-04-27</lastmod>
+     <lastmod>2020-05-27</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-crypt/files/</loc>
-     <lastmod>2020-04-27</lastmod>
+     <lastmod>2020-05-27</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-crypt/hybrid/</loc>
-     <lastmod>2020-04-27</lastmod>
+     <lastmod>2020-05-27</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-crypt/key-derivation/</loc>
-     <lastmod>2020-04-27</lastmod>
+     <lastmod>2020-05-27</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-crypt/password/</loc>
-     <lastmod>2020-04-27</lastmod>
+     <lastmod>2020-05-27</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://docs.laminas.dev/laminas-crypt/public-key/</loc>
-     <lastmod>2020-04-27</lastmod>
+     <lastmod>2020-05-27</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

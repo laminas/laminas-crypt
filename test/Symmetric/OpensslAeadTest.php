@@ -26,7 +26,7 @@ class OpensslAeadTest extends TestCase
      */
     private $crypt;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->crypt = new Openssl();
 

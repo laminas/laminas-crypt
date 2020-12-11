@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class OpensslAeadTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $openssl = new Openssl();
         if (! $openssl->isAuthEncAvailable()) {

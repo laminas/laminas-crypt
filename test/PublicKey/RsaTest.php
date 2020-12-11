@@ -46,7 +46,7 @@ class RsaTest extends TestCase
     /** @var Rsa */
     protected $rsaBase64Out;
 
-    public function setUp()
+    public function setUp(): void
     {
         $openSslConf = false;
         if (isset($_ENV['OPENSSL_CONF'])) {
@@ -379,6 +379,8 @@ CERT;
 
     public function testKeyGenerationCreatesPassphrasedPrivateKey()
     {
+        $this->expectException(Exception\RuntimeException::class);
+
         $rsaOptions  = new RsaOptions([
             'pass_phrase' => '0987654321'
         ]);
@@ -387,18 +389,16 @@ CERT;
             'private_key_bits' => 512,
         ]);
 
-        try {
-            $rsa = Rsa::factory([
-                'pass_phrase' => '1234567890',
-                'private_key' => $rsaOptions->getPrivateKey()->toString()
-            ]);
-            $this->fail('Expected passphrase mismatch exception not thrown');
-        } catch (Exception\RuntimeException $e) {
-        }
+        $rsa = Rsa::factory([
+            'pass_phrase' => '1234567890',
+            'private_key' => $rsaOptions->getPrivateKey()->toString()
+        ]);
     }
 
     public function testRsaLoadsPassphrasedKeys()
     {
+        $this->expectNotToPerformAssertions();
+
         $rsaOptions  = new RsaOptions([
             'pass_phrase' => '0987654321'
         ]);

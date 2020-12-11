@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  */
 class DiffieHellmanTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         try {
             BigInteger\BigInteger::factory();
@@ -236,6 +236,8 @@ class DiffieHellmanTest extends TestCase
 
     public function testInitMathBeforeAnyConversion()
     {
+        $this->expectNotToPerformAssertions();
+
         // try different format of private key
         new DiffieHellman('563', '5', '9', DiffieHellman::FORMAT_NUMBER);
         new DiffieHellman('563', '5', hex2bin('09'), DiffieHellman::FORMAT_BINARY);

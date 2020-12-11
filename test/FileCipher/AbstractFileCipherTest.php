@@ -35,12 +35,12 @@ abstract class AbstractFileCipherTest extends TestCase
      */
     protected $fileOut;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->assertInstanceOf(FileCipher::class, $this->fileCipher);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         if (file_exists($this->fileIn)) {
             unlink($this->fileIn);
@@ -93,7 +93,7 @@ abstract class AbstractFileCipherTest extends TestCase
 
     public function testGetCipherSupportedAlgorithms()
     {
-        $this->assertInternalType('array', $this->fileCipher->getCipherSupportedAlgorithms());
+        $this->assertIsArray($this->fileCipher->getCipherSupportedAlgorithms());
     }
 
     public function testSetHashAlgorithm()
@@ -177,7 +177,7 @@ abstract class AbstractFileCipherTest extends TestCase
         file_put_contents($this->fileOut, $ciphertext);
 
         $this->assertFalse($this->fileCipher->decrypt($this->fileOut, $fileOut2, false));
-        $this->assertFileNotExists($fileOut2);
+        $this->assertFileDoesNotExist($fileOut2);
     }
 
     public function testEncryptFileWithNoKey()

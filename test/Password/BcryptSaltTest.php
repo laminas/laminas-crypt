@@ -27,7 +27,7 @@ class BcryptSaltTest extends TestCase
     /** @var string */
     public $password;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (PHP_VERSION_ID >= 70000) {
             $this->markTestSkipped(

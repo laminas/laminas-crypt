@@ -20,7 +20,7 @@ class Pkcs7Test extends TestCase
     /** @var integer */
     public $end;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->padding = new Pkcs7();
         $this->start   = 1;

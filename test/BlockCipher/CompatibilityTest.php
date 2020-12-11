@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class CompatibilityTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (PHP_VERSION_ID >= 70100) {
             $this->markTestSkipped('The Mcrypt tests are deprecated for PHP 7.1+');

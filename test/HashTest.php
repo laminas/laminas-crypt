@@ -10,6 +10,7 @@ namespace LaminasTest\Crypt;
 
 use Laminas\Crypt\Hash;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * Outside the Internal Function tests, tests do not distinguish between hash and mhash
@@ -23,30 +24,34 @@ class HashTest extends TestCase
 {
     public function testIsSupportedAndCache()
     {
+        $reflectionClass = new ReflectionClass(Hash::class);
+        $lastAlgorithmSupportedProperty = $reflectionClass->getProperty('lastAlgorithmSupported');
+        $lastAlgorithmSupportedProperty->setAccessible(true);
+
         Hash::clearLastAlgorithmCache();
-        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
+        $this->assertEquals(null, $lastAlgorithmSupportedProperty->getValue());
 
         $algorithm = 'sha512';
 
         // cache value must be exactly equal to the original input
         $this->assertTrue(Hash::isSupported($algorithm));
-        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
-        $this->assertAttributeNotEquals('sHa512', 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
+        $this->assertEquals($algorithm, $lastAlgorithmSupportedProperty->getValue());
+        $this->assertNotEquals('sHa512', $lastAlgorithmSupportedProperty->getValue());
 
         // cache value must be exactly equal to the first input (cache hit)
         Hash::isSupported('sha512');
-        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
+        $this->assertEquals($algorithm, $lastAlgorithmSupportedProperty->getValue());
 
         // cache changes with a new algorithm
         $this->assertTrue(Hash::isSupported('sha1'));
-        $this->assertAttributeEquals('sha1', 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
+        $this->assertEquals('sha1', $lastAlgorithmSupportedProperty->getValue());
 
         // cache don't change due wrong algorithm
         $this->assertFalse(Hash::isSupported('wrong'));
-        $this->assertAttributeEquals('sha1', 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
+        $this->assertEquals('sha1', $lastAlgorithmSupportedProperty->getValue());
 
         Hash::clearLastAlgorithmCache();
-        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Laminas\Crypt\Hash');
+        $this->assertEquals(null, $lastAlgorithmSupportedProperty->getValue());
     }
 
     // SHA1 tests taken from RFC 3174

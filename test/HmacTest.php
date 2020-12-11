@@ -10,6 +10,7 @@ namespace LaminasTest\Crypt;
 
 use Laminas\Crypt\Hmac;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * Outside the Internal Function tests, tests do not distinguish between hash and mhash
@@ -23,30 +24,34 @@ class HmacTest extends TestCase
 {
     public function testIsSupportedAndCache()
     {
+        $reflectionClass = new ReflectionClass(Hmac::class);
+        $lastAlgorithmSupportedProperty = $reflectionClass->getProperty('lastAlgorithmSupported');
+        $lastAlgorithmSupportedProperty->setAccessible(true);
+
         Hmac::clearLastAlgorithmCache();
-        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
+        $this->assertEquals(null, $lastAlgorithmSupportedProperty->getValue());
 
         $algorithm = 'sha512';
 
         // cache value must be exactly equal to the original input
         $this->assertTrue(Hmac::isSupported($algorithm));
-        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
-        $this->assertAttributeNotEquals('sHa512', 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
+        $this->assertEquals($algorithm, $lastAlgorithmSupportedProperty->getValue());
+        $this->assertNotEquals('sHa512', $lastAlgorithmSupportedProperty->getValue());
 
         // cache value must be exactly equal to the first input (cache hit)
         Hmac::isSupported('sha512');
-        $this->assertAttributeEquals($algorithm, 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
+        $this->assertEquals($algorithm, $lastAlgorithmSupportedProperty->getValue());
 
         // cache changes with a new algorithm
         $this->assertTrue(Hmac::isSupported('MD5'));
-        $this->assertAttributeEquals('MD5', 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
+        $this->assertEquals('MD5', $lastAlgorithmSupportedProperty->getValue());
 
         // cache don't change due wrong algorithm
         $this->assertFalse(Hmac::isSupported('wrong'));
-        $this->assertAttributeEquals('MD5', 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
+        $this->assertEquals('MD5', $lastAlgorithmSupportedProperty->getValue());
 
         Hmac::clearLastAlgorithmCache();
-        $this->assertAttributeEquals(null, 'lastAlgorithmSupported', 'Laminas\Crypt\Hmac');
+        $this->assertEquals(null, $lastAlgorithmSupportedProperty->getValue());
     }
 
     // MD5 tests taken from RFC 2202

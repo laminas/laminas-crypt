@@ -19,7 +19,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^5.6 || ^7.0",
+        "php": "^7.3 || ~8.0.0",
         "ext-mbstring": "*",
         "container-interop/container-interop": "^1.2",
         "laminas/laminas-math": "^3.0",
@@ -28,7 +28,7 @@
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
-        "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2"
+        "phpunit/phpunit": "^9.3"
     },
     "suggest": {
         "ext-openssl": "Required for most features of Laminas\\Crypt"

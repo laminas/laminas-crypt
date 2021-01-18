@@ -190,11 +190,11 @@ class OpensslAeadTest extends TestCase
         $this->crypt->setMode('ccm');
         $this->crypt->setKey(random_bytes($this->crypt->getKeySize()));
         $this->crypt->setSalt(random_bytes($this->crypt->getSaltSize()));
-        $this->crypt->setTagSize(24);
+        $this->crypt->setTagSize(14);
 
         $plaintext = Rand::getBytes(1024);
         $encrypt = $this->crypt->encrypt($plaintext);
-        $this->assertEquals(24, $this->crypt->getTagSize());
+        $this->assertEquals(14, $this->crypt->getTagSize());
         $this->assertEquals($this->crypt->getTagSize(), mb_strlen($this->crypt->getTag(), '8bit'));
     }
 

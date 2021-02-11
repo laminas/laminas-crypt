@@ -1,7 +1,6 @@
 # laminas-crypt
 
-[![Build Status](https://travis-ci.com/laminas/laminas-crypt.svg?branch=master)](https://travis-ci.com/laminas/laminas-crypt)
-[![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-crypt/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-crypt?branch=master)
+[![Build Status](https://github.com/laminas/laminas-crypt/workflows/Continuous%20Integration/badge.svg)](https://github.com/laminas/laminas-crypt/actions?query=workflow%3A"Continuous+Integration")
 
 `Laminas\Crypt` provides support of some cryptographic tools.
 Some of the available features are:
@@ -19,7 +18,6 @@ Some of the available features are:
 
 The main scope of this component is to offer an easy and secure way to protect
 and authenticate sensitive data in PHP.
-
 
 - File issues at https://github.com/laminas/laminas-crypt/issues
 - Documentation is at https://docs.laminas.dev/laminas-crypt

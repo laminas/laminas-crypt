@@ -105,7 +105,9 @@ abstract class AbstractFileCipherTest extends TestCase
     public function testSetWrongHashAlgorithm()
     {
         $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash');
+        $this->expectExceptionMessage(
+            'The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash'
+        );
         $this->fileCipher->setHashAlgorithm('unknown');
     }
 
@@ -118,7 +120,9 @@ abstract class AbstractFileCipherTest extends TestCase
     public function testSetWrongPbkdf2HashAlgorithm()
     {
         $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash');
+        $this->expectExceptionMessage(
+            'The specified hash algorithm \'unknown\' is not supported by Laminas\Crypt\Hash'
+        );
         $this->fileCipher->setPbkdf2HashAlgorithm('unknown');
     }
 

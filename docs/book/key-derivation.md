@@ -94,6 +94,7 @@ secure against hardware brute-force attacks than alternative functions such as
 The scrypt algorithm is based on the idea of memory-hard algorithms and
 sequential memory-hard functions. A memory-hard algorithm is an algorithm which
 asymptotically uses almost as many memory locations as it uses
+<!-- markdownlint-disable-next-line no-inline-html -->
 operations<sup>[1](#footnotes)</sup>. A natural way to reduce the advantage
 provided by an attacker’s ability to construct highly parallel circuits is to
 increase the size of a single key derivation circuit — if a circuit is twice as
@@ -107,7 +108,7 @@ including a powerful CPU and large amounts of RAM.
 > bcrypt (to find the same password), and 20000 times greater than a similar
 > attack against Pbkdf2."
 >
-> *&mdash; *Colin Percival* (author of the scrypt algorithm)*
+> *&mdash; **Colin Percival** (author of the scrypt algorithm)*
 
 This algorithm uses 4 parameters to generate a key of 32 bytes:
 
@@ -145,4 +146,5 @@ printf ("Derived key (hex): %s\n", bin2hex($key));
 
 ## Footnotes
 
+<!-- markdownlint-disable-next-line no-inline-html -->
 - <sup>1</sup> See Colin Percival's [slides on scrypt from BSDCan'09](http://www.tarsnap.com/scrypt/scrypt-slides.pdf).

@@ -14,7 +14,7 @@ encrypt-then-authenticate a string using the
 and the HMAC algorithm (using the [SHA-256](http://en.wikipedia.org/wiki/SHA-2)
 hash function).
 
-
+<!-- markdownlint-disable-next-line header-increment -->
 > ### Mcrypt
 >
 > The Mcrypt extension is based on the libmcrypt library. Unfortunately, at the

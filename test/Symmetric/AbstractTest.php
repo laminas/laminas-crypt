@@ -46,7 +46,7 @@ abstract class AbstractTest extends TestCase
      */
     protected $default_padding;
 
-    public function setUp()
+    public function setUp(): void
     {
         try {
             $this->crypt = new $this->adapterClass;

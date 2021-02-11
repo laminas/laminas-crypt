@@ -18,7 +18,7 @@ class NoPaddingTest extends TestCase
      */
     protected $padding;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->padding = new NoPadding();
     }

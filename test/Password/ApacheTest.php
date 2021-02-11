@@ -21,7 +21,7 @@ class ApacheTest extends TestCase
     /** @var Apache */
     public $apache;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->apache = new Apache();
     }

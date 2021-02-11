@@ -27,7 +27,7 @@ class BcryptTest extends TestCase
     /** @var string */
     public $password;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->bcrypt   = new Bcrypt();
         $this->password = 'test';
@@ -103,7 +103,7 @@ class BcryptTest extends TestCase
      */
     public function testSetSaltError()
     {
-        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectError();
         $this->bcrypt->setSalt('test');
     }
 
@@ -112,14 +112,14 @@ class BcryptTest extends TestCase
      */
     public function testGetSaltError()
     {
-        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectError();
         $this->bcrypt->getSalt();
     }
 
     public function testBenchmarkCost()
     {
         $cost = $this->bcrypt->benchmarkCost();
-        $this->assertInternalType('int', $cost);
+        $this->assertIsInt($cost);
         $this->assertTrue($cost > 8 && $cost < 32);
     }
 }

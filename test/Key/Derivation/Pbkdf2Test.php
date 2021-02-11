@@ -17,7 +17,7 @@ class Pbkdf2Test extends TestCase
     /** @var string */
     public $salt;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->salt = '12345678901234567890123456789012';
     }

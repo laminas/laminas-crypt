@@ -19,7 +19,7 @@ class HybridTest extends TestCase
 {
     protected $hybrid;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (! extension_loaded('openssl')) {
             $this->markTestSkipped('The OpenSSL extension is required');
@@ -36,8 +36,8 @@ class HybridTest extends TestCase
     public function testConstructorWithParameters()
     {
         $hybrid = new Hybrid(
-            $this->prophesize(BlockCipher::class)->reveal(),
-            $this->prophesize(Rsa::class)->reveal()
+            $this->createMock(BlockCipher::class),
+            $this->createMock(Rsa::class),
         );
         $this->assertInstanceOf(Hybrid::class, $hybrid);
     }

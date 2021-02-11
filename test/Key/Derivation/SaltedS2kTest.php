@@ -20,15 +20,15 @@ class SaltedS2kTest extends TestCase
     /** @var string */
     public $salt;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->salt = '12345678';
     }
 
     public function testCalc()
     {
-        if (! extension_loaded('mhash')) {
-            $this->markTestSkipped('The mhash extension is not available');
+        if (! extension_loaded('hash')) {
+            $this->markTestSkipped('The hash extension is not available');
             return;
         }
 
@@ -39,8 +39,8 @@ class SaltedS2kTest extends TestCase
 
     public function testCalcWithWrongHash()
     {
-        if (! extension_loaded('mhash')) {
-            $this->markTestSkipped('The mhash extension is not available');
+        if (! extension_loaded('hash')) {
+            $this->markTestSkipped('The hash extension is not available');
             return;
         }
 
@@ -54,8 +54,8 @@ class SaltedS2kTest extends TestCase
 
     public function testCalcWithWrongSalt()
     {
-        if (! extension_loaded('mhash')) {
-            $this->markTestSkipped('The mhash extension is not available');
+        if (! extension_loaded('hash')) {
+            $this->markTestSkipped('The hash extension is not available');
             return;
         }
 

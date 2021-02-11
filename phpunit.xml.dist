@@ -9,19 +9,17 @@
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+    <coverage includeUncoveredFiles="true">
+        <include>
             <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 
     <php>
-        <!-- Note: the following is a FULL list of ALL POSSIBLE constants
-             currently in use in Laminas for ALL COMPONENTS; you should choose the
-             constants appropriate to the component you are migrating. -->
-
         <!-- TESTS_LAMINAS_CRYPT_OPENSSL_CONF => location of an openssl.cnf file
-             for use with RSA encryption. -->
+            for use with RSA encryption. The following can be used when testing this:
+            <env name="TESTS_LAMINAS_CRYPT_OPENSSL_CONF" value="test/_files/openssl.cnf" />
+         -->
         <env name="TESTS_LAMINAS_CRYPT_OPENSSL_CONF" value="false" />
     </php>
 </phpunit>

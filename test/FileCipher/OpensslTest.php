@@ -14,7 +14,7 @@ use Laminas\Crypt\Symmetric\Openssl;
 
 class OpensslTest extends AbstractFileCipherTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         try {
             $this->fileCipher = new FileCipher(new Openssl);

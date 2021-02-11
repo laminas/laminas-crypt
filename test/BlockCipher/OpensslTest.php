@@ -13,7 +13,7 @@ use Laminas\Crypt\Symmetric;
 
 class OpensslTest extends AbstractBlockCipherTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         try {
             $this->cipher = new Symmetric\Openssl([

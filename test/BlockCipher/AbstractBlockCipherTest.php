@@ -31,7 +31,7 @@ abstract class AbstractBlockCipherTest extends TestCase
      */
     protected $plaintext;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->assertInstanceOf(
             Symmetric\SymmetricInterface::class,

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class McryptDeprecatedTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (PHP_VERSION_ID < 70100) {
             $this->markTestSkipped('The Mcrypt deprecated test is for PHP 7.1+');
@@ -22,7 +22,7 @@ class McryptDeprecatedTest extends TestCase
 
     public function testDeprecated()
     {
-        $this->expectException(\PHPUnit\Framework\Error\Deprecated::class);
+        $this->expectDeprecation();
         new Mcrypt();
     }
 }

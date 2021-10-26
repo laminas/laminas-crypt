@@ -102,7 +102,7 @@ class Hybrid
      * @return string
      * @throws RuntimeException
      */
-    public function decrypt($msg, $privateKey = null, $passPhrase = null, $id = null)
+    public function decrypt($msg, $privateKey = null, $passPhrase = null, $id = "")
     {
         // get the session key
         list($encKeys, $ciphertext) = explode(';', $msg, 2);

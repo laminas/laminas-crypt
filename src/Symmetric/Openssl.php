@@ -155,7 +155,7 @@ class Openssl implements SymmetricInterface
      *
      * @var string
      */
-    protected $aad;
+    protected $aad = '';
 
     /**
      * Store the tag for authentication (only for PHP 7.1+)

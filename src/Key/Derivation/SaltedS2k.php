@@ -72,14 +72,9 @@ class SaltedS2k
             throw new Exception\InvalidArgumentException('The salt size must be at least of 8 bytes');
         }
 
-        if (PHP_VERSION_ID >= 80100) {
-            trigger_error('Function mhash_keygen_s2k() is deprecated starting with PHP 8.1', E_USER_DEPRECATED);
-        }
-
         $result = '';
 
-        foreach (range(0, ceil($bytes / strlen(hash($hash, '', true))) - 1) as $i)
-        {
+        foreach (range(0, ceil($bytes / strlen(hash($hash, '', true))) - 1) as $i) {
             $result .= hash(
                 $hash,
                 str_repeat("\0", $i) . str_pad(

@@ -32,10 +32,6 @@ class SaltedS2kTest extends TestCase
             return;
         }
 
-        if (PHP_VERSION_ID >= 80100) {
-            $this->expectDeprecation();
-        }
-
         $password = SaltedS2k::calc('sha256', 'test', $this->salt, 32);
         $this->assertEquals(32, strlen($password));
         $this->assertEquals('qzQISUBUSP1iqYtwe/druhdOVqluc/Y2TetdSHSbaw8=', base64_encode($password));
@@ -46,10 +42,6 @@ class SaltedS2kTest extends TestCase
         if (! extension_loaded('hash')) {
             $this->markTestSkipped('The hash extension is not available');
             return;
-        }
-
-        if (PHP_VERSION_ID >= 80100) {
-            $this->expectDeprecation();
         }
 
         $this->expectException(Exception\InvalidArgumentException::class);
@@ -65,10 +57,6 @@ class SaltedS2kTest extends TestCase
         if (! extension_loaded('hash')) {
             $this->markTestSkipped('The hash extension is not available');
             return;
-        }
-
-        if (PHP_VERSION_ID >= 80100) {
-            $this->expectDeprecation();
         }
 
         $this->expectException(Exception\InvalidArgumentException::class);

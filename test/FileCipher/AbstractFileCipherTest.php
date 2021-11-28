@@ -22,12 +22,12 @@ abstract class AbstractFileCipherTest extends TestCase
     /**
      * @var string
      */
-    protected $fileIn;
+    protected $fileIn = '';
 
     /**
      * @var string
      */
-    protected $fileOut;
+    protected $fileOut = '';
 
     public function setUp(): void
     {

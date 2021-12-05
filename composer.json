@@ -23,8 +23,7 @@
         "ext-mbstring": "*",
         "container-interop/container-interop": "^1.2",
         "laminas/laminas-math": "^3.4",
-        "laminas/laminas-stdlib": "^3.6",
-        "laminas/laminas-zendframework-bridge": "^1.0"
+        "laminas/laminas-stdlib": "^3.6"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
@@ -56,7 +55,7 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
-    "replace": {
-        "zendframework/zend-crypt": "^3.3.1"
+    "conflict": {
+        "zendframework/zend-crypt": "*"
     }
 }

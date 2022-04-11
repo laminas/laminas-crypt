@@ -2,11 +2,11 @@
 
 namespace LaminasTest\Crypt\BlockCipher;
 
-use Interop\Container\ContainerInterface;
 use Laminas\Crypt\BlockCipher;
 use Laminas\Crypt\Exception;
 use Laminas\Crypt\Symmetric;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 use function file_get_contents;
 use function get_class;

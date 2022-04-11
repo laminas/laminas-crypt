@@ -2,7 +2,7 @@
 
 namespace Laminas\Crypt\Symmetric;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 use function array_key_exists;
 use function sprintf;

@@ -27,9 +27,9 @@
     "require": {
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
         "ext-mbstring": "*",
-        "container-interop/container-interop": "^1.2",
         "laminas/laminas-math": "^3.4",
-        "laminas/laminas-stdlib": "^3.6"
+        "laminas/laminas-stdlib": "^3.6",
+        "psr/container": "^1.1"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.3.0",

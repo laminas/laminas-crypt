@@ -5,6 +5,10 @@ namespace LaminasTest\Crypt\Symmetric\Padding;
 use Laminas\Crypt\Symmetric\Padding\Pkcs7;
 use PHPUnit\Framework\TestCase;
 
+use function chr;
+use function rand;
+use function str_repeat;
+
 class Pkcs7Test extends TestCase
 {
     /** @var Pkcs7 */

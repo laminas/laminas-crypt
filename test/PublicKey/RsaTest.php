@@ -4,8 +4,20 @@ namespace LaminasTest\Crypt\PublicKey;
 
 use Laminas\Crypt\PublicKey\Rsa;
 use Laminas\Crypt\PublicKey\Rsa\Exception;
+use Laminas\Crypt\PublicKey\Rsa\PrivateKey;
+use Laminas\Crypt\PublicKey\Rsa\PublicKey;
 use Laminas\Crypt\PublicKey\RsaOptions;
 use PHPUnit\Framework\TestCase;
+
+use function base64_decode;
+use function base64_encode;
+use function getenv;
+use function realpath;
+use function strpos;
+
+use const OPENSSL_ALGO_SHA1;
+use const OPENSSL_PKCS1_OAEP_PADDING;
+use const OPENSSL_PKCS1_PADDING;
 
 /**
  * @group      Laminas_Crypt
@@ -13,10 +25,10 @@ use PHPUnit\Framework\TestCase;
 class RsaTest extends TestCase
 {
     /** @var string */
-    protected $testPemString = null;
+    protected $testPemString;
 
     /** @var string */
-    protected $testPemFile = null;
+    protected $testPemFile;
 
     /** @var string */
     protected $testPemStringPublic;
@@ -32,7 +44,6 @@ class RsaTest extends TestCase
 
     /** @var string */
     protected $userOpenSslConf;
-
 
     /** @var Rsa */
     protected $rsa;
@@ -113,13 +124,13 @@ CERT;
         $this->privateKey = new Rsa\PrivateKey($this->testPemString);
 
         $rsaOptions = new RsaOptions([
-            'private_key'   => $this->privateKey
+            'private_key' => $this->privateKey,
         ]);
-        $this->rsa = new Rsa($rsaOptions);
+        $this->rsa  = new Rsa($rsaOptions);
 
-        $rsaOptions = new RsaOptions([
+        $rsaOptions         = new RsaOptions([
             'private_key'   => $this->privateKey,
-            'binary_output' => false
+            'binary_output' => false,
         ]);
         $this->rsaBase64Out = new Rsa($rsaOptions);
     }
@@ -130,44 +141,44 @@ CERT;
             'hash_algorithm'  => 'sha1',
             'binary_output'   => false,
             'private_key'     => $this->testPemString,
-            'openssl_padding' => OPENSSL_PKCS1_OAEP_PADDING
+            'openssl_padding' => OPENSSL_PKCS1_OAEP_PADDING,
         ]);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa', $rsa);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\RsaOptions', $rsa->getOptions());
+        $this->assertInstanceOf(Rsa::class, $rsa);
+        $this->assertInstanceOf(RsaOptions::class, $rsa->getOptions());
     }
 
     public function testFactoryCreatesKeys()
     {
         $rsa = Rsa::factory([
-            'private_key'    => $this->testPemString,
-            'public_key'     => $this->testCertificateString,
+            'private_key' => $this->testPemString,
+            'public_key'  => $this->testCertificateString,
         ]);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
+        $this->assertInstanceOf(PrivateKey::class, $rsa->getOptions()->getPrivateKey());
+        $this->assertInstanceOf(PublicKey::class, $rsa->getOptions()->getPublicKey());
     }
 
     public function testFactoryCreatesKeysFromFiles()
     {
         $rsa = Rsa::factory([
-            'private_key'    => $this->testPemFile,
+            'private_key' => $this->testPemFile,
         ]);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
+        $this->assertInstanceOf(PrivateKey::class, $rsa->getOptions()->getPrivateKey());
+        $this->assertInstanceOf(PublicKey::class, $rsa->getOptions()->getPublicKey());
     }
 
     public function testFactoryCreatesJustPublicKey()
     {
         $rsa = Rsa::factory([
-            'public_key'     => $this->testCertificateString,
+            'public_key' => $this->testCertificateString,
         ]);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
+        $this->assertInstanceOf(PublicKey::class, $rsa->getOptions()->getPublicKey());
         $this->assertNull($rsa->getOptions()->getPrivateKey());
     }
 
     public function testConstructorCreatesInstanceWithDefaultOptions()
     {
         $rsa = new Rsa();
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa', $rsa);
+        $this->assertInstanceOf(Rsa::class, $rsa);
         $this->assertEquals('sha1', $rsa->getOptions()->getHashAlgorithm());
         $this->assertEquals(OPENSSL_ALGO_SHA1, $rsa->getOptions()->getOpensslSignatureAlgorithm());
         $this->assertTrue($rsa->getOptions()->getBinaryOutput());
@@ -176,22 +187,22 @@ CERT;
     public function testPrivateKeyInstanceCreation()
     {
         $privateKey = Rsa\PrivateKey::fromFile($this->testPemFile);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $privateKey);
+        $this->assertInstanceOf(PrivateKey::class, $privateKey);
 
         $privateKey = new Rsa\PrivateKey($this->testPemString);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $privateKey);
+        $this->assertInstanceOf(PrivateKey::class, $privateKey);
     }
 
     public function testPublicKeyInstanceCreation()
     {
         $publicKey = new Rsa\PublicKey($this->testPemStringPublic);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $publicKey);
+        $this->assertInstanceOf(PublicKey::class, $publicKey);
 
         $publicKey = Rsa\PublicKey::fromFile($this->testCertificateFile);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $publicKey);
+        $this->assertInstanceOf(PublicKey::class, $publicKey);
 
         $publicKey = new Rsa\PublicKey($this->testCertificateString);
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $publicKey);
+        $this->assertInstanceOf(PublicKey::class, $publicKey);
     }
 
     public function testSignGeneratesExpectedBinarySignature()
@@ -239,7 +250,7 @@ CERT;
     public function testVerifyVerifiesBinarySignaturesUsingCertificate()
     {
         $rsaOptions = new RsaOptions([
-            'public_key'   => new Rsa\PublicKey($this->testCertificateString),
+            'public_key'    => new Rsa\PublicKey($this->testCertificateString),
             'binary_output' => true,
         ]);
 
@@ -355,28 +366,28 @@ CERT;
         $rsa = new Rsa();
         $rsa->getOptions()->generateKeys();
 
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
-        $this->assertInstanceOf('Laminas\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
+        $this->assertInstanceOf(PrivateKey::class, $rsa->getOptions()->getPrivateKey());
+        $this->assertInstanceOf(PublicKey::class, $rsa->getOptions()->getPublicKey());
     }
 
     public function testKeyGenerationWithUserOpensslConfig()
     {
-        $rsaOptions  = new RsaOptions();
+        $rsaOptions = new RsaOptions();
         $rsaOptions->generateKeys([
             'config'           => $this->userOpenSslConf,
             'private_key_bits' => 512,
         ]);
 
-        $this->assertInstanceOf('Laminas\\Crypt\\PublicKey\\Rsa\\PrivateKey', $rsaOptions->getPrivateKey());
-        $this->assertInstanceOf('Laminas\\Crypt\\PublicKey\\Rsa\\PublicKey', $rsaOptions->getPublicKey());
+        $this->assertInstanceOf(PrivateKey::class, $rsaOptions->getPrivateKey());
+        $this->assertInstanceOf(PublicKey::class, $rsaOptions->getPublicKey());
     }
 
     public function testKeyGenerationCreatesPassphrasedPrivateKey()
     {
         $this->expectException(Exception\RuntimeException::class);
 
-        $rsaOptions  = new RsaOptions([
-            'pass_phrase' => '0987654321'
+        $rsaOptions = new RsaOptions([
+            'pass_phrase' => '0987654321',
         ]);
         $rsaOptions->generateKeys([
             'config'           => $this->userOpenSslConf,
@@ -385,7 +396,7 @@ CERT;
 
         $rsa = Rsa::factory([
             'pass_phrase' => '1234567890',
-            'private_key' => $rsaOptions->getPrivateKey()->toString()
+            'private_key' => $rsaOptions->getPrivateKey()->toString(),
         ]);
     }
 
@@ -393,8 +404,8 @@ CERT;
     {
         $this->expectNotToPerformAssertions();
 
-        $rsaOptions  = new RsaOptions([
-            'pass_phrase' => '0987654321'
+        $rsaOptions = new RsaOptions([
+            'pass_phrase' => '0987654321',
         ]);
         $rsaOptions->generateKeys([
             'config'           => $this->userOpenSslConf,

@@ -6,15 +6,26 @@ use Laminas\Crypt\Key\Derivation\Exception;
 use Laminas\Crypt\Key\Derivation\Scrypt;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use ReflectionMethod;
+
+use function bin2hex;
+use function chr;
+use function extension_loaded;
+use function hexdec;
+use function str_replace;
+use function strlen;
+
+use const PHP_INT_MAX;
+use const PHP_INT_SIZE;
 
 /**
  * @group      Laminas_Crypt
  */
 class ScryptTest extends TestCase
 {
-    protected static function getMethod($name)
+    protected static function getMethod(string $name): ReflectionMethod
     {
-        $class = new ReflectionClass(Scrypt::class);
+        $class  = new ReflectionClass(Scrypt::class);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
         return $method;
@@ -27,7 +38,7 @@ class ScryptTest extends TestCase
      */
     public function testVectorSalsa208Core()
     {
-        $hexInput  = '7e 87 9a 21 4f 3e c9 86 7c a9 40 e6 41 71 8f 26
+        $hexInput = '7e 87 9a 21 4f 3e c9 86 7c a9 40 e6 41 71 8f 26
                       ba ee 55 5b 8c 61 c1 b5 0d f8 46 11 6d cd 3b 1d
                       ee 24 f3 19 df 9b 3d 85 14 12 1e 4b 5a c5 aa 32
                       76 02 1d 29 09 c7 48 29 ed eb c6 8d b8 b8 c2 5e';
@@ -58,7 +69,7 @@ class ScryptTest extends TestCase
      */
     public function testVectorScryptBlockMix()
     {
-        $hexInput  = 'f7 ce 0b 65 3d 2d 72 a4 10 8c f5 ab e9 12 ff dd
+        $hexInput = 'f7 ce 0b 65 3d 2d 72 a4 10 8c f5 ab e9 12 ff dd
                       77 76 16 db bb 27 a7 0e 82 04 f3 ae 2d 0f 6f ad
                       89 f6 8f 48 11 d1 e8 7b cc 3b d7 40 0a 9f fd 29
                       09 4f 01 84 63 95 74 f3 9a e5 a1 31 52 17 bc d7
@@ -93,7 +104,7 @@ class ScryptTest extends TestCase
      */
     public function testVectorScryptROMix()
     {
-        $hexInput  = 'f7 ce 0b 65 3d 2d 72 a4 10 8c f5 ab e9 12 ff dd
+        $hexInput = 'f7 ce 0b 65 3d 2d 72 a4 10 8c f5 ab e9 12 ff dd
                       77 76 16 db bb 27 a7 0e 82 04 f3 ae 2d 0f 6f ad
                       89 f6 8f 48 11 d1 e8 7b cc 3b d7 40 0a 9f fd 29
                       09 4f 01 84 63 95 74 f3 9a e5 a1 31 52 17 bc d7

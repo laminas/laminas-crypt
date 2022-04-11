@@ -9,41 +9,36 @@ use Laminas\Crypt\Symmetric\Padding\NoPadding;
 use Laminas\Crypt\Symmetric\Padding\PKCS7;
 use Laminas\Math\Rand;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+
+use function file_get_contents;
+use function mb_strlen;
+use function mb_substr;
+use function sprintf;
+use function str_repeat;
 
 /**
  * @group      Laminas_Crypt
  */
 abstract class AbstractTest extends TestCase
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $adapterClass = '';
-    /**
-     * @var object
-     */
+    /** @var object */
     protected $crypt;
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $plaintext;
-    /**
-     * @var string
-     */
-    protected $default_algo;
-    /**
-     * @var string
-     */
-    protected $default_mode;
-    /**
-     * @var string
-     */
-    protected $default_padding;
+    /** @var string */
+    protected $defaultAlgo;
+    /** @var string */
+    protected $defaultMode;
+    /** @var string */
+    protected $defaultPadding;
 
     public function setUp(): void
     {
         try {
-            $this->crypt = new $this->adapterClass;
+            $this->crypt = new $this->adapterClass();
         } catch (Exception\RuntimeException $e) {
             $this->markTestSkipped(
                 sprintf("%s is not installed, I cannot execute %s", $this->adapterClass, static::class)
@@ -54,16 +49,16 @@ abstract class AbstractTest extends TestCase
 
     public function testConstructByParams()
     {
-        $key = $this->generateKey();
-        $iv  = $this->generateSalt();
+        $key     = $this->generateKey();
+        $iv      = $this->generateSalt();
         $options = [
-            'algorithm' => $this->default_algo,
-            'mode'      => $this->default_mode,
+            'algorithm' => $this->defaultAlgo,
+            'mode'      => $this->defaultMode,
             'key'       => $key,
             'salt'      => $iv,
-            'padding'   => $this->default_padding
+            'padding'   => $this->defaultPadding,
         ];
-        $crypt  = new $this->adapterClass($options);
+        $crypt   = new $this->adapterClass($options);
         $this->assertEquals($crypt->getAlgorithm(), $options['algorithm']);
         $this->assertEquals($crypt->getMode(), $options['mode']);
         $this->assertEquals($crypt->getKey(), mb_substr($key, 0, $crypt->getKeySize(), '8bit'));
@@ -77,17 +72,17 @@ abstract class AbstractTest extends TestCase
      */
     public function testConstructByConfig()
     {
-        $key = $this->generateKey();
-        $iv  = $this->generateSalt();
+        $key     = $this->generateKey();
+        $iv      = $this->generateSalt();
         $options = [
-            'algorithm' => $this->default_algo,
-            'mode'      => $this->default_mode,
+            'algorithm' => $this->defaultAlgo,
+            'mode'      => $this->defaultMode,
             'key'       => $key,
             'salt'      => $iv,
-            'padding'   => $this->default_padding
+            'padding'   => $this->defaultPadding,
         ];
         $config  = new ArrayObject($options);
-        $crypt  = new $this->adapterClass($config);
+        $crypt   = new $this->adapterClass($config);
         $this->assertEquals($crypt->getAlgorithm(), $options['algorithm']);
         $this->assertEquals($crypt->getMode(), $options['mode']);
         $this->assertEquals($crypt->getKey(), mb_substr($key, 0, $crypt->getKeySize(), '8bit'));
@@ -105,8 +100,8 @@ abstract class AbstractTest extends TestCase
 
     public function testSetAlgorithm()
     {
-        $this->crypt->setAlgorithm($this->default_algo);
-        $this->assertEquals($this->crypt->getAlgorithm(), $this->default_algo);
+        $this->crypt->setAlgorithm($this->defaultAlgo);
+        $this->assertEquals($this->crypt->getAlgorithm(), $this->defaultAlgo);
     }
 
     public function testSetWrongAlgorithm()
@@ -121,7 +116,7 @@ abstract class AbstractTest extends TestCase
 
     public function testSetKey()
     {
-        $key = $this->generateKey();
+        $key    = $this->generateKey();
         $result = $this->crypt->setKey($key);
         $this->assertInstanceOf($this->adapterClass, $result);
         $this->assertEquals($result, $this->crypt);
@@ -169,8 +164,8 @@ abstract class AbstractTest extends TestCase
 
     public function testSetMode()
     {
-        $this->crypt->setMode($this->default_mode);
-        $this->assertEquals($this->default_mode, $this->crypt->getMode());
+        $this->crypt->setMode($this->defaultMode);
+        $this->assertEquals($this->defaultMode, $this->crypt->getMode());
     }
 
     public function testSetWrongMode()
@@ -247,8 +242,8 @@ abstract class AbstractTest extends TestCase
     public function testSetOptions()
     {
         $options = [
-            'algo'    => $this->default_algo,
-            'mode'    => $this->default_mode
+            'algo' => $this->defaultAlgo,
+            'mode' => $this->defaultMode,
         ];
         $this->crypt->setOptions($options);
 
@@ -258,7 +253,7 @@ abstract class AbstractTest extends TestCase
         $options = [
             'key'     => str_repeat('x', $this->crypt->getKeySize()),
             'iv'      => str_repeat('1', $this->crypt->getSaltSize()),
-            'padding' => 'nopadding'
+            'padding' => 'nopadding',
         ];
         $this->crypt->setOptions($options);
 
@@ -278,7 +273,7 @@ abstract class AbstractTest extends TestCase
     public function testSetWrongPaddingPluginManager()
     {
         $this->expectException(Exception\InvalidArgumentException::class);
-        $this->crypt->setPaddingPluginManager(\stdClass::class);
+        $this->crypt->setPaddingPluginManager(stdClass::class);
     }
 
     public function testSetNotExistingPaddingPluginManager()
@@ -287,15 +282,17 @@ abstract class AbstractTest extends TestCase
         $this->crypt->setPaddingPluginManager('Foo');
     }
 
-    protected function generateKey()
+    protected function generateKey(): string
     {
         return Rand::getBytes($this->crypt->getKeySize());
     }
 
-    protected function generateSalt()
+    protected function generateSalt(): ?string
     {
         if ($this->crypt->getSaltSize() > 0) {
             return Rand::getBytes($this->crypt->getSaltSize());
         }
+
+        return null;
     }
 }

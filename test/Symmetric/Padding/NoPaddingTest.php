@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class NoPaddingTest extends TestCase
 {
-    /**
-     * @var NoPadding
-     */
+    /** @var NoPadding */
     protected $padding;
 
     public function setUp(): void

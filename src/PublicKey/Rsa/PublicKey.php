@@ -20,12 +20,10 @@ use const OPENSSL_PKCS1_PADDING;
  */
 class PublicKey extends AbstractKey
 {
-    const CERT_START = '-----BEGIN CERTIFICATE-----';
+    public const CERT_START = '-----BEGIN CERTIFICATE-----';
 
-    /**
-     * @var string
-     */
-    protected $certificateString = null;
+    /** @var string */
+    protected $certificateString;
 
     /**
      * Create public key instance public key from PEM formatted key file
@@ -79,6 +77,7 @@ class PublicKey extends AbstractKey
      * attack.
      *
      * @see http://archiv.infsec.ethz.ch/education/fs08/secsem/bleichenbacher98.pdf
+     *
      * @param  string $data
      * @param  string $padding
      * @throws Exception\InvalidArgumentException
@@ -92,7 +91,7 @@ class PublicKey extends AbstractKey
         }
 
         $encrypted = '';
-        $result = openssl_public_encrypt($data, $encrypted, $this->getOpensslKeyResource(), $padding);
+        $result    = openssl_public_encrypt($data, $encrypted, $this->getOpensslKeyResource(), $padding);
         if (false === $result) {
             throw new Exception\RuntimeException(
                 'Can not encrypt; openssl ' . openssl_error_string()
@@ -121,7 +120,7 @@ class PublicKey extends AbstractKey
         }
 
         $decrypted = '';
-        $result = openssl_public_decrypt($data, $decrypted, $this->getOpensslKeyResource(), $padding);
+        $result    = openssl_public_decrypt($data, $decrypted, $this->getOpensslKeyResource(), $padding);
         if (false === $result) {
             throw new Exception\RuntimeException(
                 'Can not decrypt; openssl ' . openssl_error_string()

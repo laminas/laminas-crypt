@@ -7,6 +7,9 @@ use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Crypt\Password\Exception;
 use PHPUnit\Framework\TestCase;
 
+use function strlen;
+use function substr;
+
 /**
  * @group      Laminas_Crypt
  */
@@ -128,8 +131,10 @@ class ApacheTest extends TestCase
      * Test vectors generated using openssl and htpasswd
      *
      * @see http://httpd.apache.org/docs/2.2/misc/password_encryptions.html
+     *
+     * @psalm-return array<array-key, array{0: string, 1: string}>
      */
-    public static function provideTestVectors()
+    public static function provideTestVectors(): array
     {
         return [
             // openssl passwd -apr1 -salt z0Hhe5Lq myPassword
@@ -144,7 +149,7 @@ class ApacheTest extends TestCase
     /**
      * @dataProvider provideTestVectors
      */
-    public function testVerify($password, $hash)
+    public function testVerify(string $password, string $hash)
     {
         $this->assertTrue($this->apache->verify($password, $hash));
     }
@@ -164,7 +169,7 @@ class ApacheTest extends TestCase
     public function testCanVerifyBcryptHashes()
     {
         $bcrypt = new Bcrypt();
-        $hash = $bcrypt->create('myPassword');
+        $hash   = $bcrypt->create('myPassword');
         $this->assertTrue($this->apache->verify('myPassword', $hash));
     }
 }

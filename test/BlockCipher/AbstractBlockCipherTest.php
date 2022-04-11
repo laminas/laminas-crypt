@@ -8,21 +8,21 @@ use Laminas\Crypt\Exception;
 use Laminas\Crypt\Symmetric;
 use PHPUnit\Framework\TestCase;
 
+use function file_get_contents;
+use function get_class;
+use function sprintf;
+use function str_repeat;
+use function substr;
+
 abstract class AbstractBlockCipherTest extends TestCase
 {
-    /**
-     * @var Symmetric\SymmetricInterface
-     */
+    /** @var Symmetric\SymmetricInterface */
     protected $cipher;
 
-    /**
-     * @var BlockCipher
-     */
+    /** @var BlockCipher */
     protected $blockCipher;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $plaintext;
 
     public function setUp(): void
@@ -33,7 +33,7 @@ abstract class AbstractBlockCipherTest extends TestCase
             'Symmetric adapter instance is needed for tests'
         );
         $this->blockCipher = new BlockCipher($this->cipher);
-        $this->plaintext = file_get_contents(__DIR__ . '/../_files/plaintext');
+        $this->plaintext   = file_get_contents(__DIR__ . '/../_files/plaintext');
     }
 
     public function testSetKey()
@@ -51,7 +51,7 @@ abstract class AbstractBlockCipherTest extends TestCase
 
     public function testSetSalt()
     {
-        $salt = str_repeat('a', $this->blockCipher->getCipher()->getSaltSize() + 2);
+        $salt   = str_repeat('a', $this->blockCipher->getCipher()->getSaltSize() + 2);
         $result = $this->blockCipher->setSalt($salt);
         $this->assertEquals($result, $this->blockCipher);
         $this->assertEquals(
@@ -162,7 +162,8 @@ abstract class AbstractBlockCipherTest extends TestCase
         }
     }
 
-    public function zeroValuesProvider()
+    /** @psalm-return array<string, array{0: int|float|string}> */
+    public function zeroValuesProvider(): array
     {
         return [
             '"0"'   => [0],
@@ -173,6 +174,7 @@ abstract class AbstractBlockCipherTest extends TestCase
 
     /**
      * @dataProvider zeroValuesProvider
+     * @param int|float|string $value
      */
     public function testEncryptDecryptUsingZero($value)
     {
@@ -191,7 +193,7 @@ abstract class AbstractBlockCipherTest extends TestCase
     public function testDecryptNotString()
     {
         $this->expectException(Exception\InvalidArgumentException::class);
-        $this->blockCipher->decrypt([ 'foo' ]);
+        $this->blockCipher->decrypt(['foo']);
     }
 
     public function testDecryptEmptyString()

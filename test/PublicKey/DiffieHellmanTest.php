@@ -8,6 +8,9 @@ use Laminas\Math\BigInteger;
 use Laminas\Math\Exception\RuntimeException as MathException;
 use PHPUnit\Framework\TestCase;
 
+use function hex2bin;
+use function strpos;
+
 /**
  * @group      Laminas_Crypt
  */
@@ -29,14 +32,14 @@ class DiffieHellmanTest extends TestCase
     public function testWithSpec()
     {
         $aliceOptions = [
-            'prime'    => '563',
+            'prime'     => '563',
             'generator' => '5',
-            'private'  => '9',
+            'private'   => '9',
         ];
         $bobOptions   = [
-            'prime'    => '563',
+            'prime'     => '563',
             'generator' => '5',
-            'private'  => '14',
+            'private'   => '14',
         ];
 
         DiffieHellman::useOpensslExtension(false);

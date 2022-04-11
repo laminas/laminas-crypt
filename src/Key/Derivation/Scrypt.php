@@ -18,6 +18,7 @@ use const PHP_INT_SIZE;
  * @see      http://www.tarsnap.com/scrypt.html
  * @see      https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01
  */
+// phpcs:ignore WebimpressCodingStandard.NamingConventions.AbstractClass.Prefix
 abstract class Scrypt
 {
     /**
@@ -33,7 +34,7 @@ abstract class Scrypt
      */
     public static function calc($password, $salt, $n, $r, $p, $length)
     {
-        if ($n == 0 || ($n & ($n - 1)) != 0) {
+        if ($n === 0 || ($n & ($n - 1)) !== 0) {
             throw new Exception\InvalidArgumentException("N must be > 0 and a power of 2");
         }
         if ($n > PHP_INT_MAX / 128 / $r) {
@@ -63,11 +64,12 @@ abstract class Scrypt
    /**
     * scryptROMix
     *
+    * @see    https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-4
+    *
     * @param  string $b
     * @param  int $n
     * @param  int $r
     * @return string
-    * @see    https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-4
     */
     protected static function scryptROMix($b, $n, $r)
     {
@@ -75,7 +77,7 @@ abstract class Scrypt
         $v = [];
         for ($i = 0; $i < $n; $i++) {
             $v[$i] = $x;
-            $x = self::scryptBlockMix($x, $r);
+            $x     = self::scryptBlockMix($x, $r);
         }
         for ($i = 0; $i < $n; $i++) {
             $j = self::integerify($x) % $n;
@@ -88,10 +90,11 @@ abstract class Scrypt
     /**
      * scryptBlockMix
      *
+     * @see    https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-3
+     *
      * @param  string $b
      * @param  int $r
      * @return string
-     * @see    https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-3
      */
     protected static function scryptBlockMix($b, $r)
     {
@@ -106,7 +109,7 @@ abstract class Scrypt
             } else {
                 $x = self::salsa208Core64($x ^ mb_substr($b, 64 * $i, 64, '8bit'));
             }
-            if ($i % 2 == 0) {
+            if ($i % 2 === 0) {
                 $even .= $x;
             } else {
                 $odd .= $x;
@@ -118,87 +121,88 @@ abstract class Scrypt
     /**
      * Salsa 20/8 core (32 bit version)
      *
-     * @param  string $b
-     * @return string
      * @see    https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-2
      * @see    http://cr.yp.to/salsa20.html
+     *
+     * @param  string $b
+     * @return string
      */
     protected static function salsa208Core32($b)
     {
         $b32 = [];
         for ($i = 0; $i < 16; $i++) {
-            list(, $b32[$i]) = unpack("V", mb_substr($b, $i * 4, 4, '8bit'));
+            [, $b32[$i]] = unpack("V", mb_substr($b, $i * 4, 4, '8bit'));
         }
 
         $x = $b32;
         for ($i = 0; $i < 8; $i += 2) {
-            $a      = ($x[ 0] + $x[12]);
+            $a      = $x[ 0] + $x[12];
             $x[ 4] ^= ($a << 7) | ($a >> 25) & 0x7f;
-            $a      = ($x[ 4] + $x[ 0]);
+            $a      = $x[ 4] + $x[ 0];
             $x[ 8] ^= ($a << 9) | ($a >> 23) & 0x1ff;
-            $a      = ($x[ 8] + $x[ 4]);
+            $a      = $x[ 8] + $x[ 4];
             $x[12] ^= ($a << 13) | ($a >> 19) & 0x1fff;
-            $a      = ($x[12] + $x[ 8]);
+            $a      = $x[12] + $x[ 8];
             $x[ 0] ^= ($a << 18) | ($a >> 14) & 0x3ffff;
-            $a      = ($x[ 5] + $x[ 1]);
+            $a      = $x[ 5] + $x[ 1];
             $x[ 9] ^= ($a << 7) | ($a >> 25) & 0x7f;
-            $a      = ($x[ 9] + $x[ 5]);
+            $a      = $x[ 9] + $x[ 5];
             $x[13] ^= ($a << 9) | ($a >> 23) & 0x1ff;
-            $a      = ($x[13] + $x[ 9]);
+            $a      = $x[13] + $x[ 9];
             $x[ 1] ^= ($a << 13) | ($a >> 19) & 0x1fff;
-            $a      = ($x[ 1] + $x[13]);
+            $a      = $x[ 1] + $x[13];
             $x[ 5] ^= ($a << 18) | ($a >> 14) & 0x3ffff;
-            $a      = ($x[10] + $x[ 6]);
+            $a      = $x[10] + $x[ 6];
             $x[14] ^= ($a << 7) | ($a >> 25) & 0x7f;
-            $a      = ($x[14] + $x[10]);
+            $a      = $x[14] + $x[10];
             $x[ 2] ^= ($a << 9) | ($a >> 23) & 0x1ff;
-            $a      = ($x[ 2] + $x[14]);
+            $a      = $x[ 2] + $x[14];
             $x[ 6] ^= ($a << 13) | ($a >> 19) & 0x1fff;
-            $a      = ($x[ 6] + $x[ 2]);
+            $a      = $x[ 6] + $x[ 2];
             $x[10] ^= ($a << 18) | ($a >> 14) & 0x3ffff;
-            $a      = ($x[15] + $x[11]);
+            $a      = $x[15] + $x[11];
             $x[ 3] ^= ($a << 7) | ($a >> 25) & 0x7f;
-            $a      = ($x[ 3] + $x[15]);
+            $a      = $x[ 3] + $x[15];
             $x[ 7] ^= ($a << 9) | ($a >> 23) & 0x1ff;
-            $a      = ($x[ 7] + $x[ 3]);
+            $a      = $x[ 7] + $x[ 3];
             $x[11] ^= ($a << 13) | ($a >> 19) & 0x1fff;
-            $a      = ($x[11] + $x[ 7]);
+            $a      = $x[11] + $x[ 7];
             $x[15] ^= ($a << 18) | ($a >> 14) & 0x3ffff;
-            $a      = ($x[ 0] + $x[ 3]);
+            $a      = $x[ 0] + $x[ 3];
             $x[ 1] ^= ($a << 7) | ($a >> 25) & 0x7f;
-            $a      = ($x[ 1] + $x[ 0]);
+            $a      = $x[ 1] + $x[ 0];
             $x[ 2] ^= ($a << 9) | ($a >> 23) & 0x1ff;
-            $a      = ($x[ 2] + $x[ 1]);
+            $a      = $x[ 2] + $x[ 1];
             $x[ 3] ^= ($a << 13) | ($a >> 19) & 0x1fff;
-            $a      = ($x[ 3] + $x[ 2]);
+            $a      = $x[ 3] + $x[ 2];
             $x[ 0] ^= ($a << 18) | ($a >> 14) & 0x3ffff;
-            $a      = ($x[ 5] + $x[ 4]);
+            $a      = $x[ 5] + $x[ 4];
             $x[ 6] ^= ($a << 7) | ($a >> 25) & 0x7f;
-            $a      = ($x[ 6] + $x[ 5]);
+            $a      = $x[ 6] + $x[ 5];
             $x[ 7] ^= ($a << 9) | ($a >> 23) & 0x1ff;
-            $a      = ($x[ 7] + $x[ 6]);
+            $a      = $x[ 7] + $x[ 6];
             $x[ 4] ^= ($a << 13) | ($a >> 19) & 0x1fff;
-            $a      = ($x[ 4] + $x[ 7]);
+            $a      = $x[ 4] + $x[ 7];
             $x[ 5] ^= ($a << 18) | ($a >> 14) & 0x3ffff;
-            $a      = ($x[10] + $x[ 9]);
+            $a      = $x[10] + $x[ 9];
             $x[11] ^= ($a << 7) | ($a >> 25) & 0x7f;
-            $a      = ($x[11] + $x[10]);
+            $a      = $x[11] + $x[10];
             $x[ 8] ^= ($a << 9) | ($a >> 23) & 0x1ff;
-            $a      = ($x[ 8] + $x[11]);
+            $a      = $x[ 8] + $x[11];
             $x[ 9] ^= ($a << 13) | ($a >> 19) & 0x1fff;
-            $a      = ($x[ 9] + $x[ 8]);
+            $a      = $x[ 9] + $x[ 8];
             $x[10] ^= ($a << 18) | ($a >> 14) & 0x3ffff;
-            $a      = ($x[15] + $x[14]);
+            $a      = $x[15] + $x[14];
             $x[12] ^= ($a << 7) | ($a >> 25) & 0x7f;
-            $a      = ($x[12] + $x[15]);
+            $a      = $x[12] + $x[15];
             $x[13] ^= ($a << 9) | ($a >> 23) & 0x1ff;
-            $a      = ($x[13] + $x[12]);
+            $a      = $x[13] + $x[12];
             $x[14] ^= ($a << 13) | ($a >> 19) & 0x1fff;
-            $a      = ($x[14] + $x[13]);
+            $a      = $x[14] + $x[13];
             $x[15] ^= ($a << 18) | ($a >> 14) & 0x3ffff;
         }
         for ($i = 0; $i < 16; $i++) {
-            $b32[$i] = $b32[$i] + $x[$i];
+            $b32[$i] += $x[$i];
         }
         $result = '';
         for ($i = 0; $i < 16; $i++) {
@@ -211,16 +215,17 @@ abstract class Scrypt
     /**
      * Salsa 20/8 core (64 bit version)
      *
-     * @param  string $b
-     * @return string
      * @see    https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-2
      * @see    http://cr.yp.to/salsa20.html
+     *
+     * @param  string $b
+     * @return string
      */
     protected static function salsa208Core64($b)
     {
         $b32 = [];
         for ($i = 0; $i < 16; $i++) {
-            list(, $b32[$i]) = unpack("V", mb_substr($b, $i * 4, 4, '8bit'));
+            [, $b32[$i]] = unpack("V", mb_substr($b, $i * 4, 4, '8bit'));
         }
 
         $x = $b32;
@@ -308,9 +313,10 @@ abstract class Scrypt
      * of interpreting B[2 * r - 1] as a little-endian integer.
      * Each block B is a string of 64 bytes.
      *
+     * @see    https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-4
+     *
      * @param  string $b
      * @return int
-     * @see    https://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01#section-4
      */
     protected static function integerify($b)
     {
@@ -318,7 +324,7 @@ abstract class Scrypt
         if (PHP_INT_SIZE === 8) {
             $v = 'V';
         }
-        list(, $n) = unpack($v, mb_substr($b, -64, null, '8bit'));
+        [, $n] = unpack($v, mb_substr($b, -64, null, '8bit'));
         return $n;
     }
 }

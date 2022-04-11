@@ -7,6 +7,10 @@ use Laminas\Crypt\Password\Bcrypt;
 use Laminas\Crypt\Password\Exception;
 use PHPUnit\Framework\TestCase;
 
+use function chr;
+use function strlen;
+use function substr;
+
 /**
  * @group      Laminas_Crypt
  */
@@ -25,14 +29,14 @@ class BcryptTest extends TestCase
     {
         $this->bcrypt   = new Bcrypt();
         $this->password = 'test';
-        $this->prefix = '$2y$';
+        $this->prefix   = '$2y$';
 
         $this->bcryptPassword = $this->prefix . '10$123456789012345678901uIcehzOq0s9RvVtyXJFIsuuxuE2XZRMq';
     }
 
     public function testConstructByOptions()
     {
-        $options = [ 'cost' => '15' ];
+        $options = ['cost' => '15'];
         $bcrypt  = new Bcrypt($options);
         $this->assertEquals('15', $bcrypt->getCost());
     }
@@ -43,7 +47,7 @@ class BcryptTest extends TestCase
      */
     public function testConstructByConfig()
     {
-        $options = [ 'cost' => '15' ];
+        $options = ['cost' => '15'];
         $config  = new ArrayObject($options);
         $bcrypt  = new Bcrypt($config);
         $this->assertEquals('15', $bcrypt->getCost());
@@ -85,7 +89,7 @@ class BcryptTest extends TestCase
     public function testPasswordWith8bitCharacter()
     {
         $password = 'test' . chr(128);
-        $hash = $this->bcrypt->create($password);
+        $hash     = $this->bcrypt->create($password);
 
         $this->assertNotEmpty($hash);
         $this->assertEquals(60, strlen($hash));

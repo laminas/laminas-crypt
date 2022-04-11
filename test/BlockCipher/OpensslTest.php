@@ -13,7 +13,7 @@ class OpensslTest extends AbstractBlockCipherTest
             $this->cipher = new Symmetric\Openssl([
                 'algorithm' => 'aes',
                 'mode'      => 'cbc',
-                'padding'   => 'pkcs7'
+                'padding'   => 'pkcs7',
             ]);
         } catch (Symmetric\Exception\RuntimeException $e) {
             $this->markTestSkipped($e->getMessage());
@@ -31,7 +31,7 @@ class OpensslTest extends AbstractBlockCipherTest
 
     public function testFactory()
     {
-        $this->blockCipher = BlockCipher::factory('openssl', [ 'algo' => 'blowfish' ]);
+        $this->blockCipher = BlockCipher::factory('openssl', ['algo' => 'blowfish']);
         $this->assertInstanceOf(Symmetric\Openssl::class, $this->blockCipher->getCipher());
         $this->assertEquals('blowfish', $this->blockCipher->getCipher()->getAlgorithm());
     }

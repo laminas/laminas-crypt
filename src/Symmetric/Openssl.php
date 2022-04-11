@@ -6,6 +6,7 @@ use Interop\Container\ContainerInterface;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 
+use function array_push;
 use function class_exists;
 use function extension_loaded;
 use function get_class;
@@ -23,6 +24,7 @@ use function openssl_decrypt;
 use function openssl_encrypt;
 use function openssl_error_string;
 use function openssl_get_cipher_methods;
+use function sprintf;
 use function strtolower;
 
 use const OPENSSL_RAW_DATA;
@@ -38,7 +40,7 @@ use const PHP_VERSION_ID;
  */
 class Openssl implements SymmetricInterface
 {
-    const DEFAULT_PADDING = 'pkcs7';
+    public const DEFAULT_PADDING = 'pkcs7';
 
     /**
      * Key
@@ -80,7 +82,7 @@ class Openssl implements SymmetricInterface
      *
      * @var Interop\Container\ContainerInterface
      */
-    protected static $paddingPlugins = null;
+    protected static $paddingPlugins;
 
     /**
      * The encryption algorithms to support
@@ -177,7 +179,7 @@ class Openssl implements SymmetricInterface
         if (! extension_loaded('openssl')) {
             throw new Exception\RuntimeException(sprintf(
                 'You cannot use %s without the OpenSSL extension',
-                __CLASS__
+                self::class
             ));
         }
         // Add the GCM and CCM modes for PHP 7.1+
@@ -193,7 +195,6 @@ class Openssl implements SymmetricInterface
      *
      * @param  array $options
      * @return void
-     *
      * @throws Exception\RuntimeException
      * @throws Exception\InvalidArgumentException
      */
@@ -376,7 +377,7 @@ class Openssl implements SymmetricInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 'The algorithm %s is not supported by %s',
                 $algo,
-                __CLASS__
+                self::class
             ));
         }
         $this->algo = $algo;
@@ -396,7 +397,6 @@ class Openssl implements SymmetricInterface
     /**
      * Set the padding object
      *
-     * @param  Padding\PaddingInterface $padding
      * @return Openssl Provides a fluent interface
      */
     public function setPadding(Padding\PaddingInterface $padding)
@@ -420,7 +420,6 @@ class Openssl implements SymmetricInterface
      *
      * @param string $aad
      * @return self
-     *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
      */
@@ -475,7 +474,6 @@ class Openssl implements SymmetricInterface
      *
      * @param int $size
      * @return self
-     *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
      */
@@ -553,7 +551,7 @@ class Openssl implements SymmetricInterface
 
         // encryption with GCM or CCM
         if ($this->isCcmOrGcm()) {
-            $result = openssl_encrypt(
+            $result    = openssl_encrypt(
                 $data,
                 strtolower($this->encryptionAlgos[$this->algo] . '-' . $this->mode),
                 $this->getKey(),
@@ -613,8 +611,8 @@ class Openssl implements SymmetricInterface
         }
 
         if ($this->isCcmOrGcm()) {
-            $tag  = mb_substr($data, 0, $this->getTagSize(), '8bit');
-            $data = mb_substr($data, $this->getTagSize(), null, '8bit');
+            $tag       = mb_substr($data, 0, $this->getTagSize(), '8bit');
+            $data      = mb_substr($data, $this->getTagSize(), null, '8bit');
             $this->tag = $tag;
         }
 
@@ -668,7 +666,6 @@ class Openssl implements SymmetricInterface
         }
         return $this->supportedAlgos;
     }
-
 
     /**
      * Set the salt (IV)
@@ -833,7 +830,6 @@ class Openssl implements SymmetricInterface
      * @param string $cipherText
      * @param string $iv
      * @param string $tag
-     *
      * @return string|bool false on failure
      */
     private function attemptOpensslDecrypt($cipherText, $iv, $tag)

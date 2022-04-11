@@ -34,12 +34,10 @@ use function strtr;
  */
 class Apache implements PasswordInterface
 {
-    const BASE64  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-    const ALPHA64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    public const BASE64  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    public const ALPHA64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $supportedFormat = [
         'crypt',
         'sha1',
@@ -47,19 +45,13 @@ class Apache implements PasswordInterface
         'digest',
     ];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $format;
 
-    /**
-     * @var string AuthName (realm) for digest authentication
-     */
+    /** @var string AuthName (realm) for digest authentication */
     protected $authName;
 
-    /**
-     * @var string UserName
-     */
+    /** @var string UserName */
     protected $userName;
 
     /**
@@ -291,25 +283,25 @@ class Apache implements PasswordInterface
             $text .= mb_substr($bin, 0, min(16, $i), '8bit');
         }
         for ($i = $len; $i > 0; $i >>= 1) {
-            $text .= ($i & 1) ? chr(0) : $password[0];
+            $text .= $i & 1 ? chr(0) : $password[0];
         }
         $bin = pack("H32", md5($text));
         for ($i = 0; $i < 1000; $i++) {
-            $new = ($i & 1) ? $password : $bin;
+            $new = $i & 1 ? $password : $bin;
             if ($i % 3) {
                 $new .= $salt;
             }
             if ($i % 7) {
                 $new .= $password;
             }
-            $new .= ($i & 1) ? $bin : $password;
-            $bin = pack("H32", md5($new));
+            $new .= $i & 1 ? $bin : $password;
+            $bin  = pack("H32", md5($new));
         }
         $tmp = '';
         for ($i = 0; $i < 5; $i++) {
             $k = $i + 6;
             $j = $i + 12;
-            if ($j == 16) {
+            if ($j === 16) {
                 $j = 5;
             }
             $tmp = $bin[$i] . $bin[$k] . $bin[$j] . $tmp;

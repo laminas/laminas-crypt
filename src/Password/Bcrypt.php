@@ -24,16 +24,12 @@ use const PHP_VERSION_ID;
  */
 class Bcrypt implements PasswordInterface
 {
-    const MIN_SALT_SIZE = 22;
+    public const MIN_SALT_SIZE = 22;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $cost = '10';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $salt;
 
     /**
@@ -77,9 +73,9 @@ class Bcrypt implements PasswordInterface
      */
     public function create($password)
     {
-        $options = [ 'cost' => (int) $this->cost ];
+        $options = ['cost' => (int) $this->cost];
         if (PHP_VERSION_ID < 70000) { // salt is deprecated from PHP 7.0
-            $salt = $this->salt ?: Rand::getBytes(self::MIN_SALT_SIZE);
+            $salt            = $this->salt ?: Rand::getBytes(self::MIN_SALT_SIZE);
             $options['salt'] = $salt;
         }
         return password_hash($password, PASSWORD_BCRYPT, $options);
@@ -174,6 +170,7 @@ class Bcrypt implements PasswordInterface
      * to DoS attacks.
      *
      * @see php.net/manual/en/function.password-hash.php#refsect1-function.password-hash-examples
+     *
      * @param float $timeTarget Defaults to 50ms (0.05)
      * @return int Maximum cost value that falls within the time to target.
      */
@@ -184,7 +181,7 @@ class Bcrypt implements PasswordInterface
         do {
             $cost++;
             $start = microtime(true);
-            password_hash('test', PASSWORD_BCRYPT, [ 'cost' => $cost ]);
+            password_hash('test', PASSWORD_BCRYPT, ['cost' => $cost]);
             $end = microtime(true);
         } while (($end - $start) < $timeTarget);
 

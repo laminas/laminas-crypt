@@ -10,7 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class PaddingPluginManagerTest extends TestCase
 {
-    public function getPaddings()
+    /** @psalm-return array<array-key, array{0: string}> */
+    public function getPaddings(): array
     {
         return [
             ['pkcs7'],
@@ -28,7 +29,7 @@ class PaddingPluginManagerTest extends TestCase
     /**
      * @dataProvider getPaddings
      */
-    public function testHas($padding)
+    public function testHas(string $padding)
     {
         $plugin = new PaddingPluginManager();
         $this->assertTrue($plugin->has($padding));
@@ -37,7 +38,7 @@ class PaddingPluginManagerTest extends TestCase
     /**
      * @dataProvider getPaddings
      */
-    public function testGet($padding)
+    public function testGet(string $padding)
     {
         $plugin = new PaddingPluginManager();
         $this->assertInstanceOf(PaddingInterface::class, $plugin->get($padding));

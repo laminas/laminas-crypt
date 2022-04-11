@@ -28,7 +28,7 @@ class Pbkdf2
     public static function calc($hash, $password, $salt, $iterations, $length)
     {
         if (! Hmac::isSupported($hash)) {
-            throw new Exception\InvalidArgumentException("The hash algorithm $hash is not supported by " . __CLASS__);
+            throw new Exception\InvalidArgumentException("The hash algorithm $hash is not supported by " . self::class);
         }
 
         $num    = ceil($length / Hmac::getOutputSize($hash, Hmac::OUTPUT_BINARY));

@@ -2,9 +2,10 @@
 
 namespace Laminas\Crypt;
 
-use function functin_exists;
+use function function_exists;
 use function hash_algos;
 use function hash_hmac;
+use function hash_hmac_algos;
 use function in_array;
 use function mb_strlen;
 use function strtolower;
@@ -14,8 +15,8 @@ use function strtolower;
  */
 class Hmac
 {
-    const OUTPUT_STRING = false;
-    const OUTPUT_BINARY = true;
+    public const OUTPUT_STRING = false;
+    public const OUTPUT_BINARY = true;
 
     /**
      * Last algorithm supported

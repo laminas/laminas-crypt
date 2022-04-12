@@ -4,21 +4,21 @@ namespace Laminas\Crypt\PublicKey\Rsa;
 
 abstract class AbstractKey
 {
-    const DEFAULT_KEY_SIZE = 2048;
+    public const DEFAULT_KEY_SIZE = 2048;
 
     /**
      * PEM formatted key
      *
      * @var string
      */
-    protected $pemString = null;
+    protected $pemString;
 
     /**
      * Key Resource
      *
      * @var resource
      */
-    protected $opensslKeyResource = null;
+    protected $opensslKeyResource;
 
     /**
      * Openssl details array

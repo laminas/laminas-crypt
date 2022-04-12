@@ -5,6 +5,8 @@ namespace LaminasTest\Crypt\Symmetric;
 use Laminas\Crypt\Symmetric\Mcrypt;
 use PHPUnit\Framework\TestCase;
 
+use const PHP_VERSION_ID;
+
 class McryptDeprecatedTest extends TestCase
 {
     public function setUp(): void

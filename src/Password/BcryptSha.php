@@ -10,7 +10,6 @@ use Laminas\Crypt\Hash;
  */
 class BcryptSha extends Bcrypt
 {
-
     /**
      * BcryptSha
      *
@@ -28,7 +27,7 @@ class BcryptSha extends Bcrypt
      *
      * @param  string $password
      * @param  string $hash
-     * @throws Exception\RuntimeException when the hash is unable to be processed
+     * @throws Exception\RuntimeException When the hash is unable to be processed.
      * @return bool
      */
     public function verify($password, $hash)

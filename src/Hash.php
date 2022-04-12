@@ -10,8 +10,8 @@ use function strtolower;
 
 class Hash
 {
-    const OUTPUT_STRING = false;
-    const OUTPUT_BINARY = true;
+    public const OUTPUT_STRING = false;
+    public const OUTPUT_BINARY = true;
 
     /**
      * Last algorithm supported

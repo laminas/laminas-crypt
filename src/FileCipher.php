@@ -16,6 +16,7 @@ use function mb_strlen;
 use function mb_substr;
 use function sprintf;
 use function str_repeat;
+use function unlink;
 
 /**
  * Encrypt/decrypt a file using a symmetric cipher in CBC mode
@@ -23,7 +24,7 @@ use function str_repeat;
  */
 class FileCipher
 {
-    const BUFFER_SIZE = 1048576; // 16 * 65536 bytes = 1 Mb
+    public const BUFFER_SIZE = 1048576; // 16 * 65536 bytes = 1 Mb
 
     /**
      * Hash algorithm for Pbkdf2
@@ -65,10 +66,10 @@ class FileCipher
      *
      * @param SymmetricInterface $cipher
      */
-    public function __construct(Symmetric\SymmetricInterface $cipher = null)
+    public function __construct(?Symmetric\SymmetricInterface $cipher = null)
     {
         if (null === $cipher) {
-            $cipher = new Symmetric\Openssl;
+            $cipher = new Symmetric\Openssl();
         }
         $this->cipher = $cipher;
     }
@@ -250,7 +251,7 @@ class FileCipher
         $padding = $this->cipher->getPadding();
 
         $this->cipher->setKey(mb_substr($keys, 0, $this->cipher->getKeySize(), '8bit'));
-        $this->cipher->setPadding(new Symmetric\Padding\NoPadding);
+        $this->cipher->setPadding(new Symmetric\Padding\NoPadding());
         $this->cipher->setSalt($iv);
         $this->cipher->setMode('cbc');
 
@@ -262,7 +263,7 @@ class FileCipher
         while ($data = fread($read, self::BUFFER_SIZE)) {
             $size += mb_strlen($data, '8bit');
             // Padding if last block
-            if ($size == $tot) {
+            if ($size === $tot) {
                 $this->cipher->setPadding($padding);
             }
             $result = $this->cipher->encrypt($data);
@@ -299,7 +300,6 @@ class FileCipher
      *
      * @param  string                             $fileIn
      * @param  string                             $fileOut
-     * @param  bool                               $compress
      * @return bool
      * @throws Exception\InvalidArgumentException
      */
@@ -325,7 +325,7 @@ class FileCipher
             $this->cipher->getKeySize() * 2
         );
         $padding  = $this->cipher->getPadding();
-        $this->cipher->setPadding(new Symmetric\Padding\NoPadding);
+        $this->cipher->setPadding(new Symmetric\Padding\NoPadding());
         $this->cipher->setKey(mb_substr($keys, 0, $this->cipher->getKeySize(), '8bit'));
         $this->cipher->setMode('cbc');
 

@@ -9,9 +9,14 @@ use Laminas\Crypt\Symmetric\SymmetricInterface;
 use Laminas\Crypt\SymmetricPluginManager;
 use PHPUnit\Framework\TestCase;
 
+use function extension_loaded;
+
+use const PHP_VERSION_ID;
+
 class SymmetricPluginManagerTest extends TestCase
 {
-    public function getSymmetrics()
+    /** @psalm-return array<array-key, array{0: string}> */
+    public function getSymmetrics(): array
     {
         if (PHP_VERSION_ID >= 70100) {
             return [
@@ -34,7 +39,7 @@ class SymmetricPluginManagerTest extends TestCase
     /**
      * @dataProvider getSymmetrics
      */
-    public function testHas($symmetric)
+    public function testHas(string $symmetric)
     {
         $plugin = new SymmetricPluginManager();
         $this->assertTrue($plugin->has($symmetric));
@@ -43,7 +48,7 @@ class SymmetricPluginManagerTest extends TestCase
     /**
      * @dataProvider getSymmetrics
      */
-    public function testGet($symmetric)
+    public function testGet(string $symmetric)
     {
         if (! extension_loaded($symmetric)) {
             $this->expectException(Exception\RuntimeException::class);

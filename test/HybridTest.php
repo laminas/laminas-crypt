@@ -9,9 +9,11 @@ use Laminas\Crypt\PublicKey\Rsa;
 use Laminas\Crypt\PublicKey\RsaOptions;
 use PHPUnit\Framework\TestCase;
 
+use function extension_loaded;
+
 class HybridTest extends TestCase
 {
-    protected $hybrid;
+    protected Hybrid $hybrid;
 
     public function setUp(): void
     {
@@ -66,7 +68,7 @@ class HybridTest extends TestCase
     {
         $passPhrase = 'test';
         $rsaOptions = new RsaOptions([
-            'pass_phrase' => $passPhrase
+            'pass_phrase' => $passPhrase,
         ]);
         $rsaOptions->generateKeys([
             'private_key_bits' => 1024,
@@ -141,7 +143,7 @@ class HybridTest extends TestCase
         $rsaOptions->generateKeys([
             'private_key_bits' => 1024,
         ]);
-        $publicKey  = $rsaOptions->getPublicKey();
+        $publicKey = $rsaOptions->getPublicKey();
         // Generate a new private key
         $rsaOptions->generateKeys([
             'private_key_bits' => 1024,

@@ -8,16 +8,19 @@ use Laminas\Crypt\Symmetric\Openssl;
 use Laminas\Math\Rand;
 use PHPUnit\Framework\TestCase;
 
+use function chr;
+use function mb_strlen;
+use function mb_substr;
+use function rand;
+use function random_bytes;
+
 /**
- *
  * This is a set of unit tests for OpenSSL Authenticated Encrypt with Associated Data (AEAD)
  * support from PHP 7.1+
  */
 class OpensslAeadTest extends TestCase
 {
-    /**
-     * @var Openssl
-     */
+    /** @var Openssl */
     private $crypt;
 
     public function setUp(): void
@@ -35,9 +38,9 @@ class OpensslAeadTest extends TestCase
             'algo'     => 'aes',
             'mode'     => 'gcm',
             'aad'      => 'foo@bar.com',
-            'tag_size' => 14
+            'tag_size' => 14,
         ];
-        $crypt = new Openssl($params);
+        $crypt  = new Openssl($params);
 
         $this->assertEquals($params['algo'], $crypt->getAlgorithm());
         $this->assertEquals($params['mode'], $crypt->getMode());
@@ -116,32 +119,33 @@ class OpensslAeadTest extends TestCase
         $this->crypt->setTagSize(18); // gcm supports tag size between 4 and 16
     }
 
-    public function getAuthEncryptionMode()
+    /** @psalm-return array<array-key, array{0: string}> */
+    public function getAuthEncryptionMode(): array
     {
         return [
-            [ 'gcm' ],
-            [ 'ccm' ]
+            ['gcm'],
+            ['ccm'],
         ];
     }
 
     /**
      * @dataProvider getAuthEncryptionMode
      */
-    public function testAuthenticatedEncryption($mode)
+    public function testAuthenticatedEncryption(string $mode)
     {
         $this->crypt->setMode($mode);
         $this->crypt->setKey(random_bytes($this->crypt->getKeySize()));
         $this->crypt->setSalt(random_bytes($this->crypt->getSaltSize()));
 
         $plaintext = Rand::getBytes(1024);
-        $encrypt = $this->crypt->encrypt($plaintext);
-        $tag = $this->crypt->getTag();
+        $encrypt   = $this->crypt->encrypt($plaintext);
+        $tag       = $this->crypt->getTag();
 
         $this->assertEquals($this->crypt->getTagSize(), mb_strlen($tag, '8bit'));
         $this->assertEquals(mb_substr($encrypt, 0, $this->crypt->getTagSize(), '8bit'), $tag);
 
         $decrypt = $this->crypt->decrypt($encrypt);
-        $tag2 = $this->crypt->getTag();
+        $tag2    = $this->crypt->getTag();
         $this->assertEquals($tag, $tag2);
         $this->assertEquals($plaintext, $decrypt);
     }
@@ -149,18 +153,20 @@ class OpensslAeadTest extends TestCase
     /**
      * @dataProvider getAuthEncryptionMode
      */
-    public function testAuthenticationError($mode)
+    public function testAuthenticationError(string $mode)
     {
         $this->crypt->setMode($mode);
         $this->crypt->setKey(random_bytes($this->crypt->getKeySize()));
         $this->crypt->setSalt(random_bytes($this->crypt->getSaltSize()));
 
         $plaintext = Rand::getBytes(1024);
-        $encrypt = $this->crypt->encrypt($plaintext);
+        $encrypt   = $this->crypt->encrypt($plaintext);
 
         // Alter the encrypted message
-        $i = rand(0, mb_strlen($encrypt, '8bit') - 1);
+        // phpcs:disable SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator.RequiredCombinedAssigmentOperator
+        $i           = rand(0, mb_strlen($encrypt, '8bit') - 1);
         $encrypt[$i] = $encrypt[$i] ^ chr(1);
+        // phpcs:enable SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator.RequiredCombinedAssigmentOperator
 
         $this->expectException(RuntimeException::class);
         $this->crypt->decrypt($encrypt);
@@ -174,7 +180,7 @@ class OpensslAeadTest extends TestCase
         $this->crypt->setTagSize(14);
 
         $plaintext = Rand::getBytes(1024);
-        $encrypt = $this->crypt->encrypt($plaintext);
+        $encrypt   = $this->crypt->encrypt($plaintext);
         $this->assertEquals(14, $this->crypt->getTagSize());
         $this->assertEquals($this->crypt->getTagSize(), mb_strlen($this->crypt->getTag(), '8bit'));
     }
@@ -187,7 +193,7 @@ class OpensslAeadTest extends TestCase
         $this->crypt->setTagSize(14);
 
         $plaintext = Rand::getBytes(1024);
-        $encrypt = $this->crypt->encrypt($plaintext);
+        $encrypt   = $this->crypt->encrypt($plaintext);
         $this->assertEquals(14, $this->crypt->getTagSize());
         $this->assertEquals($this->crypt->getTagSize(), mb_strlen($this->crypt->getTag(), '8bit'));
     }
@@ -195,7 +201,7 @@ class OpensslAeadTest extends TestCase
     /**
      * @dataProvider getAuthEncryptionMode
      */
-    public function testAuthenticatedEncryptionWithAdditionalData($mode)
+    public function testAuthenticatedEncryptionWithAdditionalData(string $mode)
     {
         $this->crypt->setMode($mode);
         $this->crypt->setKey(random_bytes($this->crypt->getKeySize()));
@@ -203,14 +209,14 @@ class OpensslAeadTest extends TestCase
         $this->crypt->setAad('foo@bar.com');
 
         $plaintext = Rand::getBytes(1024);
-        $encrypt = $this->crypt->encrypt($plaintext);
-        $tag = $this->crypt->getTag();
+        $encrypt   = $this->crypt->encrypt($plaintext);
+        $tag       = $this->crypt->getTag();
 
         $this->assertEquals($this->crypt->getTagSize(), mb_strlen($tag, '8bit'));
         $this->assertEquals(mb_substr($encrypt, 0, $this->crypt->getTagSize(), '8bit'), $tag);
 
         $decrypt = $this->crypt->decrypt($encrypt);
-        $tag2 = $this->crypt->getTag();
+        $tag2    = $this->crypt->getTag();
         $this->assertEquals($tag, $tag2);
         $this->assertEquals($plaintext, $decrypt);
     }
@@ -218,7 +224,7 @@ class OpensslAeadTest extends TestCase
     /**
      * @dataProvider getAuthEncryptionMode
      */
-    public function testAuthenticationErrorOnAdditionalData($mode)
+    public function testAuthenticationErrorOnAdditionalData(string $mode)
     {
         $this->crypt->setMode($mode);
         $this->crypt->setKey(random_bytes($this->crypt->getKeySize()));
@@ -226,7 +232,7 @@ class OpensslAeadTest extends TestCase
         $this->crypt->setAad('foo@bar.com');
 
         $plaintext = Rand::getBytes(1024);
-        $encrypt = $this->crypt->encrypt($plaintext);
+        $encrypt   = $this->crypt->encrypt($plaintext);
 
         // Alter the additional authentication data
         $this->crypt->setAad('foo@baz.com');

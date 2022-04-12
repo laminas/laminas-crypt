@@ -6,6 +6,11 @@ use Laminas\Crypt\Key\Derivation\Exception;
 use Laminas\Crypt\Key\Derivation\Pbkdf2;
 use PHPUnit\Framework\TestCase;
 
+use function base64_encode;
+use function bin2hex;
+use function sprintf;
+use function strlen;
+
 class Pbkdf2Test extends TestCase
 {
     /** @var string */
@@ -37,24 +42,33 @@ class Pbkdf2Test extends TestCase
      * Test vectors from RFC 6070
      *
      * @see http://tools.ietf.org/html/draft-josefsson-pbkdf2-test-vectors-06
+     *
+     * @psalm-return array<array-key, array{
+     *     0: string,
+     *     1: string,
+     *     2: string,
+     *     3: int,
+     *     4: int,
+     *     5: string,
+     * }>
      */
-    public static function provideTestVectors()
+    public static function provideTestVectors(): array
     {
-        // @codingStandardsIgnoreStart
+        // phpcs:disable Generic.Files.LineLength.TooLong
         return [
             ['sha1', 'password', 'salt', 1, 20, '0c60c80f961f0e71f3a9b524af6012062fe037a6'],
             ['sha1', 'password', 'salt', 2, 20, 'ea6c014dc72d6f8ccd1ed92ace1d41f0d8de8957'],
             ['sha1', 'password', 'salt', 4096, 20, '4b007901b765489abead49d926f721d065a429c1'],
             ['sha1', 'passwordPASSWORDpassword', 'saltSALTsaltSALTsaltSALTsaltSALTsalt', 4096, 25, '3d2eec4fe41c849b80c8d83662c0e44a8b291a964cf2f07038'],
-            ['sha1', "pass\0word", "sa\0lt", 4096, 16, '56fa6aa75548099dcc37d7f03425e0c3']
+            ['sha1', "pass\0word", "sa\0lt", 4096, 16, '56fa6aa75548099dcc37d7f03425e0c3'],
         ];
-        // @codingStandardsIgnoreEnd
+        // phpcs:enable Generic.Files.LineLength.TooLong
     }
 
     /**
      * @dataProvider provideTestVectors
      */
-    public function testRFC670($hash, $password, $salt, $cycles, $length, $expect)
+    public function testRFC670(string $hash, string $password, string $salt, int $cycles, int $length, string $expect)
     {
         $result = Pbkdf2::calc($hash, $password, $salt, $cycles, $length);
         $this->assertEquals($expect, bin2hex($result));

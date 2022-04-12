@@ -6,6 +6,12 @@ use Laminas\Crypt\Key\Derivation\Exception;
 use Laminas\Crypt\Key\Derivation\SaltedS2k;
 use PHPUnit\Framework\TestCase;
 
+use function base64_encode;
+use function extension_loaded;
+use function sprintf;
+use function strlen;
+use function substr;
+
 /**
  * @group      Laminas_Crypt
  */

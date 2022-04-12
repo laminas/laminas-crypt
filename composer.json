@@ -16,18 +16,24 @@
         "forum": "https://discourse.laminas.dev"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "7.4"
+        }
     },
     "require": {
-        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+        "php": "^7.4 || ~8.0.0 || ~8.1.0",
         "ext-mbstring": "*",
         "container-interop/container-interop": "^1.2",
         "laminas/laminas-math": "^3.4",
         "laminas/laminas-stdlib": "^3.6"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "~1.0.0",
-        "phpunit/phpunit": "^9.3"
+        "laminas/laminas-coding-standard": "~2.3.0",
+        "phpunit/phpunit": "^9.5.11"
     },
     "suggest": {
         "ext-openssl": "Required for most features of Laminas\\Crypt"

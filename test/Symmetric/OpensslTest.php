@@ -4,18 +4,25 @@ namespace LaminasTest\Crypt\Symmetric;
 
 use Laminas\Crypt\Symmetric\Openssl;
 
+use function in_array;
+use function openssl_get_cipher_methods;
+
 /**
  * @group      Laminas_Crypt
  */
 class OpensslTest extends AbstractTest
 {
+    /** @var string */
     protected $adapterClass = Openssl::class;
 
-    protected $default_algo = 'aes';
+    /** @var string */
+    protected $defaultAlgo = 'aes';
 
-    protected $default_mode = 'cbc';
+    /** @var string */
+    protected $defaultMode = 'cbc';
 
-    protected $default_padding = 'pkcs7';
+    /** @var string */
+    protected $defaultPadding = 'pkcs7';
 
     public function testCtrMode()
     {

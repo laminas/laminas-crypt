@@ -3,15 +3,50 @@
 namespace Laminas\Crypt\Key\Derivation;
 
 use function array_keys;
+use function ceil;
+use function hash;
 use function in_array;
+use function intval;
 use function mb_strlen;
-use function mhash_keygen_s2k;
+use function range;
+use function str_pad;
+use function str_repeat;
+use function strlen;
+use function substr;
+
+use const MHASH_ADLER32;
+use const MHASH_CRC32;
+use const MHASH_CRC32B;
+use const MHASH_GOST;
+use const MHASH_HAVAL128;
+use const MHASH_HAVAL160;
+use const MHASH_HAVAL192;
+use const MHASH_HAVAL224;
+use const MHASH_HAVAL256;
+use const MHASH_MD2;
+use const MHASH_MD4;
+use const MHASH_MD5;
+use const MHASH_RIPEMD128;
+use const MHASH_RIPEMD256;
+use const MHASH_RIPEMD320;
+use const MHASH_SHA1;
+use const MHASH_SHA224;
+use const MHASH_SHA256;
+use const MHASH_SHA384;
+use const MHASH_SHA512;
+use const MHASH_SNEFRU256;
+use const MHASH_TIGER;
+use const MHASH_TIGER128;
+use const MHASH_TIGER160;
+use const MHASH_WHIRLPOOL;
+use const STR_PAD_RIGHT;
 
 /**
  * Salted S2K key generation (OpenPGP document, RFC 2440)
  */
 class SaltedS2k
 {
+    /** @var array<string, string> */
     protected static $supportedMhashAlgos = [
         'adler32'    => MHASH_ADLER32,
         'md2'        => MHASH_MD2,
@@ -44,7 +79,7 @@ class SaltedS2k
         'snefru256'  => MHASH_SNEFRU256,
         'gost'       => MHASH_GOST,
         'crc32'      => MHASH_CRC32,
-        'crc32b'     => MHASH_CRC32B
+        'crc32b'     => MHASH_CRC32B,
     ];
 
     /**
@@ -60,7 +95,7 @@ class SaltedS2k
     public static function calc($hash, $password, $salt, $bytes)
     {
         if (! in_array($hash, array_keys(static::$supportedMhashAlgos))) {
-            throw new Exception\InvalidArgumentException("The hash algorithm $hash is not supported by " . __CLASS__);
+            throw new Exception\InvalidArgumentException("The hash algorithm $hash is not supported by " . self::class);
         }
         if (mb_strlen($salt, '8bit') < 8) {
             throw new Exception\InvalidArgumentException('The salt size must be at least of 8 bytes');

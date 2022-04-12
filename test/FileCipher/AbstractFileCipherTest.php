@@ -9,24 +9,33 @@ use Laminas\Crypt\Symmetric\Exception as SymmetricException;
 use Laminas\Math\Rand;
 use PHPUnit\Framework\TestCase;
 
+use function chr;
+use function file_exists;
+use function file_get_contents;
+use function file_put_contents;
+use function filesize;
+use function get_class;
+use function ord;
+use function sprintf;
+use function str_repeat;
+use function strlen;
+use function substr;
+use function sys_get_temp_dir;
+use function uniqid;
+use function unlink;
+
 /**
  * @group      Laminas_Crypt
  */
 abstract class AbstractFileCipherTest extends TestCase
 {
-    /**
-     * @var fileCipher
-     */
+    /** @var FileCipher */
     protected $fileCipher;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $fileIn = '';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $fileOut = '';
 
     public function setUp(): void
@@ -166,7 +175,7 @@ abstract class AbstractFileCipherTest extends TestCase
         unlink($fileOut2);
 
         // Tampering of the encrypted file
-        $ciphertext = file_get_contents($this->fileOut);
+        $ciphertext    = file_get_contents($this->fileOut);
         $ciphertext[0] = chr((ord($ciphertext[0]) + 1) % 256);
         file_put_contents($this->fileOut, $ciphertext);
 

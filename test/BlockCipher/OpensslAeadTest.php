@@ -18,22 +18,23 @@ class OpensslAeadTest extends TestCase
         $this->blockCipher = new BlockCipher($openssl);
     }
 
-    public function getAuthEncryptionMode()
+    /** @psalm-return array<array-key, array{0: string}> */
+    public function getAuthEncryptionMode(): array
     {
         return [
-            [ 'gcm' ],
-            [ 'ccm' ]
+            ['gcm'],
+            ['ccm'],
         ];
     }
 
     /**
      * @dataProvider getAuthEncryptionMode
      */
-    public function testEncryptDecrypt($mode)
+    public function testEncryptDecrypt(string $mode)
     {
         $this->blockCipher->getCipher()->setMode($mode);
         $this->blockCipher->setKey('test');
-        $plaintext = Rand::getBytes(1024);
+        $plaintext  = Rand::getBytes(1024);
         $ciphertext = $this->blockCipher->encrypt($plaintext);
         $this->assertEquals($plaintext, $this->blockCipher->decrypt($ciphertext));
     }

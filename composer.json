@@ -28,6 +28,7 @@
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
         "ext-mbstring": "*",
         "laminas/laminas-math": "^3.4",
+        "laminas/laminas-servicemanager": "^3.11.2",
         "laminas/laminas-stdlib": "^3.6",
         "psr/container": "^1.1"
     },

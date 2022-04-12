@@ -2,7 +2,7 @@
 
 namespace Laminas\Crypt;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 use function array_key_exists;
 use function sprintf;

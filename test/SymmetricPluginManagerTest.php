@@ -2,12 +2,12 @@
 
 namespace LaminasTest\Crypt;
 
-use Interop\Container\ContainerInterface;
 use Laminas\Crypt\Exception as CryptException;
 use Laminas\Crypt\Symmetric\Exception;
 use Laminas\Crypt\Symmetric\SymmetricInterface;
 use Laminas\Crypt\SymmetricPluginManager;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 use function extension_loaded;
 

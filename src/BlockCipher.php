@@ -2,11 +2,11 @@
 
 namespace Laminas\Crypt;
 
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\NotFoundException;
 use Laminas\Crypt\Key\Derivation\Pbkdf2;
 use Laminas\Crypt\Symmetric\SymmetricInterface;
 use Laminas\Math\Rand;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface as NotFoundException;
 
 use function base64_decode;
 use function base64_encode;

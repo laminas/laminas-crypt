@@ -2,8 +2,8 @@
 
 namespace Laminas\Crypt\Symmetric;
 
-use Interop\Container\ContainerInterface;
 use Laminas\Stdlib\ArrayUtils;
+use Psr\Container\ContainerInterface;
 use Traversable;
 
 use function array_key_exists;
@@ -82,7 +82,7 @@ class Mcrypt implements SymmetricInterface
     /**
      * Padding plugins
      *
-     * @var Interop\Container\ContainerInterface
+     * @var ContainerInterface
      */
     protected static $paddingPlugins;
 
@@ -239,7 +239,7 @@ class Mcrypt implements SymmetricInterface
         }
         if (! $plugins instanceof ContainerInterface) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'Padding plugins must implements Interop\Container\ContainerInterface; received "%s"',
+                'Padding plugins must implements Psr\Container\ContainerInterface; received "%s"',
                 is_object($plugins) ? get_class($plugins) : gettype($plugins)
             ));
         }

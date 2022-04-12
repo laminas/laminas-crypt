@@ -2,11 +2,11 @@
 
 namespace LaminasTest\Crypt\Symmetric\Padding;
 
-use Interop\Container\ContainerInterface;
 use Laminas\Crypt\Symmetric\Exception;
 use Laminas\Crypt\Symmetric\Padding\PaddingInterface;
 use Laminas\Crypt\Symmetric\PaddingPluginManager;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 class PaddingPluginManagerTest extends TestCase
 {

@@ -168,6 +168,19 @@ class Openssl implements SymmetricInterface
     protected $tagSize = 16;
 
     /**
+     * Supported algo list
+     *
+     * This property was previously dynamic. It should be made private in the next major, therefore marked internal.
+     *
+     * @internal
+     *
+     * @link self::getSupportedAlgorithms()
+     *
+     * @var list<string>|null
+     */
+    public array $supportedAlgos;
+
+    /**
      * Constructor
      *
      * @param  array|Traversable $options
@@ -652,7 +665,7 @@ class Openssl implements SymmetricInterface
     /**
      * Get the supported algorithms
      *
-     * @return array
+     * @return list<string>
      */
     public function getSupportedAlgorithms()
     {

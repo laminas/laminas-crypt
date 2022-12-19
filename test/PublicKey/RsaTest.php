@@ -51,6 +51,8 @@ class RsaTest extends TestCase
     /** @var Rsa */
     protected $rsaBase64Out;
 
+    private PrivateKey $privateKey;
+
     public function setUp(): void
     {
         $openSslConf = false;

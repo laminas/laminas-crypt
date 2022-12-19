@@ -17,14 +17,10 @@ use function substr;
  */
 class BcryptShaTest extends TestCase
 {
-    /** @var Bcrypt */
-    private $bcrypt;
-
-    /** @var string */
-    private $bcryptPassword;
-
-    /** @var string */
-    private $password;
+    private Bcrypt $bcrypt;
+    private string $bcryptPassword;
+    private string $password;
+    private string $prefix;
 
     public function setUp(): void
     {

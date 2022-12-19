@@ -16,14 +16,13 @@ use function substr;
  */
 class BcryptTest extends TestCase
 {
-    /** @var Bcrypt */
-    public $bcrypt;
+    private Bcrypt $bcrypt;
 
-    /** @var string */
-    public $bcryptPassword;
+    private string $bcryptPassword;
 
-    /** @var string */
-    public $password;
+    private string $password;
+
+    private string $prefix;
 
     public function setUp(): void
     {

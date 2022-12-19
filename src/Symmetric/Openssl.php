@@ -178,7 +178,7 @@ class Openssl implements SymmetricInterface
      *
      * @var list<string>|null
      */
-    public array $supportedAlgos;
+    public $supportedAlgos;
 
     /**
      * Constructor

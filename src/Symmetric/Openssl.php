@@ -168,6 +168,14 @@ class Openssl implements SymmetricInterface
     protected $tagSize = 16;
 
     /**
+     * Supported algorithms
+     *
+     * @internal
+     * @var array
+     */
+    public $supportedAlgos;
+
+    /**
      * Constructor
      *
      * @param  array|Traversable $options

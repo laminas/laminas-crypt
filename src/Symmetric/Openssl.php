@@ -171,7 +171,7 @@ class Openssl implements SymmetricInterface
      * Supported algorithms
      *
      * @internal
-     * @var array
+     * @var list<string>
      */
     public $supportedAlgos;
 

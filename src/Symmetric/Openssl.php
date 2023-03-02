@@ -170,7 +170,8 @@ class Openssl implements SymmetricInterface
     /**
      * Supported algorithms
      *
-     * @internal
+     * @internal This property was declared for compatibility with PHP 8.2, and is not supposed to be used directly,
+     *     other than for backward compatibility reasons
      * @var list<string>
      */
     public $supportedAlgos;

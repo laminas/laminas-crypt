@@ -168,6 +168,16 @@ class Openssl implements SymmetricInterface
     protected $tagSize = 16;
 
     /**
+     * Supported algorithms
+     *
+     * @internal This property was declared for compatibility with PHP 8.2,
+     *          and is not supposed to be used directly, other than for BC reasons
+     *
+     * @var list<string>
+     */
+    public $supportedAlgos;
+
+    /**
      * Constructor
      *
      * @param  array|Traversable $options

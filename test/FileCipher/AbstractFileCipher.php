@@ -27,7 +27,7 @@ use function unlink;
 /**
  * @group      Laminas_Crypt
  */
-abstract class AbstractFileCipherTest extends TestCase
+abstract class AbstractFileCipher extends TestCase
 {
     /** @var FileCipher */
     protected $fileCipher;
@@ -78,6 +78,9 @@ abstract class AbstractFileCipherTest extends TestCase
         $this->fileCipher->setKey('');
     }
 
+    /**
+     * @requires PHP <= 8.2
+     */
     public function testSetCipherAlgorithm()
     {
         $this->fileCipher->setCipherAlgorithm('blowfish');

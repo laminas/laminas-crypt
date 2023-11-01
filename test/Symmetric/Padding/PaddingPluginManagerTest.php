@@ -11,7 +11,7 @@ use Psr\Container\ContainerInterface;
 class PaddingPluginManagerTest extends TestCase
 {
     /** @psalm-return array<array-key, array{0: string}> */
-    public function getPaddings(): array
+    public static function getPaddings(): array
     {
         return [
             ['pkcs7'],

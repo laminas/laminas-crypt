@@ -20,7 +20,7 @@ use function str_repeat;
 /**
  * @group      Laminas_Crypt
  */
-abstract class AbstractTest extends TestCase
+abstract class AbstractTestCase extends TestCase
 {
     /** @var string */
     protected $adapterClass = '';

@@ -120,7 +120,7 @@ class OpensslAeadTest extends TestCase
     }
 
     /** @psalm-return array<array-key, array{0: string}> */
-    public function getAuthEncryptionMode(): array
+    public static function getAuthEncryptionMode(): array
     {
         return [
             ['gcm'],

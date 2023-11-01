@@ -61,7 +61,7 @@ class HmacTest extends TestCase
      *     2: string,
      * }>
      */
-    public function provideMd5Data()
+    public static function provideMd5Data()
     {
         // phpcs:disable Generic.Files.LineLength.TooLong
         return [
@@ -106,7 +106,7 @@ class HmacTest extends TestCase
      *     2: string,
      * }>
      */
-    public function provideSha1Data(): array
+    public static function provideSha1Data(): array
     {
         // phpcs:disable Generic.Files.LineLength.TooLong
         return [
@@ -151,7 +151,7 @@ class HmacTest extends TestCase
      *     2: string,
      * }>
      */
-    public function provideRipemd160Data(): array
+    public static function provideRipemd160Data(): array
     {
         // phpcs:disable Generic.Files.LineLength.TooLong
         return [

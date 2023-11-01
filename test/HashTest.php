@@ -56,7 +56,7 @@ class HashTest extends TestCase
     // SHA1 tests taken from RFC 3174
 
     /** @psalm-return array<array-key, array{0: string, 1: string}> */
-    public function provideSha1Data(): array
+    public static function provideSha1Data(): array
     {
         return [
             [
@@ -90,7 +90,7 @@ class HashTest extends TestCase
     // SHA-224 tests taken from RFC 3874
 
     /** @psalm-return array<array-key, array{0: string, 1: string}> */
-    public function provideSha224Data(): array
+    public static function provideSha224Data(): array
     {
         return [
             ['abc', '23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7'],
@@ -117,7 +117,7 @@ class HashTest extends TestCase
     // MD5 test suite taken from RFC 1321
 
     /** @psalm-return array<array-key, array{0: string, 1: string}> */
-    public function provideMd5Data(): array
+    public static function provideMd5Data(): array
     {
         return [
             ['', 'd41d8cd98f00b204e9800998ecf8427e'],

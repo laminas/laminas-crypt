@@ -14,7 +14,7 @@ use function sprintf;
 use function str_repeat;
 use function substr;
 
-abstract class AbstractBlockCipherTest extends TestCase
+abstract class AbstractBlockCipher extends TestCase
 {
     /** @var Symmetric\SymmetricInterface */
     protected $cipher;
@@ -67,6 +67,9 @@ abstract class AbstractBlockCipherTest extends TestCase
         $this->blockCipher->setSalt('x');
     }
 
+    /**
+     * @requires PHP <= 8.2
+     */
     public function testSetAlgorithm()
     {
         $result = $this->blockCipher->setCipherAlgorithm('blowfish');
@@ -163,7 +166,7 @@ abstract class AbstractBlockCipherTest extends TestCase
     }
 
     /** @psalm-return array<string, array{0: int|float|string}> */
-    public function zeroValuesProvider(): array
+    public static function zeroValuesProvider(): array
     {
         return [
             '"0"'   => [0],

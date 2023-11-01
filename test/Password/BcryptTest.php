@@ -8,8 +8,12 @@ use Laminas\Crypt\Password\Exception;
 use PHPUnit\Framework\TestCase;
 
 use function chr;
+use function restore_error_handler;
+use function set_error_handler;
 use function strlen;
 use function substr;
+
+use const E_ALL;
 
 /**
  * @group      Laminas_Crypt
@@ -101,7 +105,14 @@ class BcryptTest extends TestCase
      */
     public function testSetSaltError()
     {
-        $this->expectError();
+        set_error_handler(
+            static function ($errno, $errstr) {
+                restore_error_handler();
+                throw new \Exception($errstr, $errno);
+            },
+            E_ALL
+        );
+        $this->expectExceptionMessage('Salt support is deprecated starting with PHP 7.0.0');
         $this->bcrypt->setSalt('test');
     }
 
@@ -110,7 +121,14 @@ class BcryptTest extends TestCase
      */
     public function testGetSaltError()
     {
-        $this->expectError();
+        set_error_handler(
+            static function ($errno, $errstr) {
+                restore_error_handler();
+                throw new \Exception($errstr, $errno);
+            },
+            E_ALL
+        );
+        $this->expectExceptionMessage('Salt support is deprecated starting with PHP 7.0.0');
         $this->bcrypt->getSalt();
     }
 

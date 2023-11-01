@@ -16,7 +16,7 @@ use const PHP_VERSION_ID;
 class SymmetricPluginManagerTest extends TestCase
 {
     /** @psalm-return array<array-key, array{0: string}> */
-    public function getSymmetrics(): array
+    public static function getSymmetrics(): array
     {
         if (PHP_VERSION_ID >= 70100) {
             return [

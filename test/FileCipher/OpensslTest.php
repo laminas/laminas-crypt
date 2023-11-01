@@ -7,7 +7,7 @@ use Laminas\Crypt\Symmetric;
 use Laminas\Crypt\Symmetric\Openssl;
 use Laminas\Crypt\Symmetric\SymmetricInterface;
 
-class OpensslTest extends AbstractFileCipherTest
+class OpensslTest extends AbstractFileCipher
 {
     public function setUp(): void
     {
@@ -25,6 +25,9 @@ class OpensslTest extends AbstractFileCipherTest
         $this->assertInstanceOf(Openssl::class, $fileCipher->getCipher());
     }
 
+    /**
+     * @requires PHP <= 8.2
+     */
     public function testSetCipher()
     {
         $cipher = new Openssl([

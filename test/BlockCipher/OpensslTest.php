@@ -5,7 +5,7 @@ namespace LaminasTest\Crypt\BlockCipher;
 use Laminas\Crypt\BlockCipher;
 use Laminas\Crypt\Symmetric;
 
-class OpensslTest extends AbstractBlockCipherTest
+class OpensslTest extends AbstractBlockCipher
 {
     public function setUp(): void
     {
@@ -29,6 +29,9 @@ class OpensslTest extends AbstractBlockCipherTest
         $this->assertEquals($this->cipher, $this->blockCipher->getCipher());
     }
 
+    /**
+     * @requires PHP <= 8.2
+     */
     public function testFactory()
     {
         $this->blockCipher = BlockCipher::factory('openssl', ['algo' => 'blowfish']);

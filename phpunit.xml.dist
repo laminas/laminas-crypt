@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         convertDeprecationsToExceptions="true">
-    <testsuites>
-        <testsuite name="laminas-crypt Test Suite">
-            <directory>./test</directory>
-        </testsuite>
-    </testsuites>
-
-    <coverage includeUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-    </coverage>
-
-    <php>
-        <!-- TESTS_LAMINAS_CRYPT_OPENSSL_CONF => location of an openssl.cnf file
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+        bootstrap="vendor/autoload.php"
+        colors="true"
+        cacheDirectory=".phpunit.cache">
+  <testsuites>
+    <testsuite name="laminas-crypt Test Suite">
+      <directory>./test</directory>
+    </testsuite>
+  </testsuites>
+  <coverage includeUncoveredFiles="true"/>
+  <php>
+    <!-- TESTS_LAMINAS_CRYPT_OPENSSL_CONF => location of an openssl.cnf file
             for use with RSA encryption. The following can be used when testing this:
             <env name="TESTS_LAMINAS_CRYPT_OPENSSL_CONF" value="test/_files/openssl.cnf" />
          -->
-        <env name="TESTS_LAMINAS_CRYPT_OPENSSL_CONF" value="false" />
-    </php>
+    <env name="TESTS_LAMINAS_CRYPT_OPENSSL_CONF" value="false"/>
+  </php>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </source>
 </phpunit>

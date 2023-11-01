@@ -10,7 +10,7 @@ use function openssl_get_cipher_methods;
 /**
  * @group      Laminas_Crypt
  */
-class OpensslTest extends AbstractTest
+class OpensslTest extends AbstractTestCase
 {
     /** @var string */
     protected $adapterClass = Openssl::class;

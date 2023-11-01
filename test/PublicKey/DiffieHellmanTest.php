@@ -161,6 +161,9 @@ class DiffieHellmanTest extends TestCase
         // @codingStandardsIgnoreEnd
     }
 
+    /**
+     * @requires PHP <= 8.2
+     */
     public function testGenerateKeysWithUnsetPrivateKey()
     {
         $dh = new DiffieHellman(563, 5);

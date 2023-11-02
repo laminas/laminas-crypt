@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class OpensslAeadTest extends TestCase
 {
+    /** @var  BlockCipher */
+    protected $blockCipher;
+
     public function setUp(): void
     {
         $openssl = new Openssl();

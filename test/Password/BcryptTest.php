@@ -25,6 +25,9 @@ class BcryptTest extends TestCase
     /** @var string */
     public $password;
 
+    /** @var string */
+    protected $prefix;
+
     public function setUp(): void
     {
         $this->bcrypt   = new Bcrypt();

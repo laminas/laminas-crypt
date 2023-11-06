@@ -80,8 +80,8 @@ abstract class AbstractFileCipherTest extends TestCase
 
     public function testSetCipherAlgorithm()
     {
-        $this->fileCipher->setCipherAlgorithm('blowfish');
-        $this->assertEquals('blowfish', $this->fileCipher->getCipherAlgorithm());
+        $this->fileCipher->setCipherAlgorithm('aes');
+        $this->assertEquals('aes', $this->fileCipher->getCipherAlgorithm());
     }
 
     public function testSetCipherAlgorithmFail()

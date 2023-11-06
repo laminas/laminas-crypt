@@ -28,7 +28,7 @@ class OpensslTest extends AbstractFileCipherTest
     public function testSetCipher()
     {
         $cipher = new Openssl([
-            'algo' => 'blowfish',
+            'algo' => 'aes',
         ]);
         $this->fileCipher->setCipher($cipher);
         $this->assertInstanceOf(SymmetricInterface::class, $this->fileCipher->getCipher());

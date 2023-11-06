@@ -69,9 +69,9 @@ abstract class AbstractBlockCipherTest extends TestCase
 
     public function testSetAlgorithm()
     {
-        $result = $this->blockCipher->setCipherAlgorithm('blowfish');
+        $result = $this->blockCipher->setCipherAlgorithm('aes');
         $this->assertEquals($result, $this->blockCipher);
-        $this->assertEquals('blowfish', $this->blockCipher->getCipherAlgorithm());
+        $this->assertEquals('aes', $this->blockCipher->getCipherAlgorithm());
     }
 
     public function testSetAlgorithmFail()

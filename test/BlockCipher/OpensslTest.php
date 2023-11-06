@@ -31,9 +31,9 @@ class OpensslTest extends AbstractBlockCipherTest
 
     public function testFactory()
     {
-        $this->blockCipher = BlockCipher::factory('openssl', ['algo' => 'blowfish']);
+        $this->blockCipher = BlockCipher::factory('openssl', ['algo' => 'aes']);
         $this->assertInstanceOf(Symmetric\Openssl::class, $this->blockCipher->getCipher());
-        $this->assertEquals('blowfish', $this->blockCipher->getCipher()->getAlgorithm());
+        $this->assertEquals('aes', $this->blockCipher->getCipher()->getAlgorithm());
     }
 
     public function testFactoryEmptyOptions()

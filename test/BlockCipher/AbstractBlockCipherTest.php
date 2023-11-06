@@ -2,6 +2,7 @@
 
 namespace LaminasTest\Crypt\BlockCipher;
 
+use Exception as GlobalException;
 use Laminas\Crypt\BlockCipher;
 use Laminas\Crypt\Exception;
 use Laminas\Crypt\Symmetric;
@@ -10,9 +11,13 @@ use Psr\Container\ContainerInterface;
 
 use function file_get_contents;
 use function get_class;
+use function in_array;
+use function preg_match;
 use function sprintf;
 use function str_repeat;
 use function substr;
+
+use const OPENSSL_VERSION_TEXT;
 
 abstract class AbstractBlockCipherTest extends TestCase
 {
@@ -24,6 +29,15 @@ abstract class AbstractBlockCipherTest extends TestCase
 
     /** @var string */
     protected $plaintext;
+
+    /** @var string[] */
+    // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCapsProperty
+    protected $unsupportedOpenSSL3Algos = [
+        'blowfish',
+        'cast5',
+        'des',
+        'seed',
+    ];
 
     public function setUp(): void
     {
@@ -69,9 +83,9 @@ abstract class AbstractBlockCipherTest extends TestCase
 
     public function testSetAlgorithm()
     {
-        $result = $this->blockCipher->setCipherAlgorithm('blowfish');
+        $result = $this->blockCipher->setCipherAlgorithm('aes');
         $this->assertEquals($result, $this->blockCipher);
-        $this->assertEquals('blowfish', $this->blockCipher->getCipherAlgorithm());
+        $this->assertEquals('aes', $this->blockCipher->getCipherAlgorithm());
     }
 
     public function testSetAlgorithmFail()
@@ -138,10 +152,26 @@ abstract class AbstractBlockCipherTest extends TestCase
         $this->blockCipher->setKey('test');
         $this->blockCipher->setKeyIteration(1000);
         foreach ($this->blockCipher->getCipherSupportedAlgorithms() as $algo) {
+            if (
+                in_array($algo, $this->unsupportedOpenSSL3Algos, true)
+                && preg_match('/^OpenSSL 3/', OPENSSL_VERSION_TEXT)
+            ) {
+                // Skipping, as unsupported in OpenSSL 3
+                continue;
+            }
+
             $this->blockCipher->setCipherAlgorithm($algo);
-            $encrypted = $this->blockCipher->encrypt($this->plaintext);
+            try {
+                $encrypted = $this->blockCipher->encrypt($this->plaintext);
+            } catch (GlobalException $e) {
+                $this->fail(sprintf('Failed encryption using %s: %s', $algo, $e->getMessage()));
+            }
             $this->assertNotEmpty($encrypted);
-            $decrypted = $this->blockCipher->decrypt($encrypted);
+            try {
+                $decrypted = $this->blockCipher->decrypt($encrypted);
+            } catch (GlobalException $e) {
+                $this->fail(sprintf('Failed decrypting using %s: %s', $algo, $e->getMessage()));
+            }
             $this->assertEquals($decrypted, $this->plaintext);
         }
     }
@@ -154,10 +184,26 @@ abstract class AbstractBlockCipherTest extends TestCase
         $this->assertTrue($this->blockCipher->getBinaryOutput());
 
         foreach ($this->blockCipher->getCipherSupportedAlgorithms() as $algo) {
+            if (
+                in_array($algo, $this->unsupportedOpenSSL3Algos, true)
+                && preg_match('/^OpenSSL 3/', OPENSSL_VERSION_TEXT)
+            ) {
+                // Skipping, as unsupported in OpenSSL 3
+                continue;
+            }
+
             $this->blockCipher->setCipherAlgorithm($algo);
-            $encrypted = $this->blockCipher->encrypt($this->plaintext);
+            try {
+                $encrypted = $this->blockCipher->encrypt($this->plaintext);
+            } catch (GlobalException $e) {
+                $this->fail(sprintf('Failed encryption using %s: %s', $algo, $e->getMessage()));
+            }
             $this->assertNotEmpty($encrypted);
-            $decrypted = $this->blockCipher->decrypt($encrypted);
+            try {
+                $decrypted = $this->blockCipher->decrypt($encrypted);
+            } catch (GlobalException $e) {
+                $this->fail(sprintf('Failed decrypting using %s: %s', $algo, $e->getMessage()));
+            }
             $this->assertEquals($decrypted, $this->plaintext);
         }
     }
@@ -181,11 +227,27 @@ abstract class AbstractBlockCipherTest extends TestCase
         $this->blockCipher->setKey('test');
         $this->blockCipher->setKeyIteration(1000);
         foreach ($this->blockCipher->getCipherSupportedAlgorithms() as $algo) {
+            if (
+                in_array($algo, $this->unsupportedOpenSSL3Algos, true)
+                && preg_match('/^OpenSSL 3/', OPENSSL_VERSION_TEXT)
+            ) {
+                // Skipping, as unsupported in OpenSSL 3
+                continue;
+            }
+
             $this->blockCipher->setCipherAlgorithm($algo);
 
-            $encrypted = $this->blockCipher->encrypt($value);
+            try {
+                $encrypted = $this->blockCipher->encrypt($value);
+            } catch (GlobalException $e) {
+                $this->fail(sprintf('Failed encryption using %s: %s', $algo, $e->getMessage()));
+            }
             $this->assertNotEmpty($encrypted);
-            $decrypted = $this->blockCipher->decrypt($encrypted);
+            try {
+                $decrypted = $this->blockCipher->decrypt($encrypted);
+            } catch (GlobalException $e) {
+                $this->fail(sprintf('Failed decrypting using %s: %s', $algo, $e->getMessage()));
+            }
             $this->assertEquals($value, $decrypted);
         }
     }

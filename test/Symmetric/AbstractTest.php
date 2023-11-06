@@ -12,10 +12,14 @@ use Psr\Container\ContainerInterface;
 use stdClass;
 
 use function file_get_contents;
+use function in_array;
 use function mb_strlen;
 use function mb_substr;
+use function preg_match;
 use function sprintf;
 use function str_repeat;
+
+use const OPENSSL_VERSION_TEXT;
 
 /**
  * @group      Laminas_Crypt
@@ -34,6 +38,15 @@ abstract class AbstractTest extends TestCase
     protected $defaultMode;
     /** @var string */
     protected $defaultPadding;
+
+    /** @var string[] */
+    // phpcs:ignore WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCapsProperty
+    protected $unsupportedOpenSSL3Algos = [
+        'blowfish',
+        'cast5',
+        'des',
+        'seed',
+    ];
 
     public function setUp(): void
     {
@@ -182,6 +195,14 @@ abstract class AbstractTest extends TestCase
     {
         $this->crypt->setPadding(new PKCS7());
         foreach ($this->crypt->getSupportedAlgorithms() as $algo) {
+            if (
+                in_array($algo, $this->unsupportedOpenSSL3Algos, true)
+                && preg_match('/^OpenSSL 3/', OPENSSL_VERSION_TEXT)
+            ) {
+                // Skipping, as unsupported in OpenSSL 3
+                continue;
+            }
+
             foreach ($this->crypt->getSupportedModes() as $mode) {
                 $this->crypt->setAlgorithm($algo);
                 try {

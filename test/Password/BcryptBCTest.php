@@ -17,6 +17,9 @@ use function str_replace;
  */
 class BcryptBCTest extends TestCase
 {
+    /** @var Bcrypt */
+    protected $bcrypt;
+
     public function setUp(): void
     {
         $this->bcrypt = new Bcrypt();
